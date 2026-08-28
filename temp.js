@@ -152,23 +152,23 @@ let nhan_tra_nv_bst = async (host) => {
     await tap(host, 184, 111)  // huy? hien thong tin chu pt
     await sleep(500);
     await tap(host, 400, 440)  // roi doi
-    await sleep(1000);
+    await sleep(800);
     await tap(host, 820, 270)  // nc npc
-    await sleep(1000);
+    await sleep(800);
     await tap(host, 180, 295)  // click tham gia nv
-    await sleep(1000);
+    await sleep(800);
     await tap(host, 730, 460)  // nhan thuong
-    await sleep(1000);
+    await sleep(500);
     await tap(host, 730, 460)  // tắt thông báo thưởng
-    await sleep(1000);
+    await sleep(500);
     await tap(host, 730, 460)  // nhan nv
 }
 
 let logout_and_login = async (host) => {
     await tap(host, 946, 257)
-    await sleep(500);
+    await sleep(800);
     await tap(host, 946, 337)
-    await sleep(500);
+    await sleep(800);
     await tap(host, 153, 115)
     await sleep(500);
     await tap(host, 800, 250)
@@ -186,9 +186,9 @@ let logout_and_login = async (host) => {
 
 let logout = async (host) => {
     await tap(host, 946, 257)
-    await sleep(500);
+    await sleep(800);
     await tap(host, 946, 337)
-    await sleep(500);
+    await sleep(800);
     await tap(host, 153, 115)
     await sleep(500);
     await tap(host, 800, 250)
@@ -245,11 +245,11 @@ let logout = async (host) => {
 
                                     let loop1 = true;
                                     while (loop1) {
-                                        await sleep(8000);
+                                        await sleep(5000);
                                         await tap(host, 190, 157)  // to doi
                                         await tap(host, 190, 157)  // to doi
                                         await tap(host, 140, 250)  // doi xung quanh
-                                        await sleep(3000);
+                                        await sleep(500);
 
                                         let matchedPoints = await captureAndMatch({
                                             deviceId: host,
