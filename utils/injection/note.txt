@@ -1,0 +1,39 @@
+npm list -g --depth=0
+
+npm rebuild
+rm -rf node_modules package-lock.json
+npm cache clean --force
+
+
+
+node-gyp 10.2.0
+Node.js v22.6.0
+npm 10.8.2
+python 3.10.11          https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe         
+
+cài chocolatey
+cài visualstudio2019community, OpenCV 4.11.0
+mở visual studio installer và cài desktop development c++ (window 10 sdk, msv sẽ tự động cài)
+
+
+
+setup enviroment variable  
+OPENCV_BIN_DIR C:\tools\opencv\build\x64\vc16\bin
+OPENCV_INCLUDE_DIR C:\tools\opencv\build\include
+OPENCV_LIB_DIR C:\tools\opencv\build\x64\vc16\lib
+
+vào phần PATH thêm dòng này C:\tools\opencv\build\x64\vc16\bin
+
+
+có thể cần
+tạo file
+binding.gyp
+
+
+
+dung cmd
+
+npm i -g node-gyp ts-node typescript
+
+npm i @u4/opencv-build node-gyp
+set OPENCV4NODEJS_DISABLE_AUTOBUILD=1 && npm i @u4/opencv4nodejs

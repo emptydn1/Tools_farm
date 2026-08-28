@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es2017",  // Hoặc es2016 hoặc cao hơn
+    "module": "commonjs",
+    "outDir": "./",
+    "rootDir": "./",
+    "skipLibCheck": true,
+    "downlevelIteration": true,
+    "declaration": true,
+    "removeComments": false                   /* Keep comments-- want JSDocs in types */,
+    "strict": true                            /* Enable all strict type-checking options. */,
+    "noImplicitAny": false                    /* Raise error on expressions and declarations with an implied 'any' type. */,
+    "esModuleInterop": true                   /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,
+    "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */
+  },
+  "include": ["*.ts"],
+  "exclude": ["node_modules"]
+}

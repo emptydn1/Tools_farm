@@ -1,0 +1,68 @@
+Hướng dẫn Build Minicap cho Android 64-bit
+
+link tải các file minicap.os cho các android version 3x, k lỗi
+https://github.com/varundtsfi/Android12Support_withso/tree/main/aosp/android-31/x86_64
+  minicap.os
+https://github.com/openatx/stf-binaries/raw/master/node_modules/@devicefarmer/minicap-prebuilt/prebuilt/x86_64/bin/minicap
+  minicap
+
+cmake version 3.31.1
+
+kiểm tra ABI và SDK android emulator
+adb -s 127.0.0.1:16448 shell getprop ro.build.version.sdk
+adb -s 127.0.0.1:16448 shell getprop ro.product.cpu.abi
+adb -s 127.0.0.1:16448 shell getprop ro.product.cpu.abilist (property chứa danh sách ABI CPU được hỗ trợ)
+
+mumuplayer version 5.15.2
+ABI: x86_64 | SDK: 32
+
+
+
+
+
+
+
+
+
+//////////////// error
+
+
+adb -s 127.0.0.1:16480 shell "LD_LIBRARY_PATH=/data/local/tmp LD_PRELOAD=/data/local/tmp/minicap.so /data/local/tmp/minicap -i"
+
+
+adb -s 127.0.0.1:16448 push minicap /data/local/tmp/minicap
+adb -s 127.0.0.1:16448 push minicap.so /data/local/tmp/minicap.so
+adb -s 127.0.0.1:16448 shell chmod 755 /data/local/tmp/minicap
+
+
+
+
+adb -s 127.0.0.1:16448 forward tcp:1313 localabstract:minicap
+
+adb -s 127.0.0.1:16448 shell "LD_LIBRARY_PATH=/data/local/tmp LD_PRELOAD=/data/local/tmp/minicap.so /data/local/tmp/minicap -i"
+
+adb -s 127.0.0.1:16448 push minicap /data/local/tmp/minicap
+adb -s 127.0.0.1:16448 push minicap.so /data/local/tmp/minicap.so
+adb -s 127.0.0.1:16448 shell chmod 755 /data/local/tmp/minicap
+
+lấy độ phân giải màn hình
+adb -s 127.0.0.1:16448 shell wm size
+
+
+adb -s 127.0.0.1:16448 shell LD_LIBRARY_PATH=/data/local/tmp /data/local/tmp/minicap -P 540x960@540x960/0
+
+
+adb -s 127.0.0.1:16448 push minicap-nopie /data/local/tmp/minicap-nopie
+adb -s 127.0.0.1:16448 shell chmod 755 /data/local/tmp/minicap-nopie
+adb -s 127.0.0.1:16448 shell "LD_LIBRARY_PATH=/data/local/tmp /data/local/tmp/minicap-nopie -P 540x960@540x960/0 -v"
+
+
+
+
+
+
+
+adb -s 127.0.0.1:16448 shell "rm /data/local/tmp/minicap"
+adb -s 127.0.0.1:16448 shell "rm /data/local/tmp/minicap.so"
+
+

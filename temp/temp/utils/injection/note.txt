@@ -1,0 +1,87 @@
+npm list -g --depth=0
+
+npm rebuild
+rm -rf node_modules package-lock.json
+npm cache clean --force
+
+
+
+
+Node.js v22.6.0
+npm 10.8.2
+python 3.10.11          https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe         
+
+cài chocolatey
+cài microsoft 2019, opencv
+mở visual studio installer và cài desktop development c++ (window 10 sdk, msv sẽ tự động cài)
+
+
+
+setup enviroment variable  
+OPENCV_BIN_DIR C:\tools\opencv\build\x64\vc16\bin
+OPENCV_INCLUDE_DIR C:\tools\opencv\build\include
+OPENCV_LIB_DIR C:\tools\opencv\build\x64\vc16\lib
+
+vào phần PATH thêm dòng này C:\tools\opencv\build\x64\vc16\bin
+
+
+có thể cần
+tạo file
+binding.gyp
+
+
+
+npm i -g node-gyp ts-node typescript
+
+npm i @u4/opencv-build node-gyp
+set OPENCV4NODEJS_DISABLE_AUTOBUILD=1 && npm i @u4/opencv4nodejs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/// chua chac
+
+{
+  "name": "tools_cdp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@u4/opencv-build": "^1.1.1",
+    "@u4/opencv4nodejs": "^7.1.2",
+    "axios": "^1.7.7",
+    "bezier-js": "^6.1.4",
+    "chrome-launcher": "^1.1.2",
+    "chrome-remote-interface": "^0.33.2",
+    "clipboardy": "^4.0.0",
+    "fs-extra": "^11.2.0",
+    "https-proxy-agent": "^7.0.5",
+    "inquirer": "^12.2.0",
+    "node-gyp": "^10.2.0",
+    "puppeteer": "^23.8.0",
+    "sharp": "^0.34.1",
+    "tesseract.js": "^6.0.1"
+  },
+  "opencv4nodejs": {
+    "disableAutoBuild": "1"
+  }
+}

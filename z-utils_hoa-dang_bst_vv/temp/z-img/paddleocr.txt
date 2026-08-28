@@ -1,0 +1,29 @@
+chi tiết cài paddleocr scan text
+python 3.10
+
+lenh coi version cuda
+    nvidia-smi
+    nvcc --version
+
+dựa vào version để có thể cài bản phù hợp nhưng các phiên bản hướng dẫn dưới đây là phù hợp nhất, không xảy ra lỗi
+
+pip uninstall paddleocr paddlepaddle numpy opencv-python opencv-python-headless -y
+
+pip install paddlepaddle-gpu==2.6.1.post120 -f https://www.paddlepaddle.org.cn/whl/windows/mkl/avx/stable.html
+pip install paddleocr==2.7.3
+pip install numpy==1.26.4
+pip install opencv-python==4.8.1.78
+
+Cài CUDA 12.6 + cuDNN 8.9.7 12.x
+    sau khi cài cuda thì sẽ có folder "NVIDIA GPU Computing Toolkit"
+        https://developer.nvidia.com/cuda-12-6-0-download-archive
+    
+    Giải nén cuDNN rồi copy tất cả file từ 3 thư mục vào CUDA toolkit:
+        https://developer.nvidia.com/rdp/cudnn-archive
+        📁 cudnn/bin/        →  copy vào  📁 CUDA/v12.x/bin/
+        📁 cudnn/include/    →  copy vào  📁 CUDA/v12.x/include/
+        📁 cudnn/lib/x64/    →  copy vào  📁 CUDA/v12.x/lib/x64/
+
+
+
+sharp nodejs
