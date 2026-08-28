@@ -200,137 +200,72 @@ const ports = [16448];
         });
 
         for (const { x, y, mathImagePath } of matchedPoints) {
-            const found = data.find(item => {
-                const expectedPath =
-                    `${groupPaths[item.group]}\\${item.pos} ${item.group}.png`;
 
-                return mathImagePath === expectedPath;
-            });
 
             // dts
 
             if (mathImagePath == `${pathMatch1}\\19 71 dts.png`) {
-                if (found) {
-                    console.log(found);
-                }
             }
 
-            if (mathImagePath == `${pathMatch1}\\35 69 dts.png`) {
-                if (found) {
-                    console.log(found);
-                }
+            else if (mathImagePath == `${pathMatch1}\\35 69 dts.png`) {
             }
 
-            if (mathImagePath == `${pathMatch1}\\63 79 dts.png`) {
-                if (found) {
-                    console.log(found);
-                }
+            else if (mathImagePath == `${pathMatch1}\\63 79 dts.png`) {
             }
 
-            if (mathImagePath == `${pathMatch1}\\83 96 dts.png`) {
-                if (found) {
-                    console.log(found);
-                }
+            else if (mathImagePath == `${pathMatch1}\\83 96 dts.png`) {
             }
 
-            if (mathImagePath == `${pathMatch1}\\194 61 dts.png`) {
-                if (found) {
-                    console.log(found);
-                }
+            else if (mathImagePath == `${pathMatch1}\\194 61 dts.png`) {
             }
 
-            if (mathImagePath == `${pathMatch1}\\206 41 dts.png`) {
-                if (found) {
-                    console.log(found);
-                }
+            else if (mathImagePath == `${pathMatch1}\\206 41 dts.png`) {
             }
 
 
             // hhnd
             if (mathImagePath == `${pathMatch2}\\8 9 hhnd.png`) {
-                if (found) {
-                    console.log(found);
-                }
             }
 
-            if (mathImagePath == `${pathMatch2}\\9 29 hhnd.png`) {
-                if (found) {
-                    console.log(found);
-                }
+            else if (mathImagePath == `${pathMatch2}\\9 29 hhnd.png`) {
             }
 
-            if (mathImagePath == `${pathMatch2}\\34 36 hhnd.png`) {
-                if (found) {
-                    console.log(found);
-                }
+            else if (mathImagePath == `${pathMatch2}\\34 36 hhnd.png`) {
             }
 
-            if (mathImagePath == `${pathMatch2}\\46 11 hhnd.png`) {
-                if (found) {
-                    console.log(found);
-                }
+            else if (mathImagePath == `${pathMatch2}\\46 11 hhnd.png`) {
             }
 
-            if (mathImagePath == `${pathMatch2}\\65 30 hhnd.png`) {
-                if (found) {
-                    console.log(found);
-                }
+            else if (mathImagePath == `${pathMatch2}\\65 30 hhnd.png`) {
             }
 
-            if (mathImagePath == `${pathMatch2}\\67 8 hhnd.png`) {
-                if (found) {
-                    console.log(found);
-                }
+            else if (mathImagePath == `${pathMatch2}\\67 8 hhnd.png`) {
             }
 
-            if (mathImagePath == `${pathMatch2}\\67 20 hhnd.png`) {
-                if (found) {
-                    console.log(found);
-                }
+            else if (mathImagePath == `${pathMatch2}\\67 20 hhnd.png`) {
             }
 
 
             // pnst
             if (mathImagePath == `${pathMatch3}\\14 35 pnst.png`) {
-                if (found) {
-                    console.log(found);
-                }
             }
 
-            if (mathImagePath == `${pathMatch3}\\15 14 pnst.png`) {
-                if (found) {
-                    console.log(found);
-                }
+            else if (mathImagePath == `${pathMatch3}\\15 14 pnst.png`) {
             }
 
-            if (mathImagePath == `${pathMatch3}\\52 46 pnst.png`) {
-                if (found) {
-                    console.log(found);
-                }
+            else if (mathImagePath == `${pathMatch3}\\52 46 pnst.png`) {
             }
 
-            if (mathImagePath == `${pathMatch3}\\100 74 pnst.png`) {
-                if (found) {
-                    console.log(found);
-                }
+            else if (mathImagePath == `${pathMatch3}\\100 74 pnst.png`) {
             }
 
-            if (mathImagePath == `${pathMatch3}\\135 65 pnst.png`) {
-                if (found) {
-                    console.log(found);
-                }
+            else if (mathImagePath == `${pathMatch3}\\135 65 pnst.png`) {
             }
 
-            if (mathImagePath == `${pathMatch3}\\148 68 pnst.png`) {
-                if (found) {
-                    console.log(found);
-                }
+            else if (mathImagePath == `${pathMatch3}\\148 68 pnst.png`) {
             }
 
-            if (mathImagePath == `${pathMatch3}\\168 65 pnst.png`) {
-                if (found) {
-                    console.log(found);
-                }
+            else if (mathImagePath == `${pathMatch3}\\168 65 pnst.png`) {
             }
         }
         await sleep(5000)
