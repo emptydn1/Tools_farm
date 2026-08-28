@@ -173,6 +173,11 @@ let logout_and_login = async (host) => {
     await tap(host, 490, 395)
     await sleep(800);
     await tap(host, 585, 360)
+
+    await sleep(800);
+    await tap(host, 490, 435) // nhấn nút đăng nhập
+    await sleep(800);
+    await tap(host, 870, 455) // nhấn nút vào game
 }
 
 
@@ -223,7 +228,6 @@ let logout_and_login = async (host) => {
                                 let loop1 = true;
                                 while (loop1) {
                                     await sleep(8000);
-                                    console.log("loop1");
                                     await tap(host, 190, 157)  // to doi
                                     await tap(host, 190, 157)  // to doi
                                     await tap(host, 140, 250)  // doi xung quanh
@@ -311,6 +315,7 @@ let logout_and_login = async (host) => {
                                     } else {
                                         await tap(host, 100, 200)
                                     }
+                                    await sleep(3000);
                                 }
                             } else {
                                 // nếu không tìm thấy vị trí thì kiểm tra xem end chưa
