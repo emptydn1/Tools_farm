@@ -183,8 +183,8 @@ let logout_and_login = async (host) => {
         const worker_get_number = await Tesseract.createWorker("eng");
         await worker_get_number.setParameters({ tessedit_char_whitelist: "0123456789(),./", });
 
-        const templateImagesPos = data.map(item => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-output\\${item.pos}.png`);
-        const templateImagesTodoi = data.map(item => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-output\\todoi\\${item.pos}.png`);
+        const templateImagesPos = data.map(item => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\${item.pos}.png`);
+        const templateImagesTodoi = data.map(item => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\${item.pos}.png`);
         const pathMatchforB = "C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\"
 
         const workerPromises = [];
@@ -211,14 +211,14 @@ let logout_and_login = async (host) => {
 
                         for (const { x, y, mathImagePath } of matchedPoints) {
                             const found = data.find(item => {
-                                const expectedPath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-output\\${item.pos}.png`;
+                                const expectedPath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\${item.pos}.png`;
                                 return mathImagePath === expectedPath;
                             });
 
                             if (found) {
                                 await tap(host, 730, 460); // khiêu chiến bst
 
-                                let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-output\\todoi\\${found.pos}.png`;
+                                let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\${found.pos}.png`;
 
                                 let loop1 = true;
                                 while (loop1) {
