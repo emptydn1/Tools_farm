@@ -27,6 +27,24 @@ function runAdb(args) {
     });
 }
 
-(async () => {
+const ports = [16448]
 
+// const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
+async function connectAll() {
+    for (const port of ports) {
+        const host = `127.0.0.1:${port}`;
+        try {
+            const result = await runAdb(["connect", host]);
+            console.log(`[${host}] Connected:`, result.toString().trim());
+        } catch (err) {
+            console.error(`[${host}] Failed:`, err.toString().trim());
+        }
+    }
+    console.log("Done.");
+}
+
+(async () => {
+    await connectAll();
+    const pngBuffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
+    fs.writeFileSync("1.png", pngBuffer)
 })()
