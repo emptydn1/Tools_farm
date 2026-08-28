@@ -25,7 +25,6 @@
 
 
 
-
 git init
 git remote add origin https://github.com/emptydn1/Tools_farm.git
 git fetch origin
@@ -40,16 +39,16 @@ git reset --hard origin/main
 
 // [
 //     ("135 65", "vo quang", "pnst"),
-//     ("148 68", "lam tai", "pnst"),
-//     ("52 46", "nong tu", "pnst"),
+//     ("148 68", "lam tai", "pnst"),           4
+//     ("52 46", "nong tu", "pnst"),            5
 //     ("14 35", "phan my44", "pnst"),
 //     ("100 74", "che linh4", "pnst"),
 //     ("15 14", "hoang tram", "pnst"),
 //     ("168 65", "nong nhu", "pnst"),
 
 //     ("46 11", "duong hoang", "hhnd"),
-//     ("9 29", "tham diep", "hhnd"),
-//     ("34 36", "trinh dao", "hhnd"),
+//     ("9 29", "tham diep", "hhnd"),           14
+//     ("34 36", "trinh dao", "hhnd"),          9
 //     ("67 20", "vo minh", "hhnd"),
 //     ("65 30", "phan long11", "hhnd"),
 //     ("8 9", "phan trang", "hhnd"),
@@ -59,8 +58,8 @@ git reset --hard origin/main
 //     ("19 71", "lai tu23", "dts"),
 //     ("35 69", "che hong22", "dts"),
 //     ("83 96", "doan vinh", "dts"),
-//     ("63 79", "na linh", "dts"),
-//     ("206 41", "phan hieu", "dts"),
+//     ("63 79", "na linh", "dts"),             18
+//     ("206 41", "phan hieu", "dts"),          15
 // ]
 
 

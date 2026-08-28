@@ -65,7 +65,8 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 //     // 16928, 16960, 16992, 17024, 17056
 // ]
 
-const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
+const ports = [16448]
+// const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
 
 
 
@@ -133,6 +134,7 @@ async function captureAndMatch({ deviceId, region, templateImages, matchThreshol
         .extract(region)
         .toBuffer();
 
+    // fs.writeFileSync("xzcxzc.png", pngBuffer)
     const { matchedPoints } = await findMatchingRegionsAndroids({
         buffer: pngBuffer,
         templateImages,
@@ -147,16 +149,18 @@ let nhan_tra_nv_bst = async (host) => {
     await sleep(500);
     await tap(host, 190, 157)  // to doi
     await sleep(500);
-
     await tap(host, 184, 111)  // huy? hien thong tin chu pt
     await sleep(500);
     await tap(host, 400, 440)  // roi doi
-    await sleep(500);
+    await sleep(1000);
     await tap(host, 820, 270)  // nc npc
-    await sleep(500);
+    await sleep(1000);
     await tap(host, 180, 295)  // click tham gia nv
-
+    await sleep(1000);
     await tap(host, 730, 460)  // nhan thuong
+    await sleep(1000);
+    await tap(host, 730, 460)  // tắt thông báo thưởng
+    await sleep(1000);
     await tap(host, 730, 460)  // nhan nv
 }
 
@@ -174,18 +178,28 @@ let logout_and_login = async (host) => {
     await sleep(800);
     await tap(host, 585, 360)
 
-    await sleep(800);
+    await sleep(1500);
     await tap(host, 490, 435) // nhấn nút đăng nhập
-    await sleep(800);
+    await sleep(1000);
     await tap(host, 870, 455) // nhấn nút vào game
 }
 
+let logout = async (host) => {
+    await tap(host, 946, 257)
+    await sleep(500);
+    await tap(host, 946, 337)
+    await sleep(500);
+    await tap(host, 153, 115)
+    await sleep(500);
+    await tap(host, 800, 250)
+    await sleep(500);
+}
 
 (async () => {
     try {
         setupKeyboard();
         await connectAll();
-        const worker_get_number = await Tesseract.createWorker("eng");
+        const worker_get_number = await Tesseract.createWorker("vie");
         await worker_get_number.setParameters({ tessedit_char_whitelist: "0123456789(),./", });
 
         const templateImagesPos = data.map(item => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\${item.pos}.png`);
@@ -214,136 +228,146 @@ let logout_and_login = async (host) => {
                             templateImages: templateImagesPos,
                         });
 
-                        for (const { x, y, mathImagePath } of matchedPoints) {
-                            const found = data.find(item => {
-                                const expectedPath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\${item.pos}.png`;
-                                return mathImagePath === expectedPath;
-                            });
+                        if (matchedPoints.length > 0) {
 
-                            if (found) {
-                                await tap(host, 730, 460); // khiêu chiến bst
+                            for (const { x, y, mathImagePath } of matchedPoints) {
+                                const found = data.find(item => {
+                                    const expectedPath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\${item.pos}.png`;
+                                    return mathImagePath === expectedPath;
+                                });
 
-                                let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\${found.pos}.png`;
+                                if (found) {
+                                    console.log(found);
 
-                                let loop1 = true;
-                                while (loop1) {
-                                    await sleep(8000);
-                                    await tap(host, 190, 157)  // to doi
-                                    await tap(host, 190, 157)  // to doi
-                                    await tap(host, 140, 250)  // doi xung quanh
+                                    await tap(host, 730, 460); // khiêu chiến bst
 
-                                    await sleep(1500);
+                                    let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\${found.pos}.png`;
 
-                                    let matchedPoints = await captureAndMatch({
-                                        deviceId: host,
-                                        region: { left: 220, top: 80, width: 120, height: 380 },
-                                        templateImages: templateImagesTodoi,
-                                    });
+                                    let loop1 = true;
+                                    while (loop1) {
+                                        await sleep(8000);
+                                        await tap(host, 190, 157)  // to doi
+                                        await tap(host, 190, 157)  // to doi
+                                        await tap(host, 140, 250)  // doi xung quanh
+                                        await sleep(3000);
 
-                                    let target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
-
-                                    if (!target) {
-                                        await swipe(host, 475, 265, 475, 155, 1250);
-                                        await sleep(2000);
-                                        matchedPoints = await captureAndMatch({
+                                        let matchedPoints = await captureAndMatch({
                                             deviceId: host,
                                             region: { left: 220, top: 80, width: 120, height: 380 },
                                             templateImages: templateImagesTodoi,
                                         });
-                                        target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
-                                    }
 
-                                    if (target) {
-                                        await tap(host, target.x + 540 + 220, target.y + 85);
-                                        await tap(host, 925, 200)   // click ra ngoai
-                                    }
+                                        let target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
 
-                                    await sleep(3000);
+                                        if (!target) {
+                                            await swipe(host, 475, 265, 475, 155, 1250);
+                                            await sleep(3000);
+                                            matchedPoints = await captureAndMatch({
+                                                deviceId: host,
+                                                region: { left: 220, top: 80, width: 120, height: 380 },
+                                                templateImages: templateImagesTodoi,
+                                            });
+                                            target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
+                                        }
 
-                                    await tap(host, 190, 157)  // to doi
-                                    await tap(host, 190, 157)  // to doi
-                                    await tap(host, 190, 157)  // to doi
+                                        if (target) {
+                                            await tap(host, target.x + 540 + 220, target.y + 85);
+                                            await sleep(500)
+                                            await tap(host, 60, 385);   // click ra ngoai goc 8h
+                                            await sleep(500)
+                                            await tap(host, 60, 385);   // click ra ngoai goc 8h
+                                        }
 
-                                    let matchedPoints2 = await captureAndMatch({
-                                        deviceId: host,
-                                        region: { left: 0, top: 70, width: 530, height: 270 },
-                                        templateImages: [
-                                            // `${pathMatchforB}\\b1.png`,
-                                            `${pathMatchforB}\\b4.png`,
-                                        ],
-                                        matchThreshold: 0.8,
-                                    });
+                                        await sleep(5000);
+                                        await tap(host, 190, 157)  // to doi
+                                        await sleep(500);
 
-                                    if (matchedPoints2.length > 0) {
-                                        for (const { x, y, mathImagePath } of matchedPoints2) {
-                                            if (mathImagePath == `${pathMatchforB}\\b4.png`) {
-                                                await tap(host, 925, 200);   // click ra ngoai
-                                                loop1 = false;
-                                                await logout_and_login(host);
+                                        let matchedPoints2 = await captureAndMatch({
+                                            deviceId: host,
+                                            region: { left: 0, top: 70, width: 530, height: 270 },
+                                            templateImages: [
+                                                // `${pathMatchforB}\\b1.png`,
+                                                `${pathMatchforB}\\b4.png`,
+                                            ],
+                                            matchThreshold: 0.8,
+                                        });
+
+                                        if (matchedPoints2.length > 0) {
+                                            for (const { x, y, mathImagePath } of matchedPoints2) {
+                                                if (mathImagePath == `${pathMatchforB}\\b4.png`) {
+                                                    await tap(host, 60, 385);   // click ra ngoai goc 8h
+                                                    await tap(host, 60, 385);   // click ra ngoai goc 8h
+                                                    loop1 = false;
+                                                    await logout_and_login(host);
+                                                }
                                             }
+                                        } else {
+                                            await tap(host, 60, 385);   // click ra ngoai goc 8h
+                                            await tap(host, 60, 385);   // click ra ngoai goc 8h
                                         }
-                                    } else {
-                                        await tap(host, 925, 200)   // click ra ngoai
-                                        await tap(host, 925, 200)   // click ra ngoai
+                                    }
+
+                                    await sleep(3000)
+
+                                    let loop2 = true;
+                                    let count = 0;
+                                    while (loop2) {
+                                        if (count < 3) {
+                                            await tap(host, 100, 200)
+                                            count++
+                                        }
+                                        const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
+                                        const pngBuffer = await sharp(buffer)
+                                            .extract({ left: 10, top: 240, width: 90, height: 40 })
+                                            .resize({
+                                                width: 90 * 4,
+                                                height: 40 * 4,
+                                                kernel: sharp.kernel.lanczos3, // giữ nét khi phóng to
+                                            })
+                                            // .grayscale()
+                                            // .normalize()          // tăng tương phản tự động
+                                            // .threshold(150)        // nhị phân hóa: 150 tùy vào độ sáng chữ, chỉnh nếu cần
+                                            // .sharpen()             // làm nét thêm biên chữ/dấu /
+                                            .toBuffer();
+
+                                        let { data: ocrToDoi } = await worker_get_number.recognize(pngBuffer)
+                                        const ocrTextToDoi = ocrToDoi.text.toLowerCase();
+
+                                        console.log(ocrTextToDoi);
+
+                                        if (/1\s*\/\s*1|11/.test(ocrTextToDoi)) {
+                                            await tap(host, 100, 200)
+                                            await sleep(8000)
+                                            await nhan_tra_nv_bst(host)
+                                            loop2 = false;
+                                        }
+                                        await sleep(3000);
                                     }
                                 }
+                            }
+                        } else {
+                            // nếu không tìm thấy vị trí thì kiểm tra xem end chưa
+                            const pngBuffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
+                            const { matchedPoints } = await findMatchingRegionsAndroids({
+                                buffer: pngBuffer,
+                                templateImages: [
+                                    `${pathMatchforB}\\b2.png`,
+                                    `${pathMatchforB}\\b3.png`,
+                                ],
+                                matchThreshold: 0.8,
+                            });
 
-                                let loop2 = true;
-                                while (loop2) {
-                                    const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
-                                    const pngBuffer = await sharp(buffer)
-                                        .extract({ left: 10, top: 240, width: 90, height: 40 })
-                                        .resize({
-                                            width: 90 * 4,
-                                            height: 40 * 4,
-                                            kernel: sharp.kernel.lanczos3, // giữ nét khi phóng to
-                                        })
-                                        .grayscale()
-                                        .normalize()          // tăng tương phản tự động
-                                        .threshold(150)        // nhị phân hóa: 150 tùy vào độ sáng chữ, chỉnh nếu cần
-                                        .sharpen()             // làm nét thêm biên chữ/dấu /
-                                        .toBuffer();
-
-                                    let { data: ocrToDoi } = await worker_get_number.recognize(pngBuffer)
-                                    const ocrTextToDoi = ocrToDoi.text.toLowerCase();
-
-                                    if (/1\s*\/\s*1/.test(ocrTextToDoi)) {
-                                        await tap(host, 100, 200)
-                                        await sleep(8000)
-                                        await nhan_tra_nv_bst(host)
-                                        loop2 = false;
-                                    } else {
-                                        await tap(host, 100, 200)
-                                    }
-                                    await sleep(3000);
-                                }
-                            } else {
-                                // nếu không tìm thấy vị trí thì kiểm tra xem end chưa
-                                const pngBuffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
-                                const { matchedPoints } = await findMatchingRegionsAndroids({
-                                    buffer: pngBuffer,
-                                    templateImages: [
-                                        `${pathMatchforB}\\b2.png`,
-                                        `${pathMatchforB}\\b3.png`,
-                                    ],
-                                    matchThreshold: 0.8,
-                                });
-
-                                if (matchedPoints.length > 0) {
-                                    for (const { x, y, mathImagePath } of matchedPoints) {
-                                        if (mathImagePath == `${pathMatchforB}\\b2.png` || mathImagePath == `${pathMatchforB}\\b3.png`) {
-                                            await tap(host, 925, 200)   // click ra ngoai
-                                            await tap(host, 925, 200)   // click ra ngoai
-                                            await logout_and_login(host)
-                                            return;
-                                        }
+                            if (matchedPoints.length > 0) {
+                                for (const { x, y, mathImagePath } of matchedPoints) {
+                                    if (mathImagePath == `${pathMatchforB}\\b2.png` || mathImagePath == `${pathMatchforB}\\b3.png`) {
+                                        await tap(host, 60, 385);   // click ra ngoai goc 8h
+                                        await tap(host, 60, 385);   // click ra ngoai goc 8h
+                                        await logout(host)
+                                        return;
                                     }
                                 }
                             }
                         }
-
-
-                        await sleep(3000)
                     }
                 } catch (e) {
                     console.error(`[${host}] Error:`, e.toString());
