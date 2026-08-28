@@ -61,7 +61,7 @@ const actions = {
 // ────────────────────────────────────────────────────────────
 
 
-const data = JSON.parse(fs.readFileSync("answer_Tesseract.json", "utf8"));
+const data = JSON.parse(fs.readFileSync("C:\\Users\\huy\\Desktop\\Tools_farm\\z-utils_hoa-dang_bst_vv\\answer_Tesseract.json", "utf8"));
 // const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832];
 // const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928];
 const ports = [

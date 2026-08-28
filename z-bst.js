@@ -324,54 +324,20 @@ let logout_and_login = async (host) => {
                         const ocrText = ocrData.text.toLowerCase();
                         const ocrTextToDoi = ocrToDoi.text.toLowerCase();
 
-
+                        // const campList = ["ang ha nguyen da", "uc nguu", "diem thuong son"]
                         if (findLocation(ocrText, 1)?.city && task1 == false) {
                             await tap(host, 100, 200)
                             await tap(host, 100, 200)
                             await tap(host, 100, 200)
                             await sleep(1000)
+                            if (findLocation(ocrText, 1)?.city == "uc nguu") {
+
+                            }
+
                             await to_doi(host, ocrTextToDoi)
                             task1 = true;
                             console.log("nhiem vu 2")
 
-                            let loop = true;
-                            while (loop) {
-                                await sleep(3000)
-                                tap(host, 190, 157)  // to doi
-                                tap(host, 190, 157)  // to doi
-                                const pngBuffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
-                                const { matchedPoints } = await findMatchingRegionsAndroids({
-                                    buffer: pngBuffer,
-                                    templateImages: [
-                                        `${pathMatch}\\b1.png`,
-                                        `${pathMatch}\\b4.png`,
-                                    ],
-                                    matchThreshold: 0.8,
-                                });
-
-                                if (matchedPoints.length > 0) {
-                                    for (const { x, y, mathImagePath } of matchedPoints) {
-                                        if (mathImagePath == `${pathMatch}\\b1.png`) {
-                                            await tap(host, 60, 155)    // click tab nhiem vu
-                                            await sleep(2000)
-                                            const pngBuffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
-                                            const buffer = await sharp(pngBuffer)
-                                                .extract({ left: 10, top: 210, width: 220, height: 70 })
-                                                .resize({ width: 220 * 10, height: 70 * 10 })
-                                                .toBuffer();
-
-                                            const { data: ocrData } = await worker_get_number.recognize(buffer);
-                                            const ocrTextToDoi = ocrData.text.toLowerCase();
-                                            console.log("nhiem vu 2-----2", ocrTextToDoi)
-                                            await to_doi(host, ocrTextToDoi)
-                                        } else if (mathImagePath == `${pathMatch}\\b4.png`) {
-                                            loop = false;
-                                            await tap(host, 60, 155)    // click tab nhiem vu
-                                            await tap(host, 60, 155)    // click tab nhiem vu
-                                        }
-                                    }
-                                }
-                            }
                             toDoi = true;
                         } else if (/1\s*\/\s*1/.test(ocrTextToDoi) && task1 == true) {
                             toDoi = false;
