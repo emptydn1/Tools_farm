@@ -187,17 +187,3 @@ const ports = [16448];
 
 
 
-export const loadTemplates = (templateImages = []) => {
-    return templateImages.map(path => {
-        const templateMat = cv.imread(path).bgrToGray();
-
-        return {
-            path,
-            templateMat,
-            width: templateMat.cols,
-            height: templateMat.rows,
-        };
-    });
-};
-
-
