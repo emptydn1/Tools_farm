@@ -168,6 +168,15 @@ export const findMatchingRegions = async ({
 }
 
 
+const templateCache = new Map();
+
+const getTemplateMat = (path) => {
+    if (!templateCache.has(path)) {
+        const mat = cv.imread(path).bgrToGray();
+        templateCache.set(path, mat);
+    }
+    return templateCache.get(path);
+};
 
 export const findMatchingRegionsAndroids = async ({
     buffer,
@@ -180,8 +189,7 @@ export const findMatchingRegionsAndroids = async ({
 
     for (const e of templateImages) {
         // phải lấy ảnh mẫu k bị scale
-        let templateMat = cv.imread(e).bgrToGray();
-
+        const templateMat = getTemplateMat(e);
 
 
         const { cols: templateWidth, rows: templateHeight } = templateMat;

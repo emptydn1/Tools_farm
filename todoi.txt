@@ -1,0 +1,90 @@
+[
+    { pos: "148 68", name: "lam tai", group: "pnst" },
+    { pos: "52 46", name: "nong tu", group: "pnst" },
+    { pos: "135 65", name: "vo quang", group: "pnst" },
+    { pos: "14 35", name: "phan my44", group: "pnst" },
+    { pos: "100 74", name: "che linh4", group: "pnst" },
+    { pos: "15 14", name: "hoang tram", group: "pnst" },
+    { pos: "168 65", name: "nong nhu", group: "pnst" },
+
+    { pos: "8 9", name: "phan trang", group: "hhnd" },
+    { pos: "46 11", name: "duong hoang", group: "hhnd" },
+    { pos: "9 29", name: "tham diep", group: "hhnd" },
+    { pos: "34 36", name: "trinh dao", group: "hhnd" },
+    { pos: "67 20", name: "vo minh", group: "hhnd" },
+    { pos: "65 30", name: "phan long11", group: "hhnd" },
+    { pos: "67 8", name: "bui sam5", group: "hhnd" },
+
+    { pos: "63 79", name: "na linh", group: "dts" },
+    { pos: "35 69", name: "che hong22", group: "dts" },
+    { pos: "194 61", name: "le dang", group: "dts" },
+    { pos: "206 41", name: "phan hieu", group: "dts" },
+    { pos: "83 96", name: "doan vinh", group: "dts" },
+    { pos: "19 71", name: "lai tu23", group: "dts" },
+];
+
+
+
+
+
+
+
+
+
+
+
+
+
+// [
+//     ("135 65", "vo quang", "pnst"),
+//     ("148 68", "lam tai", "pnst"),
+//     ("52 46", "nong tu", "pnst"),
+//     ("14 35", "phan my44", "pnst"),
+//     ("100 74", "che linh4", "pnst"),
+//     ("15 14", "hoang tram", "pnst"),
+//     ("168 65", "nong nhu", "pnst"),
+
+//     ("46 11", "duong hoang", "hhnd"),
+//     ("9 29", "tham diep", "hhnd"),
+//     ("34 36", "trinh dao", "hhnd"),
+//     ("67 20", "vo minh", "hhnd"),
+//     ("65 30", "phan long11", "hhnd"),
+//     ("8 9", "phan trang", "hhnd"),
+//     ("67 8", "bui sam5", "hhnd"),
+    
+//     ("194 61", "le dang", "dts"),
+//     ("19 71", "lai tu23", "dts"),
+//     ("35 69", "che hong22", "dts"),
+//     ("83 96", "doan vinh", "dts"),
+//     ("63 79", "na linh", "dts"),
+//     ("206 41", "phan hieu", "dts"),
+// ]
+
+
+
+
+
+// # thiếu nong nhu
+// # [
+// #     ("135 65", "vo quang", "pnst", 16992),
+// #     ("148 68", "lam tai", "pnst", 16928),
+// #     ("52 46", "nong tu", "pnst", 16896),
+// #     ("14 35", "phan my44", "pnst", 16864),
+// #     ("100 74", "che linh4", "pnst", 17024),
+// #     ("15 14", "hoang tram", "pnst", 16832),
+
+// #     ("46 11", "duong hoang", "hhnd", 16736),
+// #     ("9 29", "tham diep", "hhnd", 16800),
+// #     ("34 36", "trinh dao", "hhnd", 17088),
+// #     ("67 20", "vo minh", "hhnd", 16672),
+// #     ("65 30", "phan long11", "hhnd", 16640),
+// #     ("8 9", "phan trang", "hhnd", 16768),
+// #     ("67 8", "bui sam5", "hhnd", 16704),
+
+// #     ("194 61", "le dang", "dts", 16480),
+// #     ("19 71", "lai tu23", "dts", 16608),
+// #     ("35 69", "che hong22", "dts", 16576),
+// #     ("83 96", "doan vinh", "dts", 16512),
+// #     ("63 79", "na linh", "dts", 16544),
+// #     ("206 41", "phan hieu", "dts", 16448),
+// # ]
