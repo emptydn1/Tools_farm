@@ -224,9 +224,6 @@ let logout_and_login = async (host) => {
                                 while (loop1) {
                                     await sleep(8000);
                                     console.log("loop1");
-                                    await tap(host, 100, 200) // tap nv
-                                    await tap(host, 100, 200) // tap nv
-
                                     await tap(host, 190, 157)  // to doi
                                     await tap(host, 190, 157)  // to doi
                                     await tap(host, 140, 250)  // doi xung quanh
