@@ -313,8 +313,6 @@ let logout = async (host) => {
                                         }
                                     }
 
-                                    await sleep(5000)
-
                                     let loop2 = true;
                                     let count = 0;
                                     while (loop2) {
