@@ -313,7 +313,27 @@ let logout = async (host) => {
                                         }
                                     }
 
-                                    await sleep(5000)
+
+                                    let checkLoginSuccess = false;
+                                    while (!checkLoginSuccess) {
+                                        let isCheck = await captureAndMatch({
+                                            deviceId: host,
+                                            region: { left: 0, top: 100, width: 250, height: 100 },
+                                            templateImages: [
+                                                `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b1.png`,
+                                            ],
+                                            matchThreshold: 0.8,
+                                        });
+                                        if (isCheck.length > 0) {
+                                            for (const { x, y, mathImagePath } of isCheck) {
+                                                if (mathImagePath == `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b1.png`) {
+                                                    checkLoginSuccess = true;
+                                                }
+                                            }
+                                        }
+                                        await sleep(500);
+                                    }
+
 
                                     let loop2 = true;
                                     let count = 0;

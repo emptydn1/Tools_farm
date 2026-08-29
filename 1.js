@@ -215,13 +215,14 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     let host = "127.0.0.1:16448";
 
 
-    let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\15 14.png`;
+    let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\11.png`;
 
     let matchedPoints = await captureAndMatch({
         deviceId: host,
-        region: { left: 220, top: 80, width: 120, height: 380 },
+        // region: { left: 220, top: 80, width: 120, height: 380 },
+        region: { left: 0, top: 100, width: 250, height: 100 },
         templateImages: [
-            `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\15 14.png`
+            TARGET_IMAGE
         ],
     });
 
