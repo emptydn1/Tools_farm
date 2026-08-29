@@ -255,7 +255,7 @@ let logout = async (host) => {
                                         await tap(host, 190, 157)  // to doi
                                         await tap(host, 190, 157)  // to doi
                                         await tap(host, 140, 250)  // doi xung quanh
-                                        await sleep(500);
+                                        await sleep(2000);
 
                                         let matchedPoints = await captureAndMatch({
                                             deviceId: host,
