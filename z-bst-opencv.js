@@ -267,7 +267,7 @@ let logout = async (host) => {
 
                                         if (!target) {
                                             await swipe(host, 475, 365, 475, 155, 750);
-                                            await sleep(3000);
+                                            await sleep(4000);
                                             matchedPoints = await captureAndMatch({
                                                 deviceId: host,
                                                 region: { left: 220, top: 80, width: 120, height: 380 },
@@ -304,6 +304,7 @@ let logout = async (host) => {
                                                     await tap(host, 60, 385);   // click ra ngoai goc 8h
                                                     await tap(host, 60, 385);   // click ra ngoai goc 8h
                                                     await logout_and_login(host);
+                                                    loop1 = false;
                                                 }
                                             }
                                         } else {
@@ -312,7 +313,6 @@ let logout = async (host) => {
                                         }
                                     }
 
-                                    loop1 = false;
                                     await sleep(5000)
 
                                     let loop2 = true;
