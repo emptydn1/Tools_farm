@@ -347,7 +347,7 @@ let logout = async (host) => {
 
                                         console.log(ocrTextToDoi);
 
-                                        if (/1\s*\/\s*1|\b11\b/.test(ocrTextToDoi)) {
+                                        if (/1\s*\/\s*1|(?<!\/)\b11\b(?!\/)/.test(ocrTextToDoi)) {
                                             await tap(host, 100, 200)
                                             await sleep(8000)
                                             await nhan_tra_nv_bst(host)
