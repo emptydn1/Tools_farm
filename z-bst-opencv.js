@@ -158,9 +158,9 @@ let nhan_tra_nv_bst = async (host) => {
     await tap(host, 180, 295)  // click tham gia nv
     await sleep(1000);
     await tap(host, 730, 460)  // nhan thuong
-    await sleep(500);
+    await sleep(1000);
     await tap(host, 730, 460)  // tắt thông báo thưởng
-    await sleep(500);
+    await sleep(1000);
     await tap(host, 730, 460)  // nhan nv
 }
 
@@ -175,10 +175,10 @@ let logout_and_login = async (host) => {
     await sleep(500);
 
     await tap(host, 490, 395)
-    await sleep(800);
+    await sleep(1000);
     await tap(host, 585, 360)
 
-    await sleep(1500);
+    await sleep(2000);
     await tap(host, 490, 435) // nhấn nút đăng nhập
     await sleep(1000);
     await tap(host, 870, 455) // nhấn nút vào game
@@ -245,6 +245,12 @@ let logout = async (host) => {
 
                                     let loop1 = true;
                                     while (loop1) {
+                                        while (isPaused && !isKilled) {
+                                            await sleep(300);
+                                        }
+
+                                        if (isKilled) break;
+
                                         await sleep(5000);
                                         await tap(host, 190, 157)  // to doi
                                         await tap(host, 190, 157)  // to doi
@@ -312,6 +318,12 @@ let logout = async (host) => {
                                     let loop2 = true;
                                     let count = 0;
                                     while (loop2) {
+                                        while (isPaused && !isKilled) {
+                                            await sleep(300);
+                                        }
+
+                                        if (isKilled) break;
+
                                         if (count < 3) {
                                             await tap(host, 100, 200)
                                             count++
