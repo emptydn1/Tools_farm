@@ -303,6 +303,7 @@ let logout = async (host) => {
                                                 if (mathImagePath == `${pathMatchforB}\\b4.png`) {
                                                     await tap(host, 60, 385);   // click ra ngoai goc 8h
                                                     await tap(host, 60, 385);   // click ra ngoai goc 8h
+                                                    await sleep(3000)
                                                     await logout_and_login(host);
                                                     loop1 = false;
                                                 }
