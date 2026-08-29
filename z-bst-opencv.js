@@ -357,10 +357,10 @@ let logout = async (host) => {
                                                 height: 40 * 4,
                                                 kernel: sharp.kernel.lanczos3, // giữ nét khi phóng to
                                             })
-                                            // .grayscale()
-                                            // .normalize()          // tăng tương phản tự động
-                                            // .threshold(150)        // nhị phân hóa: 150 tùy vào độ sáng chữ, chỉnh nếu cần
-                                            // .sharpen()             // làm nét thêm biên chữ/dấu /
+                                            .grayscale()
+                                            .normalize()          // tăng tương phản tự động
+                                            .threshold(150)        // nhị phân hóa: 150 tùy vào độ sáng chữ, chỉnh nếu cần
+                                            .sharpen()             // làm nét thêm biên chữ/dấu /
                                             .toBuffer();
 
                                         let { data: ocrToDoi } = await worker_get_number.recognize(pngBuffer)
