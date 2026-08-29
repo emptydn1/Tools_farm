@@ -355,7 +355,7 @@ let logout = async (host) => {
                                             .resize({
                                                 width: 90 * 4,
                                                 height: 40 * 4,
-                                                kernel: sharp.kernel.lancszos3, // giữ nét khi phóng to
+                                                kernel: sharp.kernel.lanczos3, // giữ nét khi phóng to
                                             })
                                             // .grayscale()
                                             // .normalize()          // tăng tương phản tự động
