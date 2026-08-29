@@ -65,8 +65,8 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 //     // 16928, 16960, 16992, 17024, 17056
 // ]
 
-const ports = [16448]
-// const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
+// const ports = [16448]
+const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
 
 
 
@@ -152,11 +152,11 @@ let nhan_tra_nv_bst = async (host) => {
     await tap(host, 184, 111)  // huy? hien thong tin chu pt
     await sleep(500);
     await tap(host, 400, 440)  // roi doi
-    await sleep(800);
+    await sleep(1000);
     await tap(host, 820, 270)  // nc npc
-    await sleep(800);
+    await sleep(1000);
     await tap(host, 180, 295)  // click tham gia nv
-    await sleep(800);
+    await sleep(1000);
     await tap(host, 730, 460)  // nhan thuong
     await sleep(500);
     await tap(host, 730, 460)  // tắt thông báo thưởng
@@ -335,7 +335,7 @@ let logout = async (host) => {
 
                                         console.log(ocrTextToDoi);
 
-                                        if (/1\s*\/\s*1|11/.test(ocrTextToDoi)) {
+                                        if (/1\s*\/\s*1|\b11\b/.test(ocrTextToDoi)) {
                                             await tap(host, 100, 200)
                                             await sleep(8000)
                                             await nhan_tra_nv_bst(host)
