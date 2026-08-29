@@ -251,7 +251,7 @@ let logout = async (host) => {
 
                                         if (isKilled) break;
 
-                                        await sleep(5000);
+                                        await sleep(8000);
                                         await tap(host, 190, 157)  // to doi
                                         await tap(host, 190, 157)  // to doi
                                         await tap(host, 140, 250)  // doi xung quanh
