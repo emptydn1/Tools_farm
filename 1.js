@@ -147,6 +147,7 @@ async function captureAndMatch({ deviceId, region, templateImages, matchThreshol
         .extract(region)
         .toBuffer();
 
+    fs.writeFileSync("xxxxxxxx.png", pngBuffer)
     const { matchedPoints } = await findMatchingRegionsAndroids({
         buffer: pngBuffer,
         templateImages,
@@ -214,11 +215,20 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     let host = "127.0.0.1:16448";
 
 
-    await swipe(host, 475, 365, 475, 155, 750);
-    await sleep(500)
+    let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\15 14.png`;
+
+    let matchedPoints = await captureAndMatch({
+        deviceId: host,
+        region: { left: 220, top: 80, width: 120, height: 380 },
+        templateImages: [
+            `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\15 14.png`
+        ],
+    });
 
 
+    let target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
 
+    console.log(target);
 
 
 
