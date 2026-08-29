@@ -266,7 +266,7 @@ let logout = async (host) => {
                                         let target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
 
                                         if (!target) {
-                                            await swipe(host, 475, 265, 475, 155, 1250);
+                                            await swipe(host, 475, 365, 475, 155, 750);
                                             await sleep(3000);
                                             matchedPoints = await captureAndMatch({
                                                 deviceId: host,

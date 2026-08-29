@@ -156,10 +156,6 @@ async function captureAndMatch({ deviceId, region, templateImages, matchThreshol
     return matchedPoints;
 }
 
-async function swipe(host, x1, y1, x2, y2, duration = 300) {
-    await runAdb(["-s", host, "shell", "input", "swipe", String(x1), String(y1), String(x2), String(y2), String(duration)]);
-    await sleep(200)
-}
 (async () => {
     // const worker_get_number = await Tesseract.createWorker("eng");
     // await worker_get_number.setParameters({ tessedit_char_whitelist: "0123456789(),./", });
@@ -209,19 +205,169 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     await connectAll();
-
+    const templateImagesPos = data.map(item => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-output\\${item.pos}.png`);
+    const templateImagesTodoi = data.map(item => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-output\\todoi\\${item.pos}.png`);
     let host = "127.0.0.1:16448";
+    const worker_get_number = await Tesseract.createWorker("vie");
+    await worker_get_number.setParameters({ tessedit_char_whitelist: "0123456789(),./", });
 
+    while (true) {
+        const matchedPoints = await captureAndMatch({
+            deviceId: host,
+            region: { left: 600, top: 120, width: 120, height: 40 },
+            templateImages: templateImagesPos,
+        });
 
-    await swipe(host, 475, 365, 475, 155, 750);
-    await sleep(500)
+        for (const { x, y, mathImagePath } of matchedPoints) {
+            const found = data.find(item => {
+                const expectedPath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-output\\${item.pos}.png`;
+                return mathImagePath === expectedPath;
+            });
 
+            if (found) {
+                await tap(host, 730, 460);
 
+                let pathMatchforB = "C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\"
+                let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\tt.png`;
+                // let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-output\\todoi\\${found.pos}.png`;
 
+                let loop1 = true;
+                while (loop1) {
+                    await sleep(8000);
+                    console.log("loop1");
+                    await tap(host, 100, 200) // tap nv
+                    await tap(host, 100, 200) // tap nv
 
+                    await tap(host, 190, 157)  // to doi
+                    await tap(host, 190, 157)  // to doi
+                    await tap(host, 140, 250)  // doi xung quanh
 
+                    let matchedPoints = await captureAndMatch({
+                        deviceId: host,
+                        region: { left: 220, top: 80, width: 120, height: 380 },
+                        templateImages: templateImagesTodoi,
+                    });
 
+                    let target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
+
+                    if (!target) {
+                        await swipe(host, 475, 265, 475, 155, 1250);
+                        await sleep(2000);
+                        matchedPoints = await captureAndMatch({
+                            deviceId: host,
+                            region: { left: 220, top: 80, width: 120, height: 380 },
+                            templateImages: templateImagesTodoi,
+                        });
+                        target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
+                    }
+
+                    if (target) {
+                        await tap(host, target.x + 540 + 220, target.y + 85);
+                        await tap(host, 925, 200)   // click ra ngoai
+                    }
+
+                    await sleep(3000);
+
+                    await tap(host, 190, 157)  // to doi
+                    await tap(host, 190, 157)  // to doi
+
+                    let matchedPoints2 = await captureAndMatch({
+                        deviceId: host,
+                        region: { left: 0, top: 70, width: 530, height: 270 },
+                        templateImages: [
+                            // `${pathMatchforB}\\b1.png`,
+                            `${pathMatchforB}\\b4.png`,
+                        ],
+                    });
+
+                    for (const { x, y, mathImagePath } of matchedPoints2) {
+                        if (mathImagePath == `${pathMatchforB}\\b4.png`) {
+                            await tap(host, 925, 200);   // click ra ngoai
+                            loop1 = false;
+                            // logout and login
+                        } else {
+                            await tap(host, 925, 200)   // click ra ngoai
+                            await tap(host, 925, 200)   // click ra ngoai
+                        }
+                    }
+                }
+
+                let loop2 = true;
+                while (loop2) {
+                    const buffer = await runAdb(["-s", deviceId, "exec-out", "screencap", "-p"]);
+                    const pngBuffer = await sharp(buffer)
+                        .extract({ left: 10, top: 240, width: 90, height: 40 })
+                        .resize({
+                            width: 90 * 4,
+                            height: 40 * 4,
+                            kernel: sharp.kernel.lanczos3, // giữ nét khi phóng to
+                        })
+                        .grayscale()
+                        .normalize()          // tăng tương phản tự động
+                        .threshold(150)        // nhị phân hóa: 150 tùy vào độ sáng chữ, chỉnh nếu cần
+                        .sharpen()             // làm nét thêm biên chữ/dấu /
+                        .toBuffer();
+
+                    let { data: ocrToDoi } = await worker_get_number.recognize(pngBuffer)
+                    const ocrTextToDoi = ocrToDoi.text.toLowerCase();
+
+                    if (/1\s*\/\s*1/.test(ocrTextToDoi)) {
+                        await tap(host, 100, 200)
+                        await tap(host, 100, 200)
+                        await tap(host, 100, 200)
+
+                        await sleep(8000)
+                        await nhan_tra_nv_bst(host)
+
+                        const pngBuffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
+                        const { matchedPoints } = await findMatchingRegionsAndroids({
+                            buffer: pngBuffer,
+                            templateImages: [
+                                `${pathMatch}\\b2.png`,
+                                `${pathMatch}\\b3.png`,
+                            ],
+                            matchThreshold: 0.8,
+                        });
+
+                        if (matchedPoints.length > 0) {
+                            for (const { x, y, mathImagePath } of matchedPoints) {
+                                if (mathImagePath == `${pathMatch}\\b2.png`) {
+                                    await logout_and_login(host)
+                                    return;
+                                } else if (mathImagePath == `${pathMatch}\\b3.png`) {
+                                    await logout_and_login(host)
+                                    return;
+                                }
+                            }
+                        }
+
+                        await sleep(5000)
+                        await tap(host, 100, 200)
+                        await tap(host, 100, 200)
+                        await tap(host, 100, 200)
+                        task1 = false;
+                    }
+                    await sleep(3000)
+                }
+            }
+        }
+        await sleep(3000)
+    }
 })()
 
 
