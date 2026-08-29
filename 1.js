@@ -214,13 +214,13 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
     let host = "127.0.0.1:16448";
 
-//     ("194 61", "le dang", "dts"),
-//     ("19 71", "lai tu23", "dts"),
-//     ("35 69", "che hong22", "dts"),          17
-//     ("83 96", "doan vinh", "dts"),
-//     ("63 79", "na linh", "dts"),             18
-//     ("206 41", "phan hieu", "dts"),          15
-// ]
+    //     ("194 61", "le dang", "dts"),
+    //     ("19 71", "lai tu23", "dts"),
+    //     ("35 69", "che hong22", "dts"),          17
+    //     ("83 96", "doan vinh", "dts"),
+    //     ("63 79", "na linh", "dts"),             18
+    //     ("206 41", "phan hieu", "dts"),          15
+    // ]
 
 
     let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\206 41.png`;
