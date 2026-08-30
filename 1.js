@@ -217,34 +217,34 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
     // fs.writeFileSync("xxx.png", buffer)
 
+    const templateImagesCitys = Array.from(
+        { length: 7 },
+        (_, i) => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\city\\${i + 1}.png`
+    );
 
-
-    //     ("194 61", "le dang", "dts"),
-    //     ("19 71", "lai tu23", "dts"),
-    //     ("35 69", "che hong22", "dts"),          17
-    //     ("83 96", "doan vinh", "dts"),
-    //     ("63 79", "na linh", "dts"),             18
-    //     ("206 41", "phan hieu", "dts"),          15
-    // ]
 
     // await swipe(host, 115, 295, 115, 0, 2000);
 
     // let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\206 41.png`;
-    let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b2.png`;
+    // let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b2.png`;
     // let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\check-table-bst.png`;
+    // let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\city\\2.png`;
 
     let matchedPoints = await captureAndMatch({
         deviceId: host,
-        region: { left: 150, top: 50, width: 180, height: 50 },
-        templateImages: [
-            TARGET_IMAGE
-        ],
+        region: { left: 830, top: 80, width: 100, height: 50 },
+        templateImages: templateImagesCitys,
     });
 
+    console.log(matchedPoints);
 
-    let target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
+    // tuong duong
+    // laman
+    // pt -  day li - td
 
-    console.log(target);
+    // let target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
+
+    // console.log(target);
 })()
 
 

@@ -38,13 +38,13 @@ git reset --hard origin/main
 
 
 // [
-//     ("135 65", "vo quang", "pnst"),
+//     ("135 65", "vo quang", "pnst"),          2
 //     ("148 68", "lam tai", "pnst"),           4
 //     ("52 46", "nong tu", "pnst"),            5
 //     ("14 35", "phan my44", "pnst"),          3
-//     ("100 74", "che linh4", "pnst"),
+//     ("100 74", "che linh4", "pnst"),         7
 //     ("15 14", "hoang tram", "pnst"),         1
-//     ("168 65", "nong nhu", "pnst"),
+//     ("168 65", "nong nhu", "pnst"),          6
 
 //     ("46 11", "duong hoang", "hhnd"),
 //     ("9 29", "tham diep", "hhnd"),           14
@@ -54,10 +54,10 @@ git reset --hard origin/main
 //     ("8 9", "phan trang", "hhnd"),
 //     ("67 8", "bui sam5", "hhnd"),
     
-//     ("194 61", "le dang", "dts"),
-//     ("19 71", "lai tu23", "dts"),
+//     ("194 61", "le dang", "dts"),            16
+//     ("19 71", "lai tu23", "dts"),            20
 //     ("35 69", "che hong22", "dts"),          17
-//     ("83 96", "doan vinh", "dts"),
+//     ("83 96", "doan vinh", "dts"),           19
 //     ("63 79", "na linh", "dts"),             18
 //     ("206 41", "phan hieu", "dts"),          15
 // ]

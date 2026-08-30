@@ -438,41 +438,63 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
 
                                     // Bước 3:
                                     let loop2 = true;
-                                    let count = 0;
                                     while (loop2) {
                                         while (isPaused && !isKilled) await sleep(300);
                                         if (isKilled) break;
 
-                                        if (count < 5) {
-                                            await tap(host, 100, 200)
-                                            count++
-                                        }
-                                        const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
-                                        const pngBuffer = await sharp(buffer)
-                                            .extract({ left: 10, top: 240, width: 90, height: 40 })
-                                            .resize({
-                                                width: 90 * 4,
-                                                height: 40 * 4,
-                                                kernel: sharp.kernel.lanczos3, // giữ nét khi phóng to
-                                            })
-                                            .grayscale()
-                                            .normalize()          // tăng tương phản tự động
-                                            .threshold(150)        // nhị phân hóa: 150 tùy vào độ sáng chữ, chỉnh nếu cần
-                                            .sharpen()             // làm nét thêm biên chữ/dấu /
+                                        await tap(host, 100, 200);
+                                        await sleep(5000);
+
+                                        const pngBuffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
+                                        const buffer = await sharp(pngBuffer)
+                                            .extract({ left: 830, top: 0, width: 110, height: 25 })
                                             .toBuffer();
 
-                                        let { data: ocrToDoi } = await worker_get_number.recognize(pngBuffer)
-                                        const ocrTextToDoi = ocrToDoi.text.toLowerCase();
+                                        const { data: ocrData } = await worker_get_number.recognize(buffer);
+                                        const ocrTextCity = ocrData.text.toLowerCase();
 
-                                        console.log(ocrTextToDoi);
-                                        if (/1\s*\/\s*1/.test(ocrTextToDoi) || ocrTextToDoi.trim() == "11." || ocrTextToDoi.trim() == "11") {
-                                            console.log(ocrTextToDoi, "end");
-                                            await tap(host, 100, 200)
-                                            await sleep(8000)
+                                        // const [buffer, buffer_to_doi] = await Promise.all([
+                                        //     base.clone()
+                                        //         .extract({ left: 830, top: 0, width: 110, height: 25 })
+                                        //         .toBuffer(),
+                                        //     base.clone()
+                                        //         .extract({ left: 10, top: 240, width: 90, height: 40 })
+                                        //         .resize({
+                                        //             width: 90 * 4,
+                                        //             height: 40 * 4,
+                                        //             kernel: sharp.kernel.lanczos3, // giữ nét khi phóng to
+                                        //         })
+                                        //         .grayscale()
+                                        //         .normalize()          // tăng tương phản tự động
+                                        //         .threshold(150)        // nhị phân hóa: 150 tùy vào độ sáng chữ, chỉnh nếu cần
+                                        //         .sharpen()             // làm nét thêm biên chữ/dấu /
+                                        //         .toBuffer(),
+                                        // ]);
+
+                                        // const [{ data: ocrData }, { data: ocrToDoi }] = await Promise.all([
+                                        //     worker.recognize(buffer),
+                                        //     worker_get_number.recognize(buffer_to_doi),
+                                        // ]);
+
+                                        // const ocrTextToDoi = ocrToDoi.text.toLowerCase();
+
+                                        // console.log(ocrTextToDoi);
+                                        // if (/1\s*\/\s*1/.test(ocrTextToDoi) || ocrTextToDoi.trim() == "11." || ocrTextToDoi.trim() == "11") {
+                                        //     console.log(ocrTextToDoi, "end");
+                                        //     await tap(host, 100, 200)
+                                        //     await sleep(8000)
+                                        //     await nhan_tra_nv_bst(host)
+                                        //     loop2 = false;
+                                        // } 
+
+                                        console.log(ocrTextCity);
+
+                                        if (findLocation(ocrTextCity)?.city) {
+                                            console.log(findLocation(ocrTextCity)?.city);
+                                            await sleep(3000)
                                             await nhan_tra_nv_bst(host)
                                             loop2 = false;
                                         }
-                                        await sleep(3000);
                                     }
                                 }
                             }

@@ -130,6 +130,69 @@ const data = [
 
 
 
+function findLocation(ocrText, isCity = 0) {
+    const cityList = ["phuong tuong", "lam an", "bien kinh", "tuong duong", "thanh do", "dai ly", "duong chau"];
+    const campList = ["ang ha nguyen da", "uc nguu", "diem thuong son"]
+    const other = ["lap doi", "boss sat thu"]
+    console.log("findLocation");
+
+    let locationList;
+    if (isCity == 0) {
+        locationList = cityList;
+    } else if (isCity == 1) {
+        locationList = campList;
+    } else if (isCity == 2) {
+        locationList = other;
+    }
+
+    function normalize(text) {
+        return text
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/đ/g, "d")
+            .replace(/Đ/g, "D")
+            .replace(/[^a-zA-Z0-9\s]/g, " ")
+            .replace(/\s+/g, " ")
+            .trim()
+            .toLowerCase();
+    }
+
+    const text = normalize(ocrText);
+
+    // OCR không đọc được gì
+    if (!text) return null;
+
+    let bestCity = null;
+    let bestDistance = Infinity;
+    let bestSimilarity = 0;
+
+    for (const city of locationList) {
+        // Nếu OCR có chứa tên thành phố thì trả về luôn
+        if (text.includes(city)) return { city, similarity: 1, distance: 0 };
+
+        const d = distance(text, city);
+        const similarity = 1 - d / Math.max(text.length, city.length);
+
+        if (similarity > bestSimilarity) {
+            bestSimilarity = similarity;
+            bestDistance = d;
+            bestCity = city;
+        }
+    }
+
+    // Dưới 60% thì coi như OCR sai
+    if (bestSimilarity < 0.6) {
+        return null;
+    }
+
+    return {
+        city: bestCity,
+        similarity: Number(bestSimilarity.toFixed(2)),
+        distance: bestDistance
+    };
+}
+
+
 
 async function captureAndMatch({ deviceId, region, templateImages, matchThreshold = 0.95 }) {
     const buffer = await runAdb(["-s", deviceId, "exec-out", "screencap", "-p"]);
@@ -294,7 +357,6 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
 
         const templateImagesPos = data.map(item => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\${item.pos}.png`);
         const templateImagesTodoi = data.map(item => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\${item.pos}.png`);
-        const templateImagesCitys = Array.from({ length: 7 }, (_, i) => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\city\\${i + 1}.png`);
         const pathMatchforB = "C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\"
 
 
@@ -376,25 +438,41 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
 
                                     // Bước 3:
                                     let loop2 = true;
+                                    let count = 0;
                                     while (loop2) {
                                         while (isPaused && !isKilled) await sleep(300);
                                         if (isKilled) break;
 
-                                        await tap(host, 100, 200);
-                                        await sleep(5000);
+                                        if (count < 5) {
+                                            await tap(host, 100, 200)
+                                            count++
+                                        }
+                                        const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
+                                        const pngBuffer = await sharp(buffer)
+                                            .extract({ left: 10, top: 240, width: 90, height: 40 })
+                                            .resize({
+                                                width: 90 * 4,
+                                                height: 40 * 4,
+                                                kernel: sharp.kernel.lanczos3, // giữ nét khi phóng to
+                                            })
+                                            .grayscale()
+                                            .normalize()          // tăng tương phản tự động
+                                            .threshold(150)        // nhị phân hóa: 150 tùy vào độ sáng chữ, chỉnh nếu cần
+                                            .sharpen()             // làm nét thêm biên chữ/dấu /
+                                            .toBuffer();
 
-                                        // là citys
-                                        const result = await captureAndMatch({
-                                            deviceId: host,
-                                            region: { left: 830, top: 80, width: 100, height: 50 },
-                                            templateImages: templateImagesCitys,
-                                            matchThreshold: 0.95,
-                                        });
+                                        let { data: ocrToDoi } = await worker_get_number.recognize(pngBuffer)
+                                        const ocrTextToDoi = ocrToDoi.text.toLowerCase();
 
-                                        if (result.length > 0) {
+                                        console.log(ocrTextToDoi);
+                                        if (/1\s*\/\s*1/.test(ocrTextToDoi) || ocrTextToDoi.trim() == "11." || ocrTextToDoi.trim() == "11") {
+                                            console.log(ocrTextToDoi, "end");
+                                            await tap(host, 100, 200)
+                                            await sleep(8000)
                                             await nhan_tra_nv_bst(host)
                                             loop2 = false;
                                         }
+                                        await sleep(3000);
                                     }
                                 }
                             }
