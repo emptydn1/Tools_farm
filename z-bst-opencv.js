@@ -335,8 +335,6 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                                 });
 
                                 if (found) {
-                                    console.log(found);
-
                                     // bảng nhiêm vụ sat thủ
                                     await waitUntilMatch({
                                         deviceId: host,
