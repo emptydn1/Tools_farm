@@ -149,6 +149,7 @@ async function captureAndMatch({ deviceId, region, templateImages, matchThreshol
 
 
 let nhan_tra_nv_bst = async (host) => {
+    await sleep(1000);
     await tap(host, 190, 157)  // to doi
     await sleep(500);
     await tap(host, 190, 157)  // to doi
