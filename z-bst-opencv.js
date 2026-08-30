@@ -197,12 +197,7 @@ let logout = async (host) => {
 
 async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold = 0.8, interval = 300 }) {
     while (true) {
-        const result = await captureAndMatch({
-            deviceId,
-            region,
-            templateImages,
-            matchThreshold,
-        });
+        const result = await captureAndMatch({ deviceId, region, templateImages, matchThreshold });
 
         if (result.length > 0) {
             await sleep(500);
