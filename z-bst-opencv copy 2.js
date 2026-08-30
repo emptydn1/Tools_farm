@@ -195,23 +195,6 @@ let logout = async (host) => {
     await sleep(500);
 }
 
-async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold = 0.8, interval = 0 }) {
-    while (true) {
-        const result = await captureAndMatch({
-            deviceId,
-            region,
-            templateImages,
-            matchThreshold,
-        });
-
-        if (result.length > 0) {
-            await sleep(500);
-            return result;
-        }
-
-        await sleep(interval)
-    }
-}
 
 
 async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pathMatchforB, checkFirst = false }) {
@@ -239,17 +222,9 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
         }
     }
 
-
     while (!done) {
-        // chờ login hoặc đã lên trên map đánh bst
-        await waitUntilMatch({
-            deviceId: host,
-            region: { left: 0, top: 100, width: 250, height: 100 },
-            templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b2.png`],
-            matchThreshold: 0.8,
-        });
+        if (!checkFirst) await sleep(8000);
 
-        // if (!checkFirst) await sleep(8000);
         await tap(host, 190, 157)  // to doi
         await sleep(500);
         await tap(host, 190, 157)  // to doi
@@ -306,7 +281,6 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
     return done;
 }
 
-
 (async () => {
     try {
         setupKeyboard();
@@ -349,55 +323,48 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                                 if (found) {
                                     console.log(found);
 
-                                    // bảng nhiêm vụ sat thủ
-                                    await waitUntilMatch({
-                                        deviceId: host,
-                                        region: { left: 350, top: 40, width: 300, height: 60 },
-                                        templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b3.png`],
-                                        matchThreshold: 0.8,
-                                    });
-
                                     await tap(host, 730, 460); // khiêu chiến bst
 
                                     let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\${found.pos}.png`;
 
+
                                     // Bước 1: vào tổ đội -> check cho tới khi thành công lần đầu
                                     await runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pathMatchforB });
 
+                                    // Bước 2: thoát vào lại -> check
+                                    // nếu fail -> quay lại tổ đội -> rồi lại thoát vào lại -> check tiếp
+                                    // chỉ dừng khi thoát_vào_lại + check thành công
+                                    let success = false;
+                                    while (!success) {
+                                        await logout_and_login(host);
+                                        await sleep(5000);
 
+                                        // chờ đăng nhập xong
+                                        let checkLoginSuccess = false;
+                                        while (!checkLoginSuccess) {
+                                            const isCheck = await captureAndMatch({
+                                                deviceId: host,
+                                                region: { left: 0, top: 100, width: 250, height: 100 },
+                                                templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b1.png`],
+                                                matchThreshold: 0.8,
+                                            });
+                                            if (isCheck.length > 0) {
+                                                checkLoginSuccess = true;
+                                            } else {
+                                                await tap(host, 490, 395);
+                                                await sleep(1000);
+                                                await tap(host, 585, 360);
 
-
-                                    let checkSwipe = false;
-                                    let isScrollDown = true
-                                    while (!checkSwipe) {
-                                        if (isScrollDown) {
-                                            // cuộn xuống
-                                            await swipe(host, 115, 295, 115, 0, 2000);
-                                            await swipe(host, 115, 295, 115, 0, 2000);
-                                            isScrollDown = false;
-                                        } else {
-                                            // cuộn lên
-                                            await swipe(host, 115, 200, 115, 700, 500);
-                                            isScrollDown = true;
+                                                await sleep(2000);
+                                                await tap(host, 490, 435);  // nhấn nút đăng nhập
+                                                await sleep(1000);
+                                                await tap(host, 870, 455);  // nhấn nút vào game
+                                            }
                                         }
 
-                                        await sleep(1000);
-
-                                        // check cuộn xuống nhiêm vụ sat thủ thành công
-                                        const result = await waitUntilMatch({
-                                            deviceId: host,
-                                            region: { left: 0, top: 170, width: 180, height: 80 },
-                                            templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\check-table-bst.png`],
-                                            matchThreshold: 0.8,
-                                        });
-                                        if (result.length > 0) {
-                                            checkSwipe = true; // thoát vòng lặp khi match được
-                                        }
+                                        // check tổ đội SAU KHI thoát vào lại
+                                        success = await runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pathMatchforB, checkFirst: true });
                                     }
-
-
-
-
 
                                     // Bước 3:
                                     let loop2 = true;

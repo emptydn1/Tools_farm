@@ -142,7 +142,8 @@ const ports = [16448];
 
 
 async function captureAndMatch({ deviceId, region, templateImages, matchThreshold = 0.95 }) {
-    const buffer = await runAdb(["-s", deviceId, "exec-out", "screencap", "-p"]);
+    let buffer = fs.readFileSync("zx.png")
+    // const buffer = await runAdb(["-s", deviceId, "exec-out", "screencap", "-p"]);
     const pngBuffer = await sharp(buffer)
         .extract(region)
         .toBuffer();
@@ -213,6 +214,10 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     await connectAll();
 
     let host = "127.0.0.1:16448";
+    // const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
+    // fs.writeFileSync("xxx.png", buffer)
+
+
 
     //     ("194 61", "le dang", "dts"),
     //     ("19 71", "lai tu23", "dts"),
@@ -222,13 +227,14 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     //     ("206 41", "phan hieu", "dts"),          15
     // ]
 
+    // await swipe(host, 115, 295, 115, 0, 2000);
 
-    let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\206 41.png`;
+    // let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\206 41.png`;
+    let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\check-table-bst.png`;
 
     let matchedPoints = await captureAndMatch({
         deviceId: host,
-        region: { left: 220, top: 80, width: 120, height: 380 },
-        // region: { left: 0, top: 100, width: 250, height: 100 },
+        region: { left: 0, top: 170, width: 180, height: 100 },
         templateImages: [
             TARGET_IMAGE
         ],
@@ -238,9 +244,6 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     let target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
 
     console.log(target);
-
-
-
 })()
 
 
