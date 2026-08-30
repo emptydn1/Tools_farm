@@ -230,13 +230,22 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\check-table-bst.png`;
     // let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\city\\2.png`;
 
-    let matchedPoints = await captureAndMatch({
-        deviceId: host,
-        region: { left: 830, top: 80, width: 100, height: 50 },
-        templateImages: templateImagesCitys,
-    });
 
-    console.log(matchedPoints);
+    let buffer = fs.readFileSync("./2.png")
+    // const buffer = await runAdb(["-s", deviceId, "exec-out", "screencap", "-p"]);
+    const pngBuffer = await sharp(buffer)
+        .extract({ left: 480, top: 430, width: 320, height: 70 })
+        .toBuffer();
+
+    fs.writeFileSync("222.png", pngBuffer)
+
+    // let matchedPoints = await captureAndMatch({
+    //     deviceId: host,
+    //     region: { left: 830, top: 80, width: 100, height: 50 },
+    //     templateImages: templateImagesCitys,
+    // });
+
+    // console.log(matchedPoints);
 
     // tuong duong
     // laman

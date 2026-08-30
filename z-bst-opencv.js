@@ -153,6 +153,8 @@ let nhan_tra_nv_bst = async (host) => {
     await sleep(500);
     await tap(host, 190, 157)  // to doi
     await sleep(500);
+    await tap(host, 190, 157)  // to doi
+    await sleep(500);
     await tap(host, 184, 111)  // huy? hien thong tin chu pt
     await sleep(500);
     await tap(host, 400, 440)  // roi doi
@@ -311,6 +313,15 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                         while (isPaused && !isKilled) await sleep(300);
                         if (isKilled) break;
 
+                        // nút hủy và khiêu chiến bst
+                        await waitUntilMatch({
+                            deviceId: host,
+                            region: { left: 480, top: 430, width: 320, height: 70 },
+                            templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b3.png`],
+                            matchThreshold: 0.8,
+                        });
+
+
                         const matchedPoints = await captureAndMatch({
                             deviceId: host,
                             region: { left: 600, top: 120, width: 120, height: 40 },
@@ -328,13 +339,13 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                                 if (found) {
                                     console.log(found);
 
-                                    // bảng nhiêm vụ sat thủ
-                                    await waitUntilMatch({
-                                        deviceId: host,
-                                        region: { left: 350, top: 40, width: 300, height: 60 },
-                                        templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b3.png`],
-                                        matchThreshold: 0.8,
-                                    });
+                                    // // bảng nhiêm vụ sat thủ
+                                    // await waitUntilMatch({
+                                    //     deviceId: host,
+                                    //     region: { left: 350, top: 40, width: 300, height: 60 },
+                                    //     templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b3.png`],
+                                    //     matchThreshold: 0.8,
+                                    // });
 
                                     await tap(host, 730, 460); // khiêu chiến bst
 
