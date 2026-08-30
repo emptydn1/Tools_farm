@@ -359,7 +359,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                                             isScrollDown = true;
                                         }
 
-                                        await sleep(1000);
+                                        await sleep(3000);
 
                                         // check cuộn xuống nhiêm vụ sat thủ thành công
                                         const result = await captureAndMatch({
