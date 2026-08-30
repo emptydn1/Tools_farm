@@ -153,8 +153,6 @@ let nhan_tra_nv_bst = async (host) => {
     await sleep(500);
     await tap(host, 190, 157)  // to doi
     await sleep(500);
-    await tap(host, 190, 157)  // to doi
-    await sleep(500);
     await tap(host, 184, 111)  // huy? hien thong tin chu pt
     await sleep(500);
     await tap(host, 400, 440)  // roi doi
