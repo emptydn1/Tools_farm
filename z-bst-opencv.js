@@ -65,8 +65,8 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 //     // 16928, 16960, 16992, 17024, 17056
 // ]
 
-// const ports = [16448]
-const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
+const ports = [16448]
+// const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
 
 
 
@@ -134,7 +134,7 @@ async function captureAndMatch({ deviceId, region, templateImages, matchThreshol
         .extract(region)
         .toBuffer();
 
-    // fs.writeFileSync("xzcxzc.png", pngBuffer)
+    // fs.writeFileSync("xxxxxxxx.png", pngBuffer)
     const { matchedPoints } = await findMatchingRegionsAndroids({
         buffer: pngBuffer,
         templateImages,
@@ -197,6 +197,8 @@ let logout = async (host) => {
 
 async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold = 0.8, interval = 300 }) {
     while (true) {
+        console.log("Xxx");
+
         const result = await captureAndMatch({ deviceId, region, templateImages, matchThreshold });
 
         if (result.length > 0) {
@@ -212,34 +214,11 @@ async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold
 async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pathMatchforB, checkFirst = false }) {
     let done = false; // true nếu check_to_doi thành công (match b4)
 
-    if (checkFirst) {
-        await sleep(500);
-        await tap(host, 190, 157); // to doi
-        await sleep(500);
-        await tap(host, 190, 157); // to doi
-        await sleep(500);
-        await tap(host, 190, 157); // to doi
-        await sleep(1000);
-
-        const check = await captureAndMatch({
-            deviceId: host,
-            region: { left: 0, top: 70, width: 530, height: 270 },
-            templateImages: [`${pathMatchforB}\\b4.png`],
-            matchThreshold: 0.8,
-        });
-        if (check.length > 0) {
-            await tap(host, 60, 385);
-            await tap(host, 60, 385);
-            return true; // đã OK sẵn, khỏi cần vào lại tổ đội
-        }
-    }
-
-
     while (!done) {
         // chờ login hoặc đã lên trên map đánh bst
         await waitUntilMatch({
             deviceId: host,
-            region: { left: 0, top: 100, width: 250, height: 100 },
+            region: { left: 150, top: 50, width: 180, height: 50 },
             templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b2.png`],
             matchThreshold: 0.8,
         });
@@ -261,7 +240,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
 
         if (!target) {
             await swipe(host, 475, 365, 475, 155, 750);
-            await sleep(4000);
+            await sleep(3000);
             matchedPoints = await captureAndMatch({
                 deviceId: host,
                 region: { left: 220, top: 80, width: 120, height: 380 },
@@ -278,7 +257,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
             await tap(host, 60, 385);   // click ra ngoai goc 8h
         }
 
-        await sleep(5000);
+        await sleep(1000);
         await tap(host, 190, 157); // to doi
         await sleep(1000);
 
@@ -292,6 +271,8 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
         if (matchedPoints2.length > 0) {
             await tap(host, 60, 385);   // click ra ngoai goc 8h
             await tap(host, 60, 385);   // click ra ngoai goc 8h
+            await sleep(500);
+            await tap(host, 60, 155);   // tab nv
             done = true; // check_to_doi thành công
         } else {
             await tap(host, 60, 385);   // click ra ngoai goc 8h
@@ -359,15 +340,14 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                                     // Bước 1: vào tổ đội -> check cho tới khi thành công lần đầu
                                     await runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pathMatchforB });
 
+                                    await sleep(1000)
 
-
-
+                                    // Bước 2
                                     let checkSwipe = false;
                                     let isScrollDown = true
                                     while (!checkSwipe) {
                                         if (isScrollDown) {
                                             // cuộn xuống
-                                            await swipe(host, 115, 295, 115, 0, 2000);
                                             await swipe(host, 115, 295, 115, 0, 2000);
                                             isScrollDown = false;
                                         } else {
@@ -379,20 +359,17 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                                         await sleep(1000);
 
                                         // check cuộn xuống nhiêm vụ sat thủ thành công
-                                        const result = await waitUntilMatch({
+                                        const result = await captureAndMatch({
                                             deviceId: host,
                                             region: { left: 0, top: 170, width: 180, height: 80 },
                                             templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\check-table-bst.png`],
                                             matchThreshold: 0.8,
                                         });
+
                                         if (result.length > 0) {
-                                            checkSwipe = true; // thoát vòng lặp khi match được
+                                            checkSwipe = true;
                                         }
                                     }
-
-
-
-
 
                                     // Bước 3:
                                     let loop2 = true;
