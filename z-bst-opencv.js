@@ -359,7 +359,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                                             isScrollDown = true;
                                         }
 
-                                        await sleep(3000);
+                                        await sleep(1000);
 
                                         // check cuộn xuống nhiêm vụ sat thủ thành công
                                         const result = await captureAndMatch({
@@ -380,7 +380,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                                         while (isPaused && !isKilled) await sleep(300);
                                         if (isKilled) break;
 
-                                        await tap(host, 100, 200);
+                                        await tap(host, 100, 220);
                                         await sleep(5000);
 
                                         // là citys
