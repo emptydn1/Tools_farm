@@ -328,9 +328,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                                 .toBuffer();
                             const { matchedPoints: matchedPoints1 } = await findMatchingRegionsAndroids({
                                 buffer: pngBuffer1,
-                                templateImages: [
-                                    [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b4.png`],
-                                ],
+                                templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b4.png`],
                                 matchThreshold: 0.8,
                             });
 
