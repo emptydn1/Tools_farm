@@ -33,9 +33,10 @@ git reset --hard origin/main
 
 
 
+250 165
+720 170
 
-
-
+180
 
 // [
 //     ("135 65", "vo quang", "pnst"),          2

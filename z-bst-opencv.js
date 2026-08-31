@@ -320,15 +320,16 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                         let checkTaskAndDKlogout = false;
                         while (!checkTaskAndDKlogout) {
                             const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
-                            const pngBuffer = await sharp(buffer)
-                                .extract({ left: 480, top: 430, width: 320, height: 70 })
-                                .toBuffer();
+
 
                             // nút hủy và khiêu chiến bst
+                            const pngBuffer1 = await sharp(buffer)
+                                .extract({ left: 480, top: 430, width: 320, height: 70 })
+                                .toBuffer();
                             const { matchedPoints: matchedPoints1 } = await findMatchingRegionsAndroids({
-                                buffer: pngBuffer,
+                                buffer: pngBuffer1,
                                 templateImages: [
-                                    [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b3.png`],
+                                    [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b4.png`],
                                 ],
                                 matchThreshold: 0.8,
                             });
@@ -340,22 +341,18 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
 
 
                             // nếu không tìm thấy vị trí thì kiểm tra xem end chưa
+                            const pngBuffer2 = await sharp(buffer)
+                                .extract({ left: 240, top: 170, width: 480, height: 200 })
+                                .toBuffer();
                             const { matchedPoints } = await findMatchingRegionsAndroids({
-                                buffer,
-                                templateImages: [
-                                    `${pathMatchforB}\\b2.png`,
-                                    `${pathMatchforB}\\b3.png`,
-                                ],
+                                buffer: pngBuffer2,
+                                templateImages: [`${pathMatchforB}\\b2.png`, `${pathMatchforB}\\b3.png`],
                                 matchThreshold: 0.8,
                             });
 
                             if (matchedPoints.length > 0) {
-                                for (const { x, y, mathImagePath } of matchedPoints) {
-                                    if (mathImagePath == `${pathMatchforB}\\b2.png` || mathImagePath == `${pathMatchforB}\\b3.png`) {
-                                        await logout(host)
-                                        return;
-                                    }
-                                }
+                                await logout(host)
+                                return;
                             }
                             await sleep(500);
                         }

@@ -239,11 +239,11 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
     // fs.writeFileSync("222.png", pngBuffer)
 
-    // let matchedPoints = await captureAndMatch({
-    //     deviceId: host,
-    //     region: { left: 830, top: 80, width: 100, height: 50 },
-    //     templateImages: templateImagesCitys,
-    // });
+    let matchedPoints = await captureAndMatch({
+        deviceId: host,
+        region: { left: 480, top: 430, width: 320, height: 70 },
+        templateImages: templateImagesCitys,
+    });
 
     // console.log(matchedPoints);
 
