@@ -317,8 +317,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                         while (isPaused && !isKilled) await sleep(300);
                         if (isKilled) break;
 
-                        let checkTaskAndDKlogout = false;
-                        while (!checkTaskAndDKlogout) {
+                        while (true) {
                             const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
 
 
@@ -334,10 +333,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                                 matchThreshold: 0.8,
                             });
 
-                            if (matchedPoints1.length > 0) {
-                                checkTaskAndDKlogout = true;
-                                break;
-                            }
+                            if (matchedPoints1.length > 0) break;
 
 
                             // nếu không tìm thấy vị trí thì kiểm tra xem end chưa
@@ -356,15 +352,6 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                             }
                             await sleep(500);
                         }
-
-
-
-
-
-
-
-
-
 
 
                         const matchedPoints = await captureAndMatch({
