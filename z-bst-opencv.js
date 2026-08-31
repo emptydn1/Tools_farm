@@ -317,6 +317,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                         while (isPaused && !isKilled) await sleep(300);
                         if (isKilled) break;
 
+
                         while (true) {
                             const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
 
@@ -382,21 +383,30 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
 
                                     // Bước 1: vào tổ đội -> check cho tới khi thành công lần đầu
                                     await runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pathMatchforB });
-
                                     await sleep(1000)
+
 
                                     // Bước 2
                                     let checkSwipe = false;
-                                    let isScrollDown = true
+                                    let isScrollDown = true;
+                                    let pairCount = 0;        // đếm số lần đã cuộn xuống-lên hoàn chỉnh
+                                    let useAltTarget = false; // false: cuộn xuống tới y=0, true: cuộn xuống tới y=54
+
                                     while (!checkSwipe) {
                                         if (isScrollDown) {
                                             // cuộn xuống
-                                            await swipe(host, 115, 295, 115, 0, 2000);
+                                            const targetY = useAltTarget ? 54 : 0;
+                                            await swipe(host, 115, 295, 115, targetY, 2000);
                                             isScrollDown = false;
                                         } else {
                                             // cuộn lên
                                             await swipe(host, 115, 200, 115, 700, 500);
                                             isScrollDown = true;
+
+                                            pairCount++;
+                                            if (pairCount % 3 === 0) {
+                                                useAltTarget = !useAltTarget; // sau mỗi 3 lần xuống-lên thì đổi target
+                                            }
                                         }
 
                                         await sleep(1000);
@@ -413,6 +423,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                                             checkSwipe = true;
                                         }
                                     }
+
 
                                     // Bước 3:
                                     let loop2 = true;

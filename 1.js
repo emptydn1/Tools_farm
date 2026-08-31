@@ -223,7 +223,7 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     );
 
 
-    // await swipe(host, 115, 295, 115, 0, 2000);
+    await swipe(host, 115, 295, 115, 54, 2000);
 
     // let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\206 41.png`;
     // let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b2.png`;
@@ -239,11 +239,11 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
     // fs.writeFileSync("222.png", pngBuffer)
 
-    let matchedPoints = await captureAndMatch({
-        deviceId: host,
-        region: { left: 480, top: 430, width: 320, height: 70 },
-        templateImages: templateImagesCitys,
-    });
+    // let matchedPoints = await captureAndMatch({
+    //     deviceId: host,
+    //     region: { left: 480, top: 430, width: 320, height: 70 },
+    //     templateImages: templateImagesCitys,
+    // });
 
     // console.log(matchedPoints);
 
