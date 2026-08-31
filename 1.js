@@ -231,13 +231,13 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\city\\2.png`;
 
 
-    let buffer = fs.readFileSync("./2.png")
+    // let buffer = fs.readFileSync("./2.png")
     // const buffer = await runAdb(["-s", deviceId, "exec-out", "screencap", "-p"]);
-    const pngBuffer = await sharp(buffer)
-        .extract({ left: 480, top: 430, width: 320, height: 70 })
-        .toBuffer();
+    // const pngBuffer = await sharp(buffer)
+    //     .extract({ left: 480, top: 430, width: 320, height: 70 })
+    //     .toBuffer();
 
-    fs.writeFileSync("222.png", pngBuffer)
+    // fs.writeFileSync("222.png", pngBuffer)
 
     // let matchedPoints = await captureAndMatch({
     //     deviceId: host,

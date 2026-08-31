@@ -190,11 +190,6 @@ let logout_and_login = async (host) => {
 }
 
 let logout = async (host) => {
-    await sleep(500)
-    await tap(host, 60, 385);   // click ra ngoai goc 8h
-    await sleep(500)
-    await tap(host, 60, 385);   // click ra ngoai goc 8h
-    await sleep(500)
     await tap(host, 946, 257)
     await sleep(800);
     await tap(host, 946, 337)
@@ -317,57 +312,13 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                         while (isPaused && !isKilled) await sleep(300);
                         if (isKilled) break;
 
-                        let checkTaskAndDKlogout = false;
-                        while (!checkTaskAndDKlogout) {
-                            const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
-                            const pngBuffer = await sharp(buffer)
-                                .extract({ left: 480, top: 430, width: 320, height: 70 })
-                                .toBuffer();
-
-                            // nút hủy và khiêu chiến bst
-                            const { matchedPoints: matchedPoints1 } = await findMatchingRegionsAndroids({
-                                buffer: pngBuffer,
-                                templateImages: [
-                                    [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b3.png`],
-                                ],
-                                matchThreshold: 0.8,
-                            });
-
-                            if (matchedPoints1.length > 0) {
-                                checkTaskAndDKlogout = true;
-                                break;
-                            }
-
-
-                            // nếu không tìm thấy vị trí thì kiểm tra xem end chưa
-                            const { matchedPoints } = await findMatchingRegionsAndroids({
-                                buffer,
-                                templateImages: [
-                                    `${pathMatchforB}\\b2.png`,
-                                    `${pathMatchforB}\\b3.png`,
-                                ],
-                                matchThreshold: 0.8,
-                            });
-
-                            if (matchedPoints.length > 0) {
-                                for (const { x, y, mathImagePath } of matchedPoints) {
-                                    if (mathImagePath == `${pathMatchforB}\\b2.png` || mathImagePath == `${pathMatchforB}\\b3.png`) {
-                                        await logout(host)
-                                        return;
-                                    }
-                                }
-                            }
-                            await sleep(500);
-                        }
-
-
-
-
-
-
-
-
-
+                        // // nút hủy và khiêu chiến bst
+                        // await waitUntilMatch({
+                        //     deviceId: host,
+                        //     region: { left: 480, top: 430, width: 320, height: 70 },
+                        //     templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b3.png`],
+                        //     matchThreshold: 0.8,
+                        // });
 
 
                         const matchedPoints = await captureAndMatch({
@@ -377,6 +328,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                         });
 
                         if (matchedPoints.length > 0) {
+
                             for (const { x, y, mathImagePath } of matchedPoints) {
                                 const found = data.find(item => {
                                     const expectedPath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\${item.pos}.png`;
@@ -451,6 +403,28 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
                                             await nhan_tra_nv_bst(host)
                                             loop2 = false;
                                         }
+                                    }
+                                }
+                            }
+                        } else {
+                            // nếu không tìm thấy vị trí thì kiểm tra xem end chưa
+                            const pngBuffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
+                            const { matchedPoints } = await findMatchingRegionsAndroids({
+                                buffer: pngBuffer,
+                                templateImages: [
+                                    `${pathMatchforB}\\b2.png`,
+                                    `${pathMatchforB}\\b3.png`,
+                                ],
+                                matchThreshold: 0.8,
+                            });
+
+                            if (matchedPoints.length > 0) {
+                                for (const { x, y, mathImagePath } of matchedPoints) {
+                                    if (mathImagePath == `${pathMatchforB}\\b2.png` || mathImagePath == `${pathMatchforB}\\b3.png`) {
+                                        await tap(host, 60, 385);   // click ra ngoai goc 8h
+                                        await tap(host, 60, 385);   // click ra ngoai goc 8h
+                                        await logout(host)
+                                        return;
                                     }
                                 }
                             }
