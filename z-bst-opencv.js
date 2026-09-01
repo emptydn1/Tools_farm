@@ -4,7 +4,7 @@ import sharp from "sharp";
 import { sleep } from './utils/utils.js';
 import { findMatchingRegionsAndroids } from './utils/opencvNodejs.js';
 import readline from "readline";
-import Tesseract from "tesseract.js";
+// import Tesseract from "tesseract.js";
 // import { distance } from "fastest-levenshtein";
 
 
