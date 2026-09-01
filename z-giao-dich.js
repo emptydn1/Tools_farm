@@ -5,7 +5,6 @@ import { sleep } from './utils/utils.js';
 import { findMatchingRegionsAndroids } from './utils/opencvNodejs.js';
 import readline from "readline";
 import Tesseract from "tesseract.js";
-// import { distance } from "fastest-levenshtein";
 
 
 function runAdb(args) {
@@ -53,22 +52,8 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 // ────────────────────────────────────────────────────────────
 // ────────────────────────────────────────────────────────────
 
-
-// const data = JSON.parse(fs.readFileSync("answer_Tesseract.json", "utf8"));
-// const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832];
-// const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928];
-// const ports = [
-//     16448,
-//     //  16480, 16512, 16544, 16576,
-//     // 16608, 16640, 16672, 16704, 16736,
-//     // 16768, 16800, 16832, 16864, 16896,
-//     // 16928, 16960, 16992, 17024, 17056
-// ]
-
-// const ports = [16448]
-const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
-
-
+const ports = [16448]
+// const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
 
 
 
@@ -99,37 +84,6 @@ function setupKeyboard() {
 
     console.log('Phím điều khiển: [i] Tiếp tục  [o] Tạm dừng  [k] Kill all\n');
 }
-
-const data = [
-    // pnst
-    { pos: "148 68", name: "lam tai", group: "pnst" },
-    { pos: "52 46", name: "nong tu", group: "pnst" },
-    { pos: "135 65", name: "vo quang", group: "pnst" },
-    { pos: "14 35", name: "phan my44", group: "pnst" },
-    { pos: "100 74", name: "che linh4", group: "pnst" },
-    { pos: "15 14", name: "hoang tram", group: "pnst" },
-    { pos: "168 65", name: "nong nhu", group: "pnst" },
-
-    // hhnd
-    { pos: "8 9", name: "phan trang", group: "hhnd" },
-    { pos: "46 11", name: "duong hoang", group: "hhnd" },
-    { pos: "9 29", name: "tham diep", group: "hhnd" },
-    { pos: "34 36", name: "trinh dao", group: "hhnd" },
-    { pos: "67 20", name: "vo minh", group: "hhnd" },
-    { pos: "65 30", name: "phan long11", group: "hhnd" },
-    { pos: "67 8", name: "bui sam5", group: "hhnd" },
-
-    // dts
-    { pos: "63 79", name: "na linh", group: "dts" },
-    { pos: "35 69", name: "che hong22", group: "dts" },
-    { pos: "194 61", name: "le dang", group: "dts" },
-    { pos: "206 41", name: "phan hieu", group: "dts" },
-    { pos: "83 96", name: "doan vinh", group: "dts" },
-    { pos: "19 71", name: "lai tu23", group: "dts" },
-];
-
-
-
 
 async function captureAndMatch({ deviceId, region, templateImages, matchThreshold = 0.95 }) {
     const buffer = await runAdb(["-s", deviceId, "exec-out", "screencap", "-p"]);
@@ -175,26 +129,6 @@ let nhan_tra_nv_bst = async (host) => {
     await tap(host, 730, 460)  // tắt thông báo thưởng
     await sleep(500);
     await tap(host, 730, 460)  // nhan nv
-}
-
-let logout_and_login = async (host) => {
-    await tap(host, 946, 257)
-    await sleep(800);
-    await tap(host, 946, 337)
-    await sleep(800);
-    await tap(host, 153, 115)
-    await sleep(500);
-    await tap(host, 800, 250)
-    await sleep(500);
-
-    await tap(host, 490, 395)
-    await sleep(1000);
-    await tap(host, 585, 360)
-
-    await sleep(2000);
-    await tap(host, 490, 435) // nhấn nút đăng nhập
-    await sleep(1000);
-    await tap(host, 870, 455) // nhấn nút vào game
 }
 
 let logout = async (host) => {
@@ -303,6 +237,9 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
     try {
         setupKeyboard();
         await connectAll();
+        const worker_get_number = await Tesseract.createWorker("vie");
+        await worker_get_number.setParameters({ tessedit_char_whitelist: "0123456789(),./", });
+
         const templateImagesPos = data.map(item => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\${item.pos}.png`);
         const templateImagesTodoi = data.map(item => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\${item.pos}.png`);
         const templateImagesCitys = Array.from({ length: 7 }, (_, i) => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\city\\${i + 1}.png`);
@@ -463,8 +400,12 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pat
             workerPromises.push(p);
         }
 
-        while (!isKilled) await sleep(500);
+        while (!isKilled) {
+            await sleep(500);
+        }
+
         await Promise.all(workerPromises);
+        await worker_get_number.terminate();
 
         console.log("Tất cả đã dừng!");
         process.exit(0);

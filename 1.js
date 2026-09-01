@@ -214,8 +214,8 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     await connectAll();
 
     let host = "127.0.0.1:16448";
-    // const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
-    // fs.writeFileSync("xxx.png", buffer)
+    const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
+    fs.writeFileSync("xxx.png", buffer)
 
     const templateImagesCitys = Array.from(
         { length: 7 },
@@ -223,7 +223,7 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     );
 
 
-    await swipe(host, 115, 295, 115, 54, 2000);
+    // await swipe(host, 115, 295, 115, 54, 2000);
 
     // let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\206 41.png`;
     // let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b2.png`;
