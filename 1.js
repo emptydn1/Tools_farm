@@ -210,17 +210,40 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
 
 
+    // thông báo giao dịch
+    // .extract({ left: 270, top: 370, width: 120, height: 70 })
+
+    // khung tien
+    // .extract({ left: 240, top: 140, width: 140, height: 50 })
+
+    // unlock and lock
+    // .extract({ left: 650, top: 450, width: 250, height: 70 })
+
+
 
     await connectAll();
 
-    let host = "127.0.0.1:16448";
+    // let host = "127.0.0.1:16448";
     const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
-    fs.writeFileSync("xxx.png", buffer)
+    // const pngBuffer = await sharp(buffer)
+    //     .extract({ left: 410, top: 30, width: 150, height: 70 })
+    //     .toBuffer();
 
-    const templateImagesCitys = Array.from(
-        { length: 7 },
-        (_, i) => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\city\\${i + 1}.png`
-    );
+    fs.writeFileSync("xxxxxxxx.png", buffer)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     // await swipe(host, 115, 295, 115, 54, 2000);
@@ -231,25 +254,22 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\city\\2.png`;
 
 
-    // let buffer = fs.readFileSync("./2.png")
-    // const buffer = await runAdb(["-s", deviceId, "exec-out", "screencap", "-p"]);
+    // let buffer = fs.readFileSync("./7d.png")
+    // // const buffer = await runAdb(["-s", deviceId, "exec-out", "screencap", "-p"]);
     // const pngBuffer = await sharp(buffer)
-    //     .extract({ left: 480, top: 430, width: 320, height: 70 })
+    //     .extract({ left: 100, top: 165, width: 150, height: 120 })
     //     .toBuffer();
+    // fs.writeFileSync("xxxxxxxx.png", pngBuffer)
 
-    // fs.writeFileSync("222.png", pngBuffer)
-
-    // let matchedPoints = await captureAndMatch({
-    //     deviceId: host,
-    //     region: { left: 480, top: 430, width: 320, height: 70 },
-    //     templateImages: templateImagesCitys,
+    // const { matchedPoints } = await findMatchingRegionsAndroids({
+    //     buffer: pngBuffer,
+    //     templateImages: [
+    //         `C:\\Users\\huy\\Desktop\\Tools_farm\\khach_xac_nhan_truoc.png`,
+    //     ],
+    //     matchThreshold: 0.95,
     // });
 
     // console.log(matchedPoints);
-
-    // tuong duong
-    // laman
-    // pt -  day li - td
 
     // let target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
 
