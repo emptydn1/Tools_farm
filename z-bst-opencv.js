@@ -157,7 +157,15 @@ let nhan_tra_nv_bst = async (host) => {
     await tap(host, 184, 111)  // huy? hien thong tin chu pt
     await sleep(500);
     await tap(host, 400, 440)  // roi doi
-    await sleep(1000);
+    await sleep(500);
+    await tap(host, 820, 270)  // nc npc
+    await sleep(100);
+    await tap(host, 820, 270)  // nc npc
+    await sleep(100);
+    await tap(host, 820, 270)  // nc npc
+    await sleep(100);
+    await tap(host, 820, 270)  // nc npc
+    await sleep(100);
     await tap(host, 820, 270)  // nc npc
     await sleep(1000);
     await tap(host, 180, 295)  // click tham gia nv
@@ -165,7 +173,7 @@ let nhan_tra_nv_bst = async (host) => {
     await tap(host, 730, 460)  // nhan thuong
     await sleep(1000);
     await tap(host, 730, 460)  // tắt thông báo thưởng
-    await sleep(1000);
+    await sleep(500);
     await tap(host, 730, 460)  // nhan nv
 }
 
