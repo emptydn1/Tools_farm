@@ -54,19 +54,14 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 // ────────────────────────────────────────────────────────────
 
 
-// const data = JSON.parse(fs.readFileSync("answer_Tesseract.json", "utf8"));
-// const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832];
-// const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928];
-// const ports = [
-//     16448,
-//     //  16480, 16512, 16544, 16576,
-//     // 16608, 16640, 16672, 16704, 16736,
-//     // 16768, 16800, 16832, 16864, 16896,
-//     // 16928, 16960, 16992, 17024, 17056
-// ]
+const ports = [
+    16448,
+    16480, 16512, 16544, 16576,
+    16608, 16640, 16672, 16704, 16736,
+    // 16768, 16800, 16832, 16864, 16896,
+    // 16928, 16960, 16992, 17024, 17056
+]
 
-const ports = [16448]
-// const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
 
 
 
@@ -222,17 +217,29 @@ async function checkRegionsParallel(buffer, regions) {
                         let results = await waitUntilMatch({
                             deviceId: host,
                             region: { left: 270, top: 370, width: 120, height: 70 },
-                            templateImages: [`${path_giao_dich}\\gd.png`],
+                            templateImages: [`${path_giao_dich}\\thong_bao.png`],
                             matchThreshold: 0.8,
                         });
 
                         if (results.length > 0) {
                             await tap(host, 333, 388);
                             await sleep(500);
-                            await tap(host, 792, 116);
+                        }
+
+
+                        let results2 = await waitUntilMatch({
+                            deviceId: host,
+                            region: { left: 160, top: 120, width: 170, height: 280 },
+                            templateImages: [`${path_giao_dich}\\giao_dien_to_doi.png`],
+                            matchThreshold: 0.8,
+                        });
+
+                        if (results2.length > 0) {
+                            await tap(host, results2[0].x + 538 + 160, results2[0].y + 110);
                             await sleep(500);
                             await tap(host, 797, 478);  // khóa
                         }
+
 
                         let loop = true;
                         while (loop) {
@@ -254,7 +261,6 @@ async function checkRegionsParallel(buffer, regions) {
                                 loop = false;
                             }
                         }
-
 
 
 
