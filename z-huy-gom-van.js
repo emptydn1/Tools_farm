@@ -313,7 +313,6 @@ const shouldSkipFirstBatch = skipFirstBatchFlag === "e";
 
 (async () => {
     try {
-        setupKeyboard();
         await connectAll();
         let path_giao_dich = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-giao-dich\\gom-van\\huy`;
         const hosts = ports.map(port => `127.0.0.1:${port}`);
