@@ -61,10 +61,10 @@ async function input_text(host, text) {
 
 const ports = [
     16448,
-    // 16480, 16512, 16544, 16576,
-    // 16608, 16640, 16672, 16704, 16736,
-    // 16768, 16800, 16832, 16864, 16896,
-    // 16928, 16960, 16992, 17024, 17056
+    16480, 16512, 16544, 16576,
+    16608, 16640, 16672, 16704, 16736,
+    16768, 16800, 16832, 16864, 16896,
+    16928, 16960, 16992, 17024, 17056
 ]
 
 
@@ -102,43 +102,6 @@ function setupKeyboard() {
 
 
 
-let logout_and_login = async (host) => {
-    await tap(host, 946, 257)
-    await sleep(800);
-    await tap(host, 946, 337)
-    await sleep(800);
-    await tap(host, 153, 115)
-    await sleep(500);
-    await tap(host, 800, 250)
-    await sleep(500);
-
-    await tap(host, 490, 395)
-    await sleep(1000);
-    await tap(host, 585, 360)
-
-    await sleep(2000);
-    await tap(host, 490, 435) // nhấn nút đăng nhập
-    await sleep(1000);
-    await tap(host, 870, 455) // nhấn nút vào game
-}
-
-let logout = async (host) => {
-    await sleep(500)
-    await tap(host, 60, 385);   // click ra ngoai goc 8h
-    await sleep(500)
-    await tap(host, 60, 385);   // click ra ngoai goc 8h
-    await sleep(500)
-    await tap(host, 946, 257)
-    await sleep(800);
-    await tap(host, 946, 337)
-    await sleep(800);
-    await tap(host, 153, 115)
-    await sleep(500);
-    await tap(host, 800, 250)
-    await sleep(500);
-}
-
-
 async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold = 0.8, interval = 300 }) {
     while (true) {
         const result = await captureAndMatch({ deviceId, region, templateImages, matchThreshold });
@@ -167,75 +130,6 @@ async function captureAndMatch({ deviceId, region, templateImages, matchThreshol
     });
 
     return matchedPoints;
-}
-
-
-async function checkRegionsParallel(buffer, regions) {
-    // mẫu
-    //    const regions = [
-    //         {
-    //             name: "giao_dich_va_khoa",
-    //             area: { left: 270, top: 370, width: 120, height: 70 },
-    //             templates: [
-    //                 `${path_giao_dich}\\gd.png`,
-    //             ],
-    //         },
-    //     ];
-
-    const results = await Promise.all(
-        regions.map(async (region) => {
-            const cropped = await sharp(buffer).extract(region.area).toBuffer();
-            const { matchedPoints } = await findMatchingRegionsAndroids({
-                buffer: cropped,
-                templateImages: region.templates,
-                matchThreshold: region.threshold ?? 0.8,
-            });
-            return { name: region.name, matchedPoints };
-        })
-    );
-    return results.filter(r => r.matchedPoints.length > 0);
-}
-
-
-
-async function waitUntilAllMatch(hosts, templatePath) {
-    const BATCH_SIZE = 16;
-    function chunkArray(arr, size) {
-        const chunks = [];
-        for (let i = 0; i < arr.length; i += size) {
-            chunks.push(arr.slice(i, i + size));
-        }
-        return chunks;
-    }
-
-    const done = new Set();
-
-    while (done.size < hosts.length) {
-        const remaining = hosts.filter(h => !done.has(h));
-        const batches = chunkArray(remaining, BATCH_SIZE);
-
-        for (const batch of batches) {
-            const results = await Promise.all(
-                batch.map(host =>
-                    captureAndMatch(host, templatePath).catch(err => {
-                        console.error(`Lỗi ở ${host}:`, err.message);
-                        return { host, isOk: false };
-                    })
-                )
-            );
-
-            for (const { host, isOk } of results) {
-                if (isOk) {
-                    console.log(`ok - ${host}`);
-                    done.add(host);
-                }
-            }
-
-            if (done.size < hosts.length) {
-                await new Promise(r => setTimeout(r, 500));
-            }
-        }
-    }
 }
 
 
@@ -450,7 +344,16 @@ async function runGiaoDich(hosts, config, path_giao_dich) {
     );
 }
 
+const BATCH_SIZE = 10;
 
+// Chia mảng thành từng nhóm nhỏ kích thước `size`
+function chunkArray(arr, size) {
+    const chunks = [];
+    for (let i = 0; i < arr.length; i += size) {
+        chunks.push(arr.slice(i, i + size));
+    }
+    return chunks;
+}
 
 const arg = process.argv[2];
 
@@ -458,142 +361,39 @@ const arg = process.argv[2];
     try {
         setupKeyboard();
         await connectAll();
-
         let path_giao_dich = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-giao-dich\\gom-van\\huy`;
         const hosts = ports.map(port => `127.0.0.1:${port}`);
 
-        const workerPromises = [];
-        for (const [index, port] of ports.entries()) {
-            await sleep(500);
+        // Chia toàn bộ host thành từng nhóm 10 con, chạy tuần tự nhóm này xong mới tới nhóm kia
+        const batches = chunkArray(hosts, BATCH_SIZE);
 
-            const p = (async () => {
-                const host = `127.0.0.1:${port}`;
+        while (!isKilled) {
+            while (isPaused && !isKilled) await sleep(300);
+            if (isKilled) break;
+
+            for (const [batchIndex, batchHosts] of batches.entries()) {
+                if (isKilled) break;
+                while (isPaused && !isKilled) await sleep(300);
+                if (isKilled) break;
+
+                console.log(`\n=== Chạy nhóm ${batchIndex + 1}/${batches.length} (${batchHosts.length} máy) ===`);
+                console.log(batchHosts.join(", "));
 
                 try {
-                    while (!isKilled) {
-                        while (isPaused && !isKilled) await sleep(300);
-                        if (isKilled) break;
-
-
-                        if (CONFIGS[arg]) {
-                            await runGiaoDich(hosts, CONFIGS[arg], path_giao_dich);
-                        }
-
-
-
-
-
-
-                        // if (arg == "1") {
-                        //     await Promise.all(hosts.map(async host => {
-                        //         await tap(host, 801, 300); // phù đến tây sơn thôn
-                        //         await sleep(500);
-                        //         await tap(host, 157, 335);
-                        //         await sleep(500);
-                        //         await tap(host, 175, 380);
-                        //         await sleep(500);
-                        //         await tap(host, 175, 380);
-                        //     }));
-
-                        //     await Promise.all(
-                        //         hosts.map((host) =>
-                        //             waitUntilMatch({
-                        //                 deviceId: host,
-                        //                 region: { left: 830, top: 80, width: 100, height: 50 },
-                        //                 templateImages: [`${path_giao_dich}\\tay_son_thon.png`],
-                        //                 matchThreshold: 0.95,
-                        //             })
-                        //         )
-                        //     );
-                        //     console.log("tay son thon");
-
-
-                        //     await sleep(1000);
-
-                        //     const positions = [
-                        //         { x: 291, y: 218 },
-                        //         { x: 357, y: 192 },
-                        //         { x: 412, y: 159 },
-                        //         { x: 476, y: 143 },
-                        //         { x: 660, y: 170 },
-                        //         { x: 350, y: 325 },
-                        //         { x: 418, y: 355 },
-                        //         { x: 658, y: 280 },
-                        //         { x: 627, y: 130 },
-                        //         { x: 728, y: 205 },
-                        //     ];
-
-                        //     await Promise.all(
-                        //         hosts.map((host, index) => {
-                        //             const pos = positions[index % positions.length]; // quay vòng nếu index vượt quá độ dài positions
-                        //             return tap(host, pos.x, pos.y);
-                        //         })
-                        //     );
-
-                        //     // mở bảng thông tin
-                        //     await sleep(500);
-                        //     await Promise.all(hosts.map(async host => await tap(host, 825, 145)));
-
-                        //     // giao dich
-                        //     await sleep(500);
-                        //     await Promise.all(hosts.map(async host => await tap(host, 770, 275)));
-
-                        //     await Promise.all(
-                        //         hosts.map((host) =>
-                        //             waitUntilMatch({
-                        //                 deviceId: host,
-                        //                 region: { left: 410, top: 50, width: 150, height: 70 },
-                        //                 templateImages: [`${path_giao_dich}\\form_giao_dich.png`],
-                        //                 matchThreshold: 0.8,
-                        //             })
-                        //         )
-                        //     );
-
-                        //     let loop = true;
-                        //     while (loop) {
-                        //         // lock
-                        //         await sleep(500);
-                        //         await Promise.all(hosts.map(async host => await tap(host, 790, 475)));
-
-                        //         await sleep(500);
-                        //         const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
-                        //         const pngBuffer = await sharp(buffer)
-                        //             .extract({ left: 70, top: 80, width: 150, height: 70 })
-                        //             .toBuffer();
-
-                        //         const { matchedPoints } = await findMatchingRegionsAndroids({
-                        //             buffer: pngBuffer,
-                        //             templateImages: [`${path_giao_dich}\\ki_nang.png`],
-                        //             matchThreshold: 0.8,
-                        //         });
-
-                        //         if (matchedPoints.length > 0) {
-                        //             await tap(host, 865, 100);
-                        //             loop = false;
-
-                        //             await sleep(1000);
-                        //             await tap(host, 946, 257);
-                        //             await sleep(800);
-                        //             await tap(host, 946, 337);
-                        //             await sleep(800);
-                        //             await tap(host, 153, 115);
-                        //             await sleep(500);
-                        //             await tap(host, 800, 250);
-                        //         }
-                        //     }
-                        // }
+                    if (CONFIGS[arg]) {
+                        await runGiaoDich(batchHosts, CONFIGS[arg], path_giao_dich);
+                    } else {
+                        console.error(`Không tìm thấy CONFIG cho arg="${arg}"`);
+                        isKilled = true;
+                        break;
                     }
                 } catch (e) {
-                    console.error(`[${host}] Error:`, e.toString());
+                    console.error(`[Batch ${batchIndex + 1}] Error:`, e.toString());
                 }
-
-                console.log(`[${host}] Stopped`);
-            })();
-            workerPromises.push(p);
+            }
         }
 
-        while (!isKilled) await sleep(500);
-        await Promise.all(workerPromises);
+
 
         console.log("Tất cả đã dừng!");
         process.exit(0);
