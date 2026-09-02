@@ -163,10 +163,10 @@ const CONFIGS = {
             { x: 410, y: 132 },
             { x: 487, y: 95 },
             { x: 466, y: 336 },
-            { x: 553, y: 100 },
             { x: 623, y: 151 },
             { x: 705, y: 205 },
             { x: 650, y: 250 },
+            { x: 553, y: 100 },
         ],
     },
 };
@@ -317,7 +317,7 @@ const shouldSkipFirstBatch = skipFirstBatchFlag === "e";
         let path_giao_dich = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-giao-dich\\gom-van\\huy`;
         const hosts = ports.map(port => `127.0.0.1:${port}`);
 
-        const batches = chunkArray(hosts, BATCH_SIZE);
+        let batches = chunkArray(hosts, BATCH_SIZE);
 
         if (shouldSkipFirstBatch) {
             const skipped = batches[0] ?? [];
