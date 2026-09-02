@@ -364,7 +364,7 @@ function chunkArray(arr, size) {
 }
 
 const arg = process.argv[2];
-
+const skipFirstBatchFlag = process.argv[3];
 const shouldSkipFirstBatch = skipFirstBatchFlag === "y";
 (async () => {
     try {
