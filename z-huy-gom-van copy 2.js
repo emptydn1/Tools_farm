@@ -69,8 +69,44 @@ const ports = [
 ]
 
 
+
+
+
+
+
+let isPaused = true; // o = dừng, i = tiếp tục
+let isKilled = false; // k = kill all
+
+function setupKeyboard() {
+    readline.emitKeypressEvents(process.stdin);
+    if (process.stdin.isTTY) process.stdin.setRawMode(true);
+
+    process.stdin.on('keypress', (str, key) => {
+        if (key.name === 'i') {
+            isPaused = false;
+            console.log('\n[CONTROL] ▶ Tiếp tục chạy');
+        } else if (key.name === 'o') {
+            isPaused = true;
+            console.log('\n[CONTROL] ⏸ Tạm dừng');
+        } else if (key.name === 'k') {
+            isKilled = true;
+            isPaused = false; // bỏ pause để các vòng while thoát được
+            console.log('\n[CONTROL] ✖ Kill all - đang dừng...');
+        }
+        if (key.ctrl && key.name === "c") {
+            process.exit();
+        }
+    });
+
+    console.log('Phím điều khiển: [i] Tiếp tục  [o] Tạm dừng  [k] Kill all\n');
+}
+
+
+
 async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold = 0.8, interval = 300 }) {
     while (true) {
+        if (isKilled) return [];
+
         const result = await captureAndMatch({ deviceId, region, templateImages, matchThreshold });
 
         if (result.length > 0) {
@@ -182,6 +218,8 @@ const CONFIGS = {
 async function runGiaoDichForHost(host, config, path_giao_dich, index) {
     const { navTaps, templateImage, logLabel, positions } = config;
 
+    if (isKilled) return;
+
     // chờ login hoặc đã lên trên map đánh bst
     await waitUntilMatch({
         deviceId: host,
@@ -190,13 +228,17 @@ async function runGiaoDichForHost(host, config, path_giao_dich, index) {
         matchThreshold: 0.8,
     });
 
+    if (isKilled) return;
     await sleep(1000);
 
     // 1. Điều hướng
     for (const { x, y } of navTaps) {
+        if (isKilled) return;
         await tap(host, x, y);
         await sleep(500);
     }
+
+    if (isKilled) return;
 
     // 2. Chờ tới đúng khu vực
     await waitUntilMatch({
@@ -207,17 +249,22 @@ async function runGiaoDichForHost(host, config, path_giao_dich, index) {
     });
     console.log(`[${host}] ${logLabel}`);
 
+    if (isKilled) return;
     await sleep(1000);
 
     // 3. Chọn vị trí (quay vòng nếu số host > số positions)
     const pos = positions[index % positions.length];
     await tap(host, pos.x, pos.y);
 
+    if (isKilled) return;
+
     // 4. Mở bảng thông tin và nhấn nút giao dịch
     await sleep(500);
     await tap(host, 825, 145);
     await sleep(500);
     await tap(host, 770, 275);
+
+    if (isKilled) return;
 
     await waitUntilMatch({
         deviceId: host,
@@ -229,6 +276,8 @@ async function runGiaoDichForHost(host, config, path_giao_dich, index) {
     // 5. Vòng nhập số lượng "999999" nếu khác 0
     let loopKhac0 = true;
     while (loopKhac0) {
+        if (isKilled) return;
+
         const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
         const pngBuffer = await sharp(buffer)
             .extract({ left: 280, top: 455, width: 100, height: 50 })
@@ -255,6 +304,8 @@ async function runGiaoDichForHost(host, config, path_giao_dich, index) {
     // 6. Vòng lock/kiểm tra kỹ năng
     let loopKiNang = true;
     while (loopKiNang) {
+        if (isKilled) return;
+
         // lock
         await sleep(500);
         await tap(host, 790, 475);
@@ -287,7 +338,12 @@ async function runGiaoDichForHost(host, config, path_giao_dich, index) {
     }
 }
 
-
+/**
+ * Chạy 1 batch: mỗi host trong batch chạy `runGiaoDichForHost` độc lập
+ * (song song với nhau qua Promise.all), nhưng KHÔNG còn đồng bộ theo
+ * từng bước giữa các host nữa. Promise.all ở đây chỉ dùng để đợi cả
+ * batch hoàn tất trước khi chuyển sang batch kế tiếp.
+ */
 async function runGiaoDichBatch(hosts, config, path_giao_dich) {
     await Promise.all(
         hosts.map((host, index) =>
@@ -308,8 +364,8 @@ function chunkArray(arr, size) {
 }
 
 const arg = process.argv[2];
-const shouldSkipFirstBatch = skipFirstBatchFlag === "e";
 
+const shouldSkipFirstBatch = skipFirstBatchFlag === "y";
 (async () => {
     try {
         setupKeyboard();
@@ -317,6 +373,8 @@ const shouldSkipFirstBatch = skipFirstBatchFlag === "e";
         let path_giao_dich = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-giao-dich\\gom-van\\huy`;
         const hosts = ports.map(port => `127.0.0.1:${port}`);
 
+        // Chia toàn bộ host thành từng nhóm 8 con, chạy tuần tự nhóm này xong mới tới nhóm kia.
+        // Trong mỗi nhóm, các host chạy SONG SONG và ĐỘC LẬP (không chờ nhau theo từng bước).
         const batches = chunkArray(hosts, BATCH_SIZE);
 
         if (shouldSkipFirstBatch) {
@@ -325,13 +383,25 @@ const shouldSkipFirstBatch = skipFirstBatchFlag === "e";
             console.log(`[SKIP] Bỏ qua batch đầu tiên (${skipped.length} máy):`, skipped.join(", "));
         }
 
-        while (true) {
+
+        while (!isKilled) {
+            while (isPaused && !isKilled) await sleep(300);
+            if (isKilled) break;
+
             for (const [batchIndex, batchHosts] of batches.entries()) {
+                if (isKilled) break;
+                while (isPaused && !isKilled) await sleep(300);
+                if (isKilled) break;
+
+                console.log(`\n=== Chạy nhóm ${batchIndex + 1}/${batches.length} (${batchHosts.length} máy) ===`);
+                console.log(batchHosts.join(", "));
+
                 try {
                     if (CONFIGS[arg]) {
                         await runGiaoDichBatch(batchHosts, CONFIGS[arg], path_giao_dich);
                     } else {
                         console.error(`Không tìm thấy CONFIG cho arg="${arg}"`);
+                        isKilled = true;
                         break;
                     }
                 } catch (e) {
@@ -342,6 +412,8 @@ const shouldSkipFirstBatch = skipFirstBatchFlag === "e";
 
 
 
+        console.log("Tất cả đã dừng!");
+        process.exit(0);
     } catch (err) {
         console.error("Error:", err);
         process.exit(1);
