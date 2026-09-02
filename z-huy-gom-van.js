@@ -49,6 +49,11 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     await sleep(200)
 }
 
+async function input_text(host, text) {
+    await runAdb(["-s", host, "shell", "input", "text", text]);
+}
+
+
 // ────────────────────────────────────────────────────────────
 // ────────────────────────────────────────────────────────────
 // ────────────────────────────────────────────────────────────
@@ -288,7 +293,7 @@ const CONFIGS = {
             { x: 310, y: 335 },
             { x: 175, y: 380 },
         ],
-        templateImage: "lam_an.png",
+        templateImage: "lam_an_nam.png",
         logLabel: "lam an nam",
         positions: [
             { x: 324, y: 300 },
@@ -320,6 +325,8 @@ async function runGiaoDich(hosts, config, path_giao_dich) {
             })
         )
     );
+
+    await sleep(1000);
 
     // 1. Điều hướng
     await Promise.all(
@@ -354,13 +361,13 @@ async function runGiaoDich(hosts, config, path_giao_dich) {
         })
     );
 
-    // 4. Mở bảng thông tin
-    await sleep(500);
-    await Promise.all(hosts.map((host) => tap(host, 825, 145)));
-
-    // 5. Giao dịch
-    await sleep(500);
-    await Promise.all(hosts.map((host) => tap(host, 770, 275)));
+    // 4. Mở bảng thông tin và nhấn nút giao dịch
+    await Promise.all(hosts.map(async (host) => {
+        await sleep(500);
+        await tap(host, 825, 145);
+        await sleep(500)
+        await tap(host, 770, 275);
+    }));
 
     await Promise.all(
         hosts.map((host) =>
@@ -372,6 +379,36 @@ async function runGiaoDich(hosts, config, path_giao_dich) {
             })
         )
     );
+
+    await Promise.all(
+        hosts.map(async (host) => {
+            let loop = true;
+            while (loop) {
+                const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
+                const pngBuffer = await sharp(buffer)
+                    .extract({ left: 280, top: 455, width: 100, height: 50 })
+                    .toBuffer();
+
+                const { matchedPoints } = await findMatchingRegionsAndroids({
+                    buffer: pngBuffer,
+                    templateImages: [`${path_giao_dich}\\khac_0.png`],
+                    matchThreshold: 0.8,
+                });
+
+                if (matchedPoints.length > 0) {
+                    await tap(host, 318, 479);
+                    await sleep(500);
+                    await input_text(host, "999999");
+                    await sleep(500);
+                    await tap(host, 517, 300);
+                } else {
+                    loop = false;
+                }
+                await sleep(500);
+            }
+        })
+    );
+
 
     // 6. Vòng lock/kiểm tra kỹ năng — chạy ĐỘC LẬP theo từng host
     //    (bug cũ: dùng chung 1 biến `host` và 1 biến `loop` cho mọi máy)
@@ -441,6 +478,11 @@ const arg = process.argv[2];
                         if (CONFIGS[arg]) {
                             await runGiaoDich(hosts, CONFIGS[arg], path_giao_dich);
                         }
+
+
+
+
+
 
                         // if (arg == "1") {
                         //     await Promise.all(hosts.map(async host => {

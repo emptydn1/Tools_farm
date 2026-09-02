@@ -225,11 +225,11 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
     // let host = "127.0.0.1:16448";
     const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
-    // const pngBuffer = await sharp(buffer)
-    //     .extract({ left: 830, top: 80, width: 100, height: 50 })
-    //     .toBuffer();
+    const pngBuffer = await sharp(buffer)
+        .extract({ left: 280, top: 455, width: 100, height: 50 })
+        .toBuffer();
 
-    fs.writeFileSync("xxxxxxxx.png", buffer)
+    fs.writeFileSync("xxxxxxxx.png", pngBuffer)
 
 
 
