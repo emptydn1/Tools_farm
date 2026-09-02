@@ -159,7 +159,7 @@ async function captureAndMatch({ deviceId, region, templateImages, matchThreshol
         .extract(region)
         .toBuffer();
 
-    fs.writeFileSync("xxxxxxxx.png", pngBuffer)
+    // fs.writeFileSync("xxxxxxxx.png", pngBuffer)
     const { matchedPoints } = await findMatchingRegionsAndroids({
         buffer: pngBuffer,
         templateImages,
@@ -216,8 +216,6 @@ async function checkRegionsParallel(buffer, regions) {
                     while (!isKilled) {
                         while (isPaused && !isKilled) await sleep(300);
                         if (isKilled) break;
-
-                        console.log("xxx");
 
 
 

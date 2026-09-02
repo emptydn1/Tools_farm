@@ -54,19 +54,14 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 // ────────────────────────────────────────────────────────────
 
 
-// const data = JSON.parse(fs.readFileSync("answer_Tesseract.json", "utf8"));
-// const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832];
-// const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928];
-// const ports = [
-//     16448,
-//     //  16480, 16512, 16544, 16576,
-//     // 16608, 16640, 16672, 16704, 16736,
-//     // 16768, 16800, 16832, 16864, 16896,
-//     // 16928, 16960, 16992, 17024, 17056
-// ]
+const ports = [
+    16448,
+    // 16480, 16512, 16544, 16576,
+    // 16608, 16640, 16672, 16704, 16736,
+    // 16768, 16800, 16832, 16864, 16896,
+    // 16928, 16960, 16992, 17024, 17056
+]
 
-const ports = [16448]
-// const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
 
 
 
@@ -239,13 +234,196 @@ async function waitUntilAllMatch(hosts, templatePath) {
 }
 
 
+const CONFIGS = {
+    "1": {
+        navTaps: [
+            { x: 801, y: 300 }, // phù đến tây sơn thôn
+            { x: 157, y: 335 },
+            { x: 175, y: 380 },
+            { x: 175, y: 380 },
+        ],
+        templateImage: "tay_son_thon.png",
+        logLabel: "tay son thon",
+        positions: [
+            { x: 291, y: 218 },
+            { x: 357, y: 192 },
+            { x: 412, y: 159 },
+            { x: 476, y: 143 },
+            { x: 660, y: 170 },
+            { x: 350, y: 325 },
+            { x: 418, y: 355 },
+            { x: 658, y: 280 },
+            { x: 627, y: 130 },
+            { x: 728, y: 205 },
+        ],
+    },
+    "2": {
+        navTaps: [
+            { x: 801, y: 300 }, // phù đến lâm an tây
+            { x: 310, y: 335 },
+            { x: 310, y: 335 },
+            { x: 310, y: 335 },
+            { x: 310, y: 335 },
+        ],
+        templateImage: "lam_an.png",
+        logLabel: "lam an tay",
+        positions: [
+            { x: 403, y: 364 },
+            { x: 315, y: 289 },
+            { x: 281, y: 185 },
+            { x: 372, y: 151 },
+            { x: 430, y: 121 },
+            { x: 541, y: 116 },
+            { x: 592, y: 135 },
+            { x: 664, y: 174 },
+            { x: 762, y: 218 },
+            { x: 618, y: 321 },
+        ],
+    },
+    "3": {
+        navTaps: [
+            { x: 801, y: 300 }, // phù đến lâm an nam
+            { x: 310, y: 335 },
+            { x: 310, y: 335 },
+            { x: 310, y: 335 },
+            { x: 175, y: 380 },
+        ],
+        templateImage: "lam_an.png",
+        logLabel: "lam an nam",
+        positions: [
+            { x: 324, y: 300 },
+            { x: 285, y: 191 },
+            { x: 336, y: 164 },
+            { x: 410, y: 132 },
+            { x: 487, y: 95 },
+            { x: 553, y: 100 },
+            { x: 623, y: 151 },
+            { x: 705, y: 205 },
+            { x: 650, y: 250 },
+            { x: 466, y: 336 },
+        ],
+    },
+};
+
+
+async function runGiaoDich(hosts, config, path_giao_dich) {
+    const { navTaps, templateImage, logLabel, positions } = config;
+
+    // chờ login hoặc đã lên trên map đánh bst
+    await Promise.all(
+        hosts.map((host) =>
+            waitUntilMatch({
+                deviceId: host,
+                region: { left: 150, top: 50, width: 180, height: 50 },
+                templateImages: [`${path_giao_dich}\\luyen_cong.png`],
+                matchThreshold: 0.8,
+            })
+        )
+    );
+
+    // 1. Điều hướng
+    await Promise.all(
+        hosts.map(async (host) => {
+            for (const { x, y } of navTaps) {
+                await tap(host, x, y);
+                await sleep(500);
+            }
+        })
+    );
+
+    // 2. Chờ tới đúng khu vực
+    await Promise.all(
+        hosts.map((host) =>
+            waitUntilMatch({
+                deviceId: host,
+                region: { left: 830, top: 80, width: 100, height: 50 },
+                templateImages: [`${path_giao_dich}\\${templateImage}`],
+                matchThreshold: 0.95,
+            })
+        )
+    );
+    console.log(logLabel);
+
+    await sleep(1000);
+
+    // 3. Chọn vị trí (quay vòng nếu số host > số positions)
+    await Promise.all(
+        hosts.map((host, index) => {
+            const pos = positions[index % positions.length];
+            return tap(host, pos.x, pos.y);
+        })
+    );
+
+    // 4. Mở bảng thông tin
+    await sleep(500);
+    await Promise.all(hosts.map((host) => tap(host, 825, 145)));
+
+    // 5. Giao dịch
+    await sleep(500);
+    await Promise.all(hosts.map((host) => tap(host, 770, 275)));
+
+    await Promise.all(
+        hosts.map((host) =>
+            waitUntilMatch({
+                deviceId: host,
+                region: { left: 410, top: 50, width: 150, height: 70 },
+                templateImages: [`${path_giao_dich}\\form_giao_dich.png`],
+                matchThreshold: 0.8,
+            })
+        )
+    );
+
+    // 6. Vòng lock/kiểm tra kỹ năng — chạy ĐỘC LẬP theo từng host
+    //    (bug cũ: dùng chung 1 biến `host` và 1 biến `loop` cho mọi máy)
+    await Promise.all(
+        hosts.map(async (host) => {
+            let loop = true;
+            while (loop) {
+                // lock
+                await sleep(500);
+                await tap(host, 790, 475);
+
+                await sleep(500);
+                const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
+                const pngBuffer = await sharp(buffer)
+                    .extract({ left: 70, top: 80, width: 150, height: 70 })
+                    .toBuffer();
+
+                const { matchedPoints } = await findMatchingRegionsAndroids({
+                    buffer: pngBuffer,
+                    templateImages: [`${path_giao_dich}\\ki_nang.png`],
+                    matchThreshold: 0.8,
+                });
+
+                if (matchedPoints.length > 0) {
+                    await tap(host, 865, 100);
+                    loop = false;
+
+                    await sleep(1000);
+                    await tap(host, 946, 257);
+                    await sleep(800);
+                    await tap(host, 946, 337);
+                    await sleep(800);
+                    await tap(host, 153, 115);
+                    await sleep(500);
+                    await tap(host, 800, 250);
+                }
+            }
+        })
+    );
+}
+
+
+
+const arg = process.argv[2];
+
 (async () => {
     try {
         setupKeyboard();
         await connectAll();
 
-        let path_giao_dich = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-giao-dich\\gom-van`;
-
+        let path_giao_dich = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-giao-dich\\gom-van\\huy`;
+        const hosts = ports.map(port => `127.0.0.1:${port}`);
 
         const workerPromises = [];
         for (const [index, port] of ports.entries()) {
@@ -260,37 +438,108 @@ async function waitUntilAllMatch(hosts, templatePath) {
                         if (isKilled) break;
 
 
+                        if (CONFIGS[arg]) {
+                            await runGiaoDich(hosts, CONFIGS[arg], path_giao_dich);
+                        }
+
+                        // if (arg == "1") {
+                        //     await Promise.all(hosts.map(async host => {
+                        //         await tap(host, 801, 300); // phù đến tây sơn thôn
+                        //         await sleep(500);
+                        //         await tap(host, 157, 335);
+                        //         await sleep(500);
+                        //         await tap(host, 175, 380);
+                        //         await sleep(500);
+                        //         await tap(host, 175, 380);
+                        //     }));
+
+                        //     await Promise.all(
+                        //         hosts.map((host) =>
+                        //             waitUntilMatch({
+                        //                 deviceId: host,
+                        //                 region: { left: 830, top: 80, width: 100, height: 50 },
+                        //                 templateImages: [`${path_giao_dich}\\tay_son_thon.png`],
+                        //                 matchThreshold: 0.95,
+                        //             })
+                        //         )
+                        //     );
+                        //     console.log("tay son thon");
 
 
+                        //     await sleep(1000);
 
+                        //     const positions = [
+                        //         { x: 291, y: 218 },
+                        //         { x: 357, y: 192 },
+                        //         { x: 412, y: 159 },
+                        //         { x: 476, y: 143 },
+                        //         { x: 660, y: 170 },
+                        //         { x: 350, y: 325 },
+                        //         { x: 418, y: 355 },
+                        //         { x: 658, y: 280 },
+                        //         { x: 627, y: 130 },
+                        //         { x: 728, y: 205 },
+                        //     ];
 
+                        //     await Promise.all(
+                        //         hosts.map((host, index) => {
+                        //             const pos = positions[index % positions.length]; // quay vòng nếu index vượt quá độ dài positions
+                        //             return tap(host, pos.x, pos.y);
+                        //         })
+                        //     );
 
+                        //     // mở bảng thông tin
+                        //     await sleep(500);
+                        //     await Promise.all(hosts.map(async host => await tap(host, 825, 145)));
 
+                        //     // giao dich
+                        //     await sleep(500);
+                        //     await Promise.all(hosts.map(async host => await tap(host, 770, 275)));
 
+                        //     await Promise.all(
+                        //         hosts.map((host) =>
+                        //             waitUntilMatch({
+                        //                 deviceId: host,
+                        //                 region: { left: 410, top: 50, width: 150, height: 70 },
+                        //                 templateImages: [`${path_giao_dich}\\form_giao_dich.png`],
+                        //                 matchThreshold: 0.8,
+                        //             })
+                        //         )
+                        //     );
 
+                        //     let loop = true;
+                        //     while (loop) {
+                        //         // lock
+                        //         await sleep(500);
+                        //         await Promise.all(hosts.map(async host => await tap(host, 790, 475)));
 
+                        //         await sleep(500);
+                        //         const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
+                        //         const pngBuffer = await sharp(buffer)
+                        //             .extract({ left: 70, top: 80, width: 150, height: 70 })
+                        //             .toBuffer();
 
+                        //         const { matchedPoints } = await findMatchingRegionsAndroids({
+                        //             buffer: pngBuffer,
+                        //             templateImages: [`${path_giao_dich}\\ki_nang.png`],
+                        //             matchThreshold: 0.8,
+                        //         });
 
+                        //         if (matchedPoints.length > 0) {
+                        //             await tap(host, 865, 100);
+                        //             loop = false;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                        //             await sleep(1000);
+                        //             await tap(host, 946, 257);
+                        //             await sleep(800);
+                        //             await tap(host, 946, 337);
+                        //             await sleep(800);
+                        //             await tap(host, 153, 115);
+                        //             await sleep(500);
+                        //             await tap(host, 800, 250);
+                        //         }
+                        //     }
+                        // }
                     }
                 } catch (e) {
                     console.error(`[${host}] Error:`, e.toString());
