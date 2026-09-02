@@ -64,7 +64,8 @@ const ports = [
     16480, 16512, 16544, 16576,
     16608, 16640, 16672, 16704, 16736,
     16768, 16800, 16832, 16864, 16896,
-    16928, 16960, 16992, 17024, 17056
+    16928,
+    //  16960, 16992, 17024, 17056
 ]
 
 
@@ -344,7 +345,7 @@ async function runGiaoDich(hosts, config, path_giao_dich) {
     );
 }
 
-const BATCH_SIZE = 10;
+const BATCH_SIZE = 8;
 
 // Chia mảng thành từng nhóm nhỏ kích thước `size`
 function chunkArray(arr, size) {
