@@ -313,7 +313,7 @@ async function runGiaoDichForHost(host, config, path_giao_dich, index) {
         const { matchedPoints } = await findMatchingRegionsAndroids({
             buffer: pngBuffer,
             templateImages: [`${path_giao_dich}\\khac_0.png`],
-            matchThreshold: 0.75,
+            matchThreshold: 0.9,
         });
 
         if (matchedPoints.length > 0) {
