@@ -260,14 +260,15 @@ function setupKeyboard() {
         if (key.name === 'i') {
             isPaused = false;
             console.log('\n[CONTROL] ▶ Tiếp tục chạy');
-        } else if (key.name === 'o') {
-            isPaused = true;
-            console.log('\n[CONTROL] ⏸ Tạm dừng');
-        } else if (key.name === 'k') {
-            isKilled = true;
-            isPaused = false; // bỏ pause để các vòng while thoát được
-            console.log('\n[CONTROL] ✖ Kill all - đang dừng...');
-        }
+        } 
+        // else if (key.name === 'o') {
+        //     isPaused = true;
+        //     console.log('\n[CONTROL] ⏸ Tạm dừng');
+        // } else if (key.name === 'k') {
+        //     isKilled = true;
+        //     isPaused = false; // bỏ pause để các vòng while thoát được
+        //     console.log('\n[CONTROL] ✖ Kill all - đang dừng...');
+        // }
         if (key.ctrl && key.name === "c") {
             process.exit();
         }
