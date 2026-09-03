@@ -400,6 +400,31 @@ async function runGiaoDichForHost(host, config, path_giao_dich, index) {
             await tap(host, 585, 360)
         }
     }
+
+
+    // loi o cho, khong vao 2 acc con lai khac
+    // 7. Vòng login
+    let looplogin = true;
+    while (looplogin) {
+        const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
+        const pngBuffer = await sharp(buffer)
+            .extract({ left: 270, top: 400, width: 400, height: 100 })
+            .toBuffer();
+
+        const { matchedPoints } = await findMatchingRegionsAndroids({
+            buffer: pngBuffer,
+            templateImages: [`${path_giao_dich}\\b2.png`],
+            matchThreshold: 0.8,
+        });
+
+        if (matchedPoints.length > 0) {
+            looplogin = false;
+        } else {
+            await tap(host, 490, 395)// bấm đăng nhập để nhập tài khoản
+            await sleep(500);
+            await tap(host, 585, 360) // nhấn đăng nhập
+        }
+    }
 }
 
 
