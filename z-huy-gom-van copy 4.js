@@ -284,7 +284,7 @@ function setupKeyboard() {
  * Nhờ vậy, host nào xong bước nào thì đi tiếp bước đó luôn, không phải
  * đợi những host chậm hơn trong cùng batch "bắt kịp".
  */
-async function runGiaoDichForHost(host, config, path_giao_dich, index) {
+async function runGiaoDichForHost(host, config, path_giao_dich, index, account) {
     const { navTaps, templateImage, logLabel, positions } = config;
 
     // chờ login hoặc đã lên trên map đánh bst
@@ -427,10 +427,10 @@ async function runGiaoDichForHost(host, config, path_giao_dich, index) {
 }
 
 
-async function runGiaoDichBatch(hosts, config, path_giao_dich) {
+async function runGiaoDichBatch(hosts, config, path_giao_dich, account) {
     await Promise.all(
         hosts.map((host, index) =>
-            runGiaoDichForHost(host, config, path_giao_dich, index)
+            runGiaoDichForHost(host, config, path_giao_dich, index, account[index])
         )
     );
 }
@@ -454,6 +454,7 @@ const shouldSkipFirstBatch = skipFirstBatchFlag === "e";
     try {
         setupKeyboard();
         await connectAll();
+        let accounts = await init();
 
         let path_giao_dich = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-giao-dich\\gom-van\\huy`;
         const hosts = ports.map(port => `127.0.0.1:${port}`);
@@ -476,9 +477,9 @@ const shouldSkipFirstBatch = skipFirstBatchFlag === "e";
             await sleep(500);
         }
 
-        while (true) {
+        for (const account of accounts) {
             for (const [batchIndex, batchHosts] of batches.entries()) {
-                await runGiaoDichBatch(batchHosts, CONFIGS[arg], path_giao_dich);
+                await runGiaoDichBatch(batchHosts, CONFIGS[arg], path_giao_dich, account);
             }
         }
     } catch (err) {
