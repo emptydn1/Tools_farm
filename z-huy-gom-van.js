@@ -154,29 +154,29 @@ async function captureAndMatch({ deviceId, region, templateImages, matchThreshol
 
 
 const CONFIGS = {
-    // "1": {
-    //     navTaps: [
-    //         { x: 801, y: 300 }, // phù đến tây sơn thôn
-    //         { x: 157, y: 335 },
-    //         { x: 175, y: 380 },
-    //         { x: 175, y: 380 },
-    //     ],
-    //     templateImage: "tay_son_thon.png",
-    //     logLabel: "tay son thon",
-    //     positions: [
-    //         { x: 291, y: 218 },
-    //         { x: 357, y: 192 },
-    //         { x: 412, y: 159 },
-    //         { x: 476, y: 143 },
-    //         { x: 660, y: 170 },
-    //         { x: 350, y: 325 },
-    //         { x: 418, y: 355 },
-    //         { x: 658, y: 280 },
-    //         { x: 627, y: 130 },
-    //         { x: 728, y: 205 },
-    //     ],
-    // },
     "1": {
+        navTaps: [
+            { x: 801, y: 300 }, // phù đến tây sơn thôn
+            { x: 157, y: 335 },
+            { x: 175, y: 380 },
+            { x: 175, y: 380 },
+        ],
+        templateImage: "tay_son_thon.png",
+        logLabel: "tay son thon",
+        positions: [
+            { x: 291, y: 218 },
+            { x: 357, y: 192 },
+            { x: 412, y: 159 },
+            { x: 476, y: 143 },
+            { x: 660, y: 170 },
+            { x: 350, y: 325 },
+            { x: 418, y: 355 },
+            { x: 658, y: 280 },
+            { x: 627, y: 130 },
+            { x: 728, y: 205 },
+        ],
+    },
+    "2": {
         navTaps: [
             { x: 801, y: 300 }, // phù đến lâm an tây
             { x: 310, y: 335 },
@@ -199,7 +199,7 @@ const CONFIGS = {
             { x: 618, y: 321 },
         ],
     },
-    "2": {
+    "3": {
         navTaps: [
             { x: 801, y: 300 }, // phù đến lâm an nam
             { x: 310, y: 335 },
@@ -222,30 +222,6 @@ const CONFIGS = {
             { x: 553, y: 100 },
         ],
     },
-    "3": {
-        navTaps: [
-            { x: 801, y: 300 },
-            { x: 310, y: 335 },
-            { x: 310, y: 335 },
-
-            { x: 175, y: 380 }, // phù đến biện kinh nam
-            { x: 175, y: 420 },
-        ],
-        templateImage: "bien_kinh_nam.png",
-        logLabel: "bien kinh nam",
-        positions: [
-            { x: 315, y: 215 },
-            { x: 385, y: 175 },
-            { x: 453, y: 135 },
-            { x: 352, y: 319 },
-            { x: 532, y: 320 },
-            { x: 600, y: 262 },
-            { x: 540, y: 151 },
-            { x: 440, y: 312 },
-            { x: 650, y: 374 },
-            { x: 675, y: 155 },
-        ],
-    },
 };
 
 
@@ -261,10 +237,11 @@ function setupKeyboard() {
             isPaused = false;
             console.log('\n[CONTROL] ▶ Tiếp tục chạy');
         }
-        // else if (key.name === 'o') {
-        //     isPaused = true;
-        //     console.log('\n[CONTROL] ⏸ Tạm dừng');
-        // } else if (key.name === 'k') {
+        else if (key.name === 'o') {
+            isPaused = true;
+            console.log('\n[CONTROL] ⏸ Tạm dừng');
+        }
+        //  else if (key.name === 'k') {
         //     isKilled = true;
         //     isPaused = false; // bỏ pause để các vòng while thoát được
         //     console.log('\n[CONTROL] ✖ Kill all - đang dừng...');
@@ -276,6 +253,7 @@ function setupKeyboard() {
 
     console.log('Phím điều khiển: [i] Tiếp tục  [o] Tạm dừng  [k] Kill all\n');
 }
+
 
 /**
  * Chạy TOÀN BỘ pipeline giao dịch cho MỘT host duy nhất.
@@ -391,39 +369,11 @@ async function runGiaoDichForHost(host, config, path_giao_dich, index) {
             await sleep(500);
 
             await tap(host, 490, 395)
+            // chỗ nhập tài khoảng
             await sleep(1000);
             await tap(host, 585, 360)
-
         }
     }
-
-    // loi o cho, khong vao 2 acc con lai khac
-    // // 7. Vòng login
-    // let looplogin = true;
-    // while (looplogin) {
-    //     const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
-    //     const pngBuffer = await sharp(buffer)
-    //         .extract({ left: 270, top: 400, width: 400, height: 100 })
-    //         .toBuffer();
-
-    //     const { matchedPoints } = await findMatchingRegionsAndroids({
-    //         buffer: pngBuffer,
-    //         templateImages: [`${path_giao_dich}\\b2.png`],
-    //         matchThreshold: 0.8,
-    //     });
-
-    //     if (matchedPoints.length > 0) {
-    //         looplogin = false;
-    //     } else {
-    //         await tap(host, 490, 395)// bấm đăng nhập để nhập tài khoản
-    //         await sleep(500);
-    //         await tap(host, 480, 200) // chỗ nhập tài khoản
-    //         await sleep(500);
-    //         await input_text(host, account);
-    //         await sleep(500);
-    //         await tap(host, 585, 360) // nhấn đăng nhập
-    //     }
-    // }
 }
 
 
@@ -453,8 +403,8 @@ const shouldSkipFirstBatch = skipFirstBatchFlag === "e";
 (async () => {
     try {
         setupKeyboard();
-        await connectAll();
 
+        await connectAll();
         let path_giao_dich = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-giao-dich\\gom-van\\huy`;
         const hosts = ports.map(port => `127.0.0.1:${port}`);
 
@@ -466,21 +416,28 @@ const shouldSkipFirstBatch = skipFirstBatchFlag === "e";
             console.log(`[SKIP] Bỏ qua batch đầu tiên (${skipped.length} máy):`, skipped.join(", "));
         }
 
-        if (!CONFIGS[arg]) {
-            console.error(`Không tìm thấy CONFIG cho arg="${arg}"`);
-            return;
-        }
-
-        while (isPaused) {
-            console.log("nhấn i để tiếp tục");
-            await sleep(500);
-        }
-
         while (true) {
-            for (const [batchIndex, batchHosts] of batches.entries()) {
-                await runGiaoDichBatch(batchHosts, CONFIGS[arg], path_giao_dich);
+            if (!isPaused) {
+                console.log("nhấn i để tiếp tục");
+                await sleep(500);
             }
+            for (const [batchIndex, batchHosts] of batches.entries()) {
+                try {
+                    if (CONFIGS[arg]) {
+                        await runGiaoDichBatch(batchHosts, CONFIGS[arg], path_giao_dich);
+                    } else {
+                        console.error(`Không tìm thấy CONFIG cho arg="${arg}"`);
+                        break;
+                    }
+                } catch (e) {
+                    console.error(`[Batch ${batchIndex + 1}] Error:`, e.toString());
+                }
+            }
+            await sleep(500)
         }
+
+
+
     } catch (err) {
         console.error("Error:", err);
         process.exit(1);
