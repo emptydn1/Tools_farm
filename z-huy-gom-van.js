@@ -154,29 +154,29 @@ async function captureAndMatch({ deviceId, region, templateImages, matchThreshol
 
 
 const CONFIGS = {
+    // "1": {
+    //     navTaps: [
+    //         { x: 801, y: 300 }, // phù đến tây sơn thôn
+    //         { x: 157, y: 335 },
+    //         { x: 175, y: 380 },
+    //         { x: 175, y: 380 },
+    //     ],
+    //     templateImage: "tay_son_thon.png",
+    //     logLabel: "tay son thon",
+    //     positions: [
+    //         { x: 291, y: 218 },
+    //         { x: 357, y: 192 },
+    //         { x: 412, y: 159 },
+    //         { x: 476, y: 143 },
+    //         { x: 660, y: 170 },
+    //         { x: 350, y: 325 },
+    //         { x: 418, y: 355 },
+    //         { x: 658, y: 280 },
+    //         { x: 627, y: 130 },
+    //         { x: 728, y: 205 },
+    //     ],
+    // },
     "1": {
-        navTaps: [
-            { x: 801, y: 300 }, // phù đến tây sơn thôn
-            { x: 157, y: 335 },
-            { x: 175, y: 380 },
-            { x: 175, y: 380 },
-        ],
-        templateImage: "tay_son_thon.png",
-        logLabel: "tay son thon",
-        positions: [
-            { x: 291, y: 218 },
-            { x: 357, y: 192 },
-            { x: 412, y: 159 },
-            { x: 476, y: 143 },
-            { x: 660, y: 170 },
-            { x: 350, y: 325 },
-            { x: 418, y: 355 },
-            { x: 658, y: 280 },
-            { x: 627, y: 130 },
-            { x: 728, y: 205 },
-        ],
-    },
-    "2": {
         navTaps: [
             { x: 801, y: 300 }, // phù đến lâm an tây
             { x: 310, y: 335 },
@@ -199,7 +199,7 @@ const CONFIGS = {
             { x: 618, y: 321 },
         ],
     },
-    "3": {
+    "2": {
         navTaps: [
             { x: 801, y: 300 }, // phù đến lâm an nam
             { x: 310, y: 335 },
@@ -220,6 +220,30 @@ const CONFIGS = {
             { x: 705, y: 205 },
             { x: 650, y: 250 },
             { x: 553, y: 100 },
+        ],
+    },
+    "3": {
+        navTaps: [
+            { x: 801, y: 300 },
+            { x: 310, y: 335 },
+            { x: 310, y: 335 },
+
+            { x: 175, y: 380 }, // phù đến biện kinh nam
+            { x: 175, y: 420 },
+        ],
+        templateImage: "bien_kinh_nam.png",
+        logLabel: "bien kinh nam",
+        positions: [
+            { x: 315, y: 215 },
+            { x: 385, y: 175 },
+            { x: 453, y: 135 },
+            { x: 352, y: 319 },
+            { x: 532, y: 320 },
+            { x: 600, y: 262 },
+            { x: 540, y: 151 },
+            { x: 440, y: 312 },
+            { x: 650, y: 374 },
+            { x: 675, y: 155 },
         ],
     },
 };
