@@ -313,7 +313,7 @@ async function runGiaoDichForHost(host, config, path_giao_dich, index) {
         const { matchedPoints } = await findMatchingRegionsAndroids({
             buffer: pngBuffer,
             templateImages: [`${path_giao_dich}\\khac_0.png`],
-            matchThreshold: 0.8,
+            matchThreshold: 0.75,
         });
 
         if (matchedPoints.length > 0) {
@@ -363,8 +363,8 @@ async function runGiaoDichForHost(host, config, path_giao_dich, index) {
 
             await tap(host, 490, 395)
             // chỗ nhập tài khoảng
-            await sleep(1000);
-            await tap(host, 585, 360)
+            // await sleep(1000);
+            // await tap(host, 585, 360)
         }
     }
 }
