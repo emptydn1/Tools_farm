@@ -396,7 +396,7 @@ async function runGiaoDichForHost(host, config, path_giao_dich, index) {
 
             await tap(host, 490, 395)
             // chỗ nhập tài khoảng
-            await sleep(1000);
+            await sleep(2000);
             await tap(host, 585, 360)
         }
     }
@@ -443,7 +443,7 @@ const shouldSkipFirstBatch = skipFirstBatchFlag === "e";
         }
 
         while (true) {
-            if (!isPaused) {
+            if (isPaused) {
                 console.log("nhấn i để tiếp tục");
                 await sleep(500);
             }
