@@ -225,6 +225,33 @@ const CONFIGS = {
 };
 
 
+let isPaused = true; // o = dừng, i = tiếp tục
+let isKilled = false; // k = kill all
+
+function setupKeyboard() {
+    readline.emitKeypressEvents(process.stdin);
+    if (process.stdin.isTTY) process.stdin.setRawMode(true);
+
+    process.stdin.on('keypress', (str, key) => {
+        if (key.name === 'i') {
+            isPaused = false;
+            console.log('\n[CONTROL] ▶ Tiếp tục chạy');
+        } else if (key.name === 'o') {
+            isPaused = true;
+            console.log('\n[CONTROL] ⏸ Tạm dừng');
+        } else if (key.name === 'k') {
+            isKilled = true;
+            isPaused = false; // bỏ pause để các vòng while thoát được
+            console.log('\n[CONTROL] ✖ Kill all - đang dừng...');
+        }
+        if (key.ctrl && key.name === "c") {
+            process.exit();
+        }
+    });
+
+    console.log('Phím điều khiển: [i] Tiếp tục  [o] Tạm dừng  [k] Kill all\n');
+}
+
 /**
  * Chạy TOÀN BỘ pipeline giao dịch cho MỘT host duy nhất.
  * Không còn Promise.all theo từng bước dùng chung cho cả batch nữa —
@@ -396,6 +423,7 @@ const shouldSkipFirstBatch = skipFirstBatchFlag === "e";
 
 (async () => {
     try {
+        setupKeyboard();
         await connectAll();
         let accounts = await init();
 
@@ -413,6 +441,11 @@ const shouldSkipFirstBatch = skipFirstBatchFlag === "e";
         if (!CONFIGS[arg]) {
             console.error(`Không tìm thấy CONFIG cho arg="${arg}"`);
             return;
+        }
+
+        while (isPaused) {
+            console.log("nhấn i để tiếp tục");
+            await sleep(500);
         }
 
         for (const account of accounts) {
