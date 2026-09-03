@@ -114,10 +114,10 @@ async function input_text(host, text) {
 
 const ports = [
     16448,
-    // 16480, 16512, 16544, 16576,
-    // 16608, 16640, 16672, 16704, 16736,
-    // 16768, 16800, 16832, 16864, 16896,
-    // 16928,
+    16480, 16512, 16544, 16576,
+    16608, 16640, 16672, 16704, 16736,
+    16768, 16800, 16832, 16864, 16896,
+    16928,
     //  16960, 16992, 17024, 17056
 ]
 
@@ -232,7 +232,7 @@ const CONFIGS = {
  * Nhờ vậy, host nào xong bước nào thì đi tiếp bước đó luôn, không phải
  * đợi những host chậm hơn trong cùng batch "bắt kịp".
  */
-async function runGiaoDichForHost(host, config, path_giao_dich, index, account) {
+async function runGiaoDichForHost(host, config, path_giao_dich, index) {
     const { navTaps, templateImage, logLabel, positions } = config;
 
     // chờ login hoặc đã lên trên map đánh bst
@@ -338,43 +338,19 @@ async function runGiaoDichForHost(host, config, path_giao_dich, index, account) 
             await tap(host, 800, 250);
             await sleep(500);
 
-        }
-    }
-
-
-    // 7. Vòng login
-    let looplogin = true;
-    while (looplogin) {
-        const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
-        const pngBuffer = await sharp(buffer)
-            .extract({ left: 270, top: 400, width: 400, height: 100 })
-            .toBuffer();
-
-        const { matchedPoints } = await findMatchingRegionsAndroids({
-            buffer: pngBuffer,
-            templateImages: [`${path_giao_dich}\\b2.png`],
-            matchThreshold: 0.8,
-        });
-
-        if (matchedPoints.length > 0) {
-            looplogin = false;
-        } else {
-            await tap(host, 490, 395)// bấm đăng nhập để nhập tài khoản
-            await sleep(500);
-            await tap(host, 480, 200) // chỗ nhập tài khoản
-            await sleep(500);
-            await input_text(host, account);
-            await sleep(500);
-            await tap(host, 585, 360) // nhấn đăng nhập
+            await tap(host, 490, 395)
+            // chỗ nhập tài khoảng
+            await sleep(1000);
+            await tap(host, 585, 360)
         }
     }
 }
 
 
-async function runGiaoDichBatch(hosts, config, path_giao_dich, account) {
+async function runGiaoDichBatch(hosts, config, path_giao_dich) {
     await Promise.all(
         hosts.map((host, index) =>
-            runGiaoDichForHost(host, config, path_giao_dich, index, account[index])
+            runGiaoDichForHost(host, config, path_giao_dich, index)
         )
     );
 }
@@ -397,8 +373,6 @@ const shouldSkipFirstBatch = skipFirstBatchFlag === "e";
 (async () => {
     try {
         await connectAll();
-        let accounts = await init();
-
         let path_giao_dich = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-giao-dich\\gom-van\\huy`;
         const hosts = ports.map(port => `127.0.0.1:${port}`);
 
@@ -410,16 +384,24 @@ const shouldSkipFirstBatch = skipFirstBatchFlag === "e";
             console.log(`[SKIP] Bỏ qua batch đầu tiên (${skipped.length} máy):`, skipped.join(", "));
         }
 
-        if (!CONFIGS[arg]) {
-            console.error(`Không tìm thấy CONFIG cho arg="${arg}"`);
-            return;
+        while (true) {
+            for (const [batchIndex, batchHosts] of batches.entries()) {
+                try {
+                    if (CONFIGS[arg]) {
+                        await runGiaoDichBatch(batchHosts, CONFIGS[arg], path_giao_dich);
+                    } else {
+                        console.error(`Không tìm thấy CONFIG cho arg="${arg}"`);
+                        break;
+                    }
+                } catch (e) {
+                    console.error(`[Batch ${batchIndex + 1}] Error:`, e.toString());
+                }
+            }
+            await sleep(500)
         }
 
-        for (const account of accounts) {
-            for (const [batchIndex, batchHosts] of batches.entries()) {
-                await runGiaoDichBatch(batchHosts, CONFIGS[arg], path_giao_dich, account);
-            }
-        }
+
+
     } catch (err) {
         console.error("Error:", err);
         process.exit(1);
