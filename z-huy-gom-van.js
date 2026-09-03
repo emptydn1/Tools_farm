@@ -331,7 +331,8 @@ async function runGiaoDichForHost(host, config, path_giao_dich, index) {
     while (loopKhac0) {
         const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
         const pngBuffer = await sharp(buffer)
-            .extract({ left: 280, top: 455, width: 100, height: 50 })
+            // .extract({ left: 280, top: 455, width: 100, height: 50 })
+            .extract({ left: 300, top: 470, width: 40, height: 25 })
             .toBuffer();
 
         const { matchedPoints } = await findMatchingRegionsAndroids({
