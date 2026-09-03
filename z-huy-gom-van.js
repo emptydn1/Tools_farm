@@ -471,20 +471,20 @@ const shouldSkipFirstBatch = skipFirstBatchFlag === "e";
             if (isPaused) {
                 console.log("nhấn i để tiếp tục");
                 await sleep(500);
-            }
-            for (const [batchIndex, batchHosts] of batches.entries()) {
-                try {
-                    if (CONFIGS[arg]) {
-                        await runGiaoDichBatch(batchHosts, CONFIGS[arg], path_giao_dich);
-                    } else {
-                        console.error(`Không tìm thấy CONFIG cho arg="${arg}"`);
-                        break;
+            } else {
+                for (const [batchIndex, batchHosts] of batches.entries()) {
+                    try {
+                        if (CONFIGS[arg]) {
+                            await runGiaoDichBatch(batchHosts, CONFIGS[arg], path_giao_dich);
+                        } else {
+                            console.error(`Không tìm thấy CONFIG cho arg="${arg}"`);
+                            break;
+                        }
+                    } catch (e) {
+                        console.error(`[Batch ${batchIndex + 1}] Error:`, e.toString());
                     }
-                } catch (e) {
-                    console.error(`[Batch ${batchIndex + 1}] Error:`, e.toString());
                 }
             }
-            await sleep(500)
         }
 
 
