@@ -260,7 +260,7 @@ function setupKeyboard() {
         if (key.name === 'i') {
             isPaused = false;
             console.log('\n[CONTROL] ▶ Tiếp tục chạy');
-        } 
+        }
         // else if (key.name === 'o') {
         //     isPaused = true;
         //     console.log('\n[CONTROL] ⏸ Tạm dừng');
@@ -390,36 +390,40 @@ async function runGiaoDichForHost(host, config, path_giao_dich, index, account) 
             await tap(host, 800, 250);
             await sleep(500);
 
+            await tap(host, 490, 395)
+            await sleep(1000);
+            await tap(host, 585, 360)
+
         }
     }
 
+    // loi o cho, khong vao 2 acc con lai khac
+    // // 7. Vòng login
+    // let looplogin = true;
+    // while (looplogin) {
+    //     const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
+    //     const pngBuffer = await sharp(buffer)
+    //         .extract({ left: 270, top: 400, width: 400, height: 100 })
+    //         .toBuffer();
 
-    // 7. Vòng login
-    let looplogin = true;
-    while (looplogin) {
-        const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
-        const pngBuffer = await sharp(buffer)
-            .extract({ left: 270, top: 400, width: 400, height: 100 })
-            .toBuffer();
+    //     const { matchedPoints } = await findMatchingRegionsAndroids({
+    //         buffer: pngBuffer,
+    //         templateImages: [`${path_giao_dich}\\b2.png`],
+    //         matchThreshold: 0.8,
+    //     });
 
-        const { matchedPoints } = await findMatchingRegionsAndroids({
-            buffer: pngBuffer,
-            templateImages: [`${path_giao_dich}\\b2.png`],
-            matchThreshold: 0.8,
-        });
-
-        if (matchedPoints.length > 0) {
-            looplogin = false;
-        } else {
-            await tap(host, 490, 395)// bấm đăng nhập để nhập tài khoản
-            await sleep(500);
-            await tap(host, 480, 200) // chỗ nhập tài khoản
-            await sleep(500);
-            await input_text(host, account);
-            await sleep(500);
-            await tap(host, 585, 360) // nhấn đăng nhập
-        }
-    }
+    //     if (matchedPoints.length > 0) {
+    //         looplogin = false;
+    //     } else {
+    //         await tap(host, 490, 395)// bấm đăng nhập để nhập tài khoản
+    //         await sleep(500);
+    //         await tap(host, 480, 200) // chỗ nhập tài khoản
+    //         await sleep(500);
+    //         await input_text(host, account);
+    //         await sleep(500);
+    //         await tap(host, 585, 360) // nhấn đăng nhập
+    //     }
+    // }
 }
 
 
