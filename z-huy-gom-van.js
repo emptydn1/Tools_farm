@@ -394,10 +394,10 @@ async function runGiaoDichForHost(host, config, path_giao_dich, index) {
             await tap(host, 800, 250);
             await sleep(500);
 
-            await tap(host, 490, 395)
-            // chỗ nhập tài khoảng
-            await sleep(2000);
-            await tap(host, 585, 360)
+            // await tap(host, 490, 395)
+            // // chỗ nhập tài khoảng
+            // await sleep(2000);
+            // await tap(host, 585, 360)
         }
     }
 
