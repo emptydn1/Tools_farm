@@ -498,7 +498,6 @@ const actionsNhanVat = {
                         await sleep(100);
                         await actionsNhanVat[countLogin](host);
                         await sleep(1000);
-                        // await sleep(3000);
                         await tap(host, 864, 453);
                         console.log(countLogin);
                     }));
