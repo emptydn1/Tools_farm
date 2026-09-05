@@ -223,11 +223,11 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
     await connectAll();
 
-    // let buffer = fs.readFileSync("./1.png")
+    let buffer = fs.readFileSync("./login.png")
     // let host = "127.0.0.1:16448";
-    const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
+    // const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
     const pngBuffer = await sharp(buffer)
-        .extract({ left: 750, top: 420, width: 210, height: 80 })
+        .extract({ left: 400, top: 120, width: 150, height: 60 })
         .toBuffer();
 
     fs.writeFileSync("xxxxxxxx.png", pngBuffer)
