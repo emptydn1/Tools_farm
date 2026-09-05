@@ -114,7 +114,8 @@ async function input_text(host, text) {
 
 const ports = [
     16448,
-    // 16480, 16512, 16544, 16576,
+    16480,
+    //  16512, 16544, 16576,
     // 16608, 16640, 16672, 16704, 16736,
     // 16768, 16800, 16832, 16864, 16896,
     // 16928,
@@ -432,7 +433,7 @@ const actionsNhanVat = {
             console.log(`[SKIP] Bỏ qua batch đầu tiên (${skipped.length} máy):`, skipped.join(", "));
         }
 
-        if (!CONFIGS[arg] || accounts[0].length != ports.length) {
+        if (!CONFIGS[arg] || accounts[0].length <= ports.length) {
             console.error(`Không tìm thấy CONFIG cho arg="${arg}"`);
             return;
         }
@@ -440,43 +441,29 @@ const actionsNhanVat = {
 
         let countLogin = 4;
         for (const account of accounts) {
-            for (const [batchIndex, batchHosts] of batches.entries()) {
+            for (let round = 0; round < 3; round++) {
+                for (const [batchIndex, batchHosts] of batches.entries()) {
+                    await Promise.all(batchHosts.map(async (host, i) => {
+                        const globalIndex = batchIndex * BATCH_SIZE + i;
 
-                await Promise.all(batchHosts.map(async (host, i) => {
-                    const globalIndex = batchIndex * BATCH_SIZE + i;
-
-                    // chờ login hoặc đã lên trên map đánh bst
-                    let loop = true;
-                    while (loop) {
-                        const matchedPoints = await captureAndMatch({
-                            deviceId: host,
-                            region: { left: 750, top: 420, width: 210, height: 80 },
-                            templateImages: [`${path_giao_dich}\\vao_game.png`],
-                        });
-
-                        if (matchedPoints.length > 0) {
-                            loop = false;
-                        } else {
-                            const result1 = await captureAndMatch({
+                        // chờ login hoặc đã lên trên map đánh bst
+                        let loop = true;
+                        while (loop) {
+                            const matchedPoints = await captureAndMatch({
                                 deviceId: host,
-                                region: { left: 400, top: 120, width: 170, height: 60 },
-                                templateImages: [`${path_giao_dich}\\form_login.png`],
+                                region: { left: 750, top: 420, width: 210, height: 80 },
+                                templateImages: [`${path_giao_dich}\\vao_game.png`],
                             });
-                            if (result1.length > 0) {
+
+                            if (matchedPoints.length > 0) {
+                                loop = false;
+                            } else {
                                 await tap(host, 490, 425)// bấm đăng nhập để nhập tài khoản
-                            }
+                                await sleep(1000);
 
-                            await sleep(1000);
-
-                            const result2 = await captureAndMatch({
-                                deviceId: host,
-                                region: { left: 330, top: 340, width: 300, height: 100 },
-                                templateImages: [`${path_giao_dich}\\b1.png`],
-                            });
-                            if (result2.length > 0) {
                                 if (countLogin == 4) {
                                     await tap(host, 480, 200) // chỗ nhập tài khoản
-                                    await sleep(500);
+                                    await sleep(1000);
                                     await input_text(host, account[globalIndex]);
                                     await sleep(500);
                                 }
@@ -484,28 +471,44 @@ const actionsNhanVat = {
                                 await tap(host, 585, 360) // nhấn đăng nhập
                                 await sleep(500);
                                 await tap(host, 490, 445) // nhấn đăng nhập vào chọn nhân vật
+                                await sleep(500);
+                                await tap(host, 860, 85) // nút hủy
+
+                                // const result1 = await captureAndMatch({
+                                //     deviceId: host,
+                                //     region: { left: 400, top: 120, width: 170, height: 60 },
+                                //     templateImages: [`${path_giao_dich}\\form_login.png`],
+                                // });
+
+                                // const result2 = await captureAndMatch({
+                                //     deviceId: host,
+                                //     region: { left: 330, top: 340, width: 300, height: 100 },
+                                //     templateImages: [`${path_giao_dich}\\b1.png`],
+                                // });
                             }
                         }
-                    }
-                }));
+                    }));
 
-                if (countLogin == 4) countLogin = 1;
+                    if (countLogin == 4) countLogin = 1;
 
-                await Promise.all(batchHosts.map(async (host, i) => {
-                    await actionsNhanVat[countLogin](host);
-                    await sleep(100);
-                    await actionsNhanVat[countLogin](host);
-                    await sleep(100);
-                    await actionsNhanVat[countLogin](host);
-                    await sleep(500);
-                    await tap(host, 864, 453);
-                }));
+                    await Promise.all(batchHosts.map(async (host, i) => {
+                        await actionsNhanVat[countLogin](host);
+                        await sleep(100);
+                        await actionsNhanVat[countLogin](host);
+                        await sleep(100);
+                        await actionsNhanVat[countLogin](host);
+                        await sleep(1000);
+                        // await sleep(3000);
+                        await tap(host, 864, 453);
+                        console.log(countLogin);
+                    }));
 
-                countLogin++
+                    countLogin++
 
-                await Promise.all(batchHosts.map(async (host, i) => {
-                    await runGiaoDichForHost(host, CONFIGS[arg], path_giao_dich, i);
-                }));
+                    await Promise.all(batchHosts.map(async (host, i) => {
+                        await runGiaoDichForHost(host, CONFIGS[arg], path_giao_dich, i);
+                    }));
+                }
             }
         }
     } catch (err) {
