@@ -109,7 +109,11 @@ function setupKeyboard() {
 }
 
 async function captureAndMatch(host, link) {
-    const pngBuffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
+    const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
+    const pngBuffer = await sharp(buffer)
+        .extract({ left: 350, top: 230, width: 250, height: 70 })
+        .toBuffer();
+
     const { matchedPoints } = await findMatchingRegionsAndroids({
         buffer: pngBuffer,
         templateImages: [link],
