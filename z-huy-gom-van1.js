@@ -114,7 +114,7 @@ async function input_text(host, text) {
 
 const ports = [
     16448,
-    16480,
+    // 16480,
     //  16512, 16544, 16576,
     // 16608, 16640, 16672, 16704, 16736,
     // 16768, 16800, 16832, 16864, 16896,
@@ -416,6 +416,8 @@ const actionsNhanVat = {
     3: (host) => tap(host, 75, 330),
 };
 
+
+
 (async () => {
     try {
         await connectAll();
@@ -449,18 +451,48 @@ const actionsNhanVat = {
                         // chờ login hoặc đã lên trên map đánh bst
                         let loop = true;
                         while (loop) {
-                            const matchedPoints = await captureAndMatch({
+                            await tap(host, 860, 85) // nút hủy
+                            await sleep(300);
+
+                            const result3 = await captureAndMatch({
+                                deviceId: host,
+                                region: { left: 340, top: 415, width: 260, height: 70 },
+                                templateImages: [`${path_giao_dich}\\b2.png`],
+                            });
+                            if (result3.length > 0) {
+                                await tap(host, 490, 445) // nhấn đăng nhập vào chọn nhân vật
+                                continue;
+                            }
+
+
+                            const result4 = await captureAndMatch({
                                 deviceId: host,
                                 region: { left: 750, top: 420, width: 210, height: 80 },
                                 templateImages: [`${path_giao_dich}\\vao_game.png`],
                             });
-
-                            if (matchedPoints.length > 0) {
+                            if (result4.length > 0) {
                                 loop = false;
-                            } else {
+                                continue;
+                            }
+
+
+                            const result1 = await captureAndMatch({
+                                deviceId: host,
+                                region: { left: 330, top: 340, width: 300, height: 100 },
+                                templateImages: [`${path_giao_dich}\\b1.png`],
+                            });
+                            if (result1.length > 0) {
                                 await tap(host, 490, 425)// bấm đăng nhập để nhập tài khoản
                                 await sleep(1000);
+                            }
 
+
+                            const result2 = await captureAndMatch({
+                                deviceId: host,
+                                region: { left: 400, top: 120, width: 170, height: 60 },
+                                templateImages: [`${path_giao_dich}\\form_login.png`],
+                            });
+                            if (result2.length > 0) {
                                 if (countLogin == 4) {
                                     await tap(host, 480, 200) // chỗ nhập tài khoản
                                     await sleep(1000);
@@ -472,19 +504,6 @@ const actionsNhanVat = {
                                 await sleep(500);
                                 await tap(host, 490, 445) // nhấn đăng nhập vào chọn nhân vật
                                 await sleep(500);
-                                await tap(host, 860, 85) // nút hủy
-
-                                // const result1 = await captureAndMatch({
-                                //     deviceId: host,
-                                //     region: { left: 400, top: 120, width: 170, height: 60 },
-                                //     templateImages: [`${path_giao_dich}\\form_login.png`],
-                                // });
-
-                                // const result2 = await captureAndMatch({
-                                //     deviceId: host,
-                                //     region: { left: 330, top: 340, width: 300, height: 100 },
-                                //     templateImages: [`${path_giao_dich}\\b1.png`],
-                                // });
                             }
                         }
                     }));
