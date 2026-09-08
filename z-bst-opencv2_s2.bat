@@ -1,1 +1,0 @@
-node z-bst-opencv2_s2.js
