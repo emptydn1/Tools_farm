@@ -65,10 +65,11 @@ const data = JSON.parse(fs.readFileSync("C:\\Users\\huy\\Desktop\\Tools_farm\\z-
 // const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832];
 // const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928];
 const ports = [
-    16448, 16480, 16512, 16544, 16576,
-    16608, 16640, 16672, 16704, 16736,
-    16768, 16800, 16832, 16864, 16896,
-    16928, 16960, 16992, 17024, 17056
+    16448,
+    // 16480, 16512, 16544, 16576,
+    // 16608, 16640, 16672, 16704, 16736,
+    // 16768, 16800, 16832, 16864, 16896,
+    // 16928, 16960, 16992, 17024, 17056
 ]
 
 
@@ -91,6 +92,8 @@ function setupKeyboard() {
             isKilled = true;
             isPaused = false; // bỏ pause để các vòng while thoát được
             console.log('\n[CONTROL] ✖ Kill all - đang dừng...');
+        } else if (key.ctrl && key.name === "c") {
+            process.exit();
         }
     });
 
@@ -159,7 +162,7 @@ function setupKeyboard() {
 
 
                         if (click_cau_hoi.length > 0) {
-                            const buffer = await sharp(base)
+                            const buffer = await base.clone()
                                 .extract({ left: 16, top: 145, width: 320, height: 23 })
                                 .resize({ width: 320 * 5, height: 23 * 5 })
                                 .toBuffer();
@@ -178,7 +181,7 @@ function setupKeyboard() {
                             exclude = [];
                         } else if (click_hoa_dang.length > 0) {
                             const seen = new Set();
-                            let matchedFilter = matchedPoints.filter(point => !seen.has(point.mathImagePath) && seen.add(point.mathImagePath));
+                            let matchedFilter = click_hoa_dang.filter(point => !seen.has(point.mathImagePath) && seen.add(point.mathImagePath));
 
                             for (const { x, y, mathImagePath } of matchedFilter) {
                                 exclude.push(mathImagePath);
