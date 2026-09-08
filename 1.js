@@ -231,7 +231,7 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     console.log(metadata.height);
     
     const pngBuffer = await sharp(buffer)
-        .extract({ left: 300, top: 50, width: metadata.width - 300, height: 400 })
+        .extract({ left: 300, top: 50, width: metadata.width - 300, height: metadata.height - 50 })
         .toBuffer();
 
     fs.writeFileSync("./xxxxxxxx.png", pngBuffer)
