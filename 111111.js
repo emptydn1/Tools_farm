@@ -61,7 +61,7 @@ const actions = {
 // ────────────────────────────────────────────────────────────
 
 
-const data = JSON.parse(fs.readFileSync("C:\\Users\\huy\\Desktop\\Tools_farm\\z-utils_hoa-dang_bst_vv\\answer_Tesseract.json", "utf8"));
+const data = JSON.parse(fs.readFileSync("answer_Tesseract.json", "utf8"));
 // const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832];
 // const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928];
 const ports = [
@@ -103,7 +103,6 @@ function setupKeyboard() {
         // await runAdb(["disconnect"]);
         setupKeyboard();
         await connectAll();
-        let pathMatch = "C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-hoa_dang"
 
         const worker = await Tesseract.createWorker("vie");
         await worker.setParameters({ tessedit_pageseg_mode: Tesseract.PSM.SINGLE_LINE });
@@ -125,83 +124,48 @@ function setupKeyboard() {
                     if (isKilled) break;
 
                     try {
-                        const pngBuffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
-                        const base = sharp(pngBuffer);
-                        const metadata = await base.metadata();
+             
 
-                        const [hoa_dang_buffer, cau_hoi_buffer] = await Promise.all([
-                            base.clone()
-                                .extract({
-                                    left: 300,
-                                    top: 0,
-                                    width: metadata.width - 300,
-                                    height: metadata.height
-                                })
-                                .toBuffer(),
-                            base.clone()
-                                .extract({ left: 0, top: 200, width: 250, height: 100 })
-                                .toBuffer(),
-                        ]);
-
-                        const [{ matchedPoints: click_hoa_dang }, { matchedPoints: click_cau_hoi }] = await Promise.all([
-                            findMatchingRegionsAndroids({
-                                buffer: hoa_dang_buffer,
-                                templateImages: [`${pathMatch}\\hoa_dang.png`].filter(item => !exclude.includes(item)),
-                                matchThreshold: 0.8,
-                            }),
-
-                            findMatchingRegionsAndroids({
-                                buffer: cau_hoi_buffer,
-                                templateImages: [`${pathMatch}\\cau_hoi.png`].filter(item => !exclude.includes(item)),
-                                matchThreshold: 0.8,
-                            })
-                        ]);
-
-
-                        if (click_cau_hoi.length > 0) {
-                            const buffer = await sharp(base)
-                                .extract({ left: 16, top: 145, width: 320, height: 23 })
-                                .resize({ width: 320 * 5, height: 23 * 5 })
-                                .toBuffer();
-                            const { data: ocrData } = await worker.recognize(buffer);
-                            const questionText = ocrData.text.toLowerCase();
-                            const result = data.find(item => questionText.includes(item?.question?.toLowerCase()));
-
-                            if (result?.answer) {
-                                actions[result.answer]?.(host);
-                            } else {
-                                actions[3]?.(host);
-                            }
-
-                            await sleep(1000);
-                            await tap(host, 390, 50);
-                            exclude = [];
-                        } else if (click_hoa_dang.length > 0) {
+                        if (matchedPoints.length > 0) {
                             const seen = new Set();
-                            let matchedFilter = matchedPoints.filter(point => !seen.has(point.mathImagePath) && seen.add(point.mathImagePath));
+                            let matchedFilter = matchedPoints.filter(
+                                point => !seen.has(point.math_image_path) && seen.add(point.math_image_path)
+                            );
 
                             for (const { x, y, mathImagePath } of matchedFilter) {
-                                exclude.push(mathImagePath);
-                                await tap(host, x + 300, y);
+                                if (isKilled) break;
+
+                                if (mathImagePath == 'C:\\Users\\huy\\Desktop\\Tools_Farm\\z-img\\hoa_dang.png') {
+                                    exclude.push(mathImagePath);
+                                    await tap(host, x, y);
+                                }
+                                else if (mathImagePath == 'C:\\Users\\huy\\Desktop\\Tools_Farm\\z-img\\cau_hoi.png') {
+                                    const buffer = await sharp(pngBuffer)
+                                        .extract({ left: 16, top: 145, width: 320, height: 23 })
+                                        .resize({ width: 320 * 5, height: 23 * 5 })
+                                        .toBuffer();
+                                    const { data: ocrData } = await worker.recognize(buffer);
+                                    const questionText = ocrData.text.toLowerCase();
+                                    const result = data.find(item => questionText.includes(item?.question?.toLowerCase()));
+
+                                    if (result?.answer) {
+                                        actions[result.answer]?.(host);
+                                    } else {
+                                        actions[3]?.(host);
+                                    }
+
+                                    await sleep(1000);
+                                    await tap(host, 390, 50);
+                                    exclude = [];
+                                }
                             }
                         } else {
-                            const positions = [
-                                [480, 150], // up
-                                [480, 395], // down
-                                [350, 260], // left
-                                [650, 260], // right
-                            ];
 
-                            const [x, y] = positions[Math.floor(Math.random() * positions.length)];
-                            await tap(host, x, y);
-                            exclude = [];
                         }
-
-
-                        await sleep(500);
                     } catch (e) {
                         console.error(`[${host}] Error:`, e.toString());
                     }
+                    await sleep(500);
                 }
 
                 console.log(`[${host}] Stopped`);
