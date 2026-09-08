@@ -680,6 +680,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
     }
 }
 
+const arg = process.argv[2];
 
 (async () => {
     try {
@@ -688,7 +689,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
         let accounts = await init();
 
         const templateImagesPos = data.map(item => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\${item.pos}.png`);
-        const templateImagesTodoi = data.map(item => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\${item.pos}.png`);
+        const templateImagesTodoi = data.map(item => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\${arg == "2" ? "s2\\" : ""}${item.pos}.png`);
         const templateImagesCitys = Array.from({ length: 7 }, (_, i) => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\city\\${i + 1}.png`);
         const pathMatchforB = "C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\"
         const path_cam_nang = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\cam_nang`;
