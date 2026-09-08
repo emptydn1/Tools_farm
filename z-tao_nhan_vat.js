@@ -316,7 +316,7 @@ function generateId() {
                                     const count = matchedPoints.filter(item => item.mathImagePath.includes('b5.png')).length;
                                     if (count >= 3) {
                                         await tap(host, 75, 30);
-                                        await sleep(1000);
+                                        await sleep(1500);
                                         await tap(host, 65, 470);
                                         return;
                                     }
