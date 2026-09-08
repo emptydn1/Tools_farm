@@ -289,13 +289,13 @@ function generateId() {
                                     if (mathImagePath == `${pathMatch}\\b2.png`) {
                                         await tap(host, 485, 365);
                                         await sleep(1000);
-                                        // await tap(host, 130, 275); // chọn mục cụm 1
-                                        // await sleep(1000);
-                                        // await tap(host, 630, 145); // chọn hoa sơn
-
-                                        await tap(host, 130, 335); // chọn mục cụm 2
+                                        await tap(host, 130, 275); // chọn mục cụm 1
                                         await sleep(1000);
-                                        await tap(host, 630, 145); // chọn châu giang
+                                        await tap(host, 630, 145); // chọn hoa sơn
+
+                                        // await tap(host, 130, 335); // chọn mục cụm 2
+                                        // await sleep(1000);
+                                        // await tap(host, 630, 145); // chọn châu giang
 
                                         await sleep(800);
                                         await tap(host, 485, 445); // nhấn nút bắt đầu
@@ -312,7 +312,10 @@ function generateId() {
                                         await sleep(500);
                                         await tap(host, 860, 455);
                                         await sleep(1000)
+                                    } else {
+                                        await tap(host, 860, 85) // nút hủy
                                     }
+
                                     const count = matchedPoints.filter(item => item.mathImagePath.includes('b5.png')).length;
                                     if (count >= 3) {
                                         await tap(host, 75, 30);
