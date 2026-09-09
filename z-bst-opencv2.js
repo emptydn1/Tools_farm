@@ -496,7 +496,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 for (const { x, y, mathImagePath } of buttonBST) {
                                     if (mathImagePath == `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\nhan-nv.png`) {
                                         await tap(host, 730, 460)  // nhan nhiem vu
-                                        takeTask = true;
                                     } else if (mathImagePath == `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b4.png`) {
                                         takeTask = true;
                                         break LoopCheck1;
