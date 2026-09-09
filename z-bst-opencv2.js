@@ -497,6 +497,8 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     if (mathImagePath == `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\nhan-nv.png`) {
                                         await sleep(500)
                                         await tap(host, 730, 460)  // nhan nhiem vu
+                                        takeTask = true;
+                                        break LoopCheck1;
                                     } else if (mathImagePath == `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b4.png`) {
                                         takeTask = true;
                                         break LoopCheck1;
