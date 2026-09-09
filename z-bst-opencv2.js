@@ -476,6 +476,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                     if (joinBST.length > 0) {
                         await tap(host, 180, 295)  // click tham gia nv
 
+                        LoopCheck1:
                         while (true) {
                             // kiểm tra có phải nút hủy + khiêu chiến bst không
                             const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
@@ -498,11 +499,11 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                         takeTask = true;
                                     } else if (mathImagePath == `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b4.png`) {
                                         takeTask = true;
-                                        break;
+                                        break LoopCheck1;
                                     } else if (mathImagePath == `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\het-luot.png`) {
                                         await tap(host, 730, 460)  // nhan nhiem vu
                                         takeTask = true;
-                                        break;
+                                        break LoopCheck1;
                                     }
                                 }
                             }
