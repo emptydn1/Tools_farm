@@ -495,11 +495,13 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             if (buttonBST.length > 0) {
                                 for (const { x, y, mathImagePath } of buttonBST) {
                                     if (mathImagePath == `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\nhan-nv.png`) {
+                                        await sleep(500)
                                         await tap(host, 730, 460)  // nhan nhiem vu
                                     } else if (mathImagePath == `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b4.png`) {
                                         takeTask = true;
                                         break LoopCheck1;
                                     } else if (mathImagePath == `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\het-luot.png`) {
+                                        await sleep(500)
                                         await tap(host, 730, 460)  // nhan nhiem vu
                                         takeTask = true;
                                         break LoopCheck1;
