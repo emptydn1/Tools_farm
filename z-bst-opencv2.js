@@ -481,8 +481,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             // kiểm tra có phải nút hủy + khiêu chiến bst không
                             const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
                             const pngBuffer1 = await sharp(buffer)
-                                .extract({ left: 520, top: 430, width: 250, height: 70 })
-                                // .extract({ left: 480, top: 430, width: 320, height: 70 })
+                                .extract({ left: 480, top: 430, width: 320, height: 70 })
                                 .toBuffer();
                             const { matchedPoints: buttonBST } = await findMatchingRegionsAndroids({
                                 buffer: pngBuffer1,
