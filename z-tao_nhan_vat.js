@@ -77,7 +77,14 @@ function generateUniqueFileName(prefix = 'file') {
 
 
 // const ports = [16448]
-const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
+// const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
+const ports = [
+    16448,
+    16480, 16512, 16544, 16576,
+    16608, 16640, 16672, 16704, 16736,
+    16768, 16800, 16832, 16864, 16896,
+    16928, 16960, 16992, 17024, 17056
+]
 
 
 
@@ -296,6 +303,11 @@ function generateId() {
                                         // await tap(host, 130, 335); // chọn mục cụm 2
                                         // await sleep(1000);
                                         // await tap(host, 630, 145); // chọn châu giang
+
+                                        // await tap(host, 130, 335); // chọn mục cụm 2
+                                        // await sleep(1000);
+                                        // await tap(host, 630, 220); // chọn long giang
+
 
                                         await sleep(800);
                                         await tap(host, 485, 445); // nhấn nút bắt đầu
