@@ -485,6 +485,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                         await tap(host, 640, 461)
                         await sleep(200)
                         await tap(host, 640, 461)
+                        takeTask = true;
 
                         // LoopCheck1:
                         // while (true) {
