@@ -683,6 +683,14 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 });
 
                                 if (result.length > 0) {
+                                    // đã login xong
+                                    await waitUntilMatch({
+                                        deviceId: host,
+                                        region: { left: 150, top: 50, width: 180, height: 50 },
+                                        templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b2.png`],
+                                        matchThreshold: 0.8,
+                                    });
+
                                     await nhan_tra_nv_bst(host)
                                     break;
                                 }
