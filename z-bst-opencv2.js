@@ -663,7 +663,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                         matchThreshold: 0.8,
                                     });
 
-                                    await nhan_tra_nv_bst(host)
+                                    await nhan_tra_nv_bst(host);
 
                                     const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
                                     const pngBuffer1 = await sharp(buffer)
