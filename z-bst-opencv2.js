@@ -240,6 +240,14 @@ let nhan_tra_nv_bst = async (host) => {
     await sleep(200);
     await tap(host, 640, 461)
 
+    await sleep(200);
+    await tap(host, 390, 470)
+    await sleep(200)
+    await tap(host, 390, 470)
+    await sleep(200)
+
+    await tap(host, 640, 461)
+
     // await tap(host, 730, 460)  // nhan thuong
     // await sleep(1000);
     // await tap(host, 730, 460)  // tắt thông báo thưởng
@@ -494,8 +502,12 @@ async function runPort(indexPort, port, accounts, templatePath) {
                         await sleep(200)
                         await tap(host, 640, 461)
                         await sleep(200)
-                        await tap(host, 640, 461)
+
+                        await tap(host, 390, 470)
                         await sleep(200)
+                        await tap(host, 390, 470)
+                        await sleep(200)
+
                         await tap(host, 640, 461)
                         takeTask = true;
                     }
