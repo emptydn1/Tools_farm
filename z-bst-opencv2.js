@@ -626,7 +626,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             await tap(host, 730, 460); // khiêu chiến bst
 
-                            let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\${found.pos}.png`;
+                            let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\${arg == "2" ? "s2\\" : ""}${found.pos}.png`;
 
                             // Bước 1: vào tổ đội -> check cho tới khi thành công lần đầu
                             await runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pathMatchforB });
@@ -704,6 +704,8 @@ async function runPort(indexPort, port, accounts, templatePath) {
 }
 
 const arg = process.argv[2];
+
+console.log(arg);
 
 (async () => {
     try {
