@@ -239,7 +239,6 @@ let nhan_tra_nv_bst = async (host) => {
     await tap(host, 640, 461)
     await sleep(200);
     await tap(host, 640, 461)
-    await sleep(200);
 
     // await tap(host, 730, 460)  // nhan thuong
     // await sleep(1000);
