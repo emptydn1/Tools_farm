@@ -678,19 +678,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     });
 
                                     await nhan_tra_nv_bst(host);
-
-                                    const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
-                                    const pngBuffer1 = await sharp(buffer)
-                                        .extract({ left: 480, top: 430, width: 320, height: 70 })
-                                        .toBuffer();
-                                    const { matchedPoints: buttonBST } = await findMatchingRegionsAndroids({
-                                        buffer: pngBuffer1,
-                                        templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\het-luot.png`],
-                                        matchThreshold: 0.8,
-                                    });
-                                    if (buttonBST.length > 0) {
-                                        await tap(host, 640, 461)
-                                    }
                                     break;
                                 }
                             }
