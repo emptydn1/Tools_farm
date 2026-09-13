@@ -124,8 +124,8 @@ async function input_text(host, text) {
 // ────────────────────────────────────────────────────────────
 
 
-const ports = [16448]
-// const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
+// const ports = [16448]
+const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
 
 
 
@@ -716,7 +716,7 @@ const arg = process.argv[2];
         const workerPromises = [];
 
         for (const [index, port] of ports.entries()) {
-            await sleep(1000);
+            await sleep(800);
             const p = runPort(index, port, accounts, { templateImagesPos, templateImagesTodoi, templateImagesCitys, pathMatchforB, path_giao_dich, path_cam_nang });
             workerPromises.push(p);
         }
