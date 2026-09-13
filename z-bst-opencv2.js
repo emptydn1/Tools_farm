@@ -657,7 +657,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             // Bước 3:
                             while (true) {
-                                await tap(host, 100, 255);
+                                await tap(host, 100, 245);
                                 await sleep(5000);
 
                                 // là citys
