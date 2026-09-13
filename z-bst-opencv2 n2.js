@@ -124,8 +124,8 @@ async function input_text(host, text) {
 // ────────────────────────────────────────────────────────────
 
 
-const ports = [16448]
-// const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
+// const ports = [16448]
+const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
 
 
 
@@ -655,18 +655,10 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             }
 
 
-                            let count = 1;
                             // Bước 3:
                             while (true) {
                                 await tap(host, 100, 245);
-
                                 await sleep(5000);
-
-                                count++;
-                                if (count > 10) {
-                                    await runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pathMatchforB });
-                                    count = 0;
-                                }
 
                                 // là citys
                                 const result = await captureAndMatch({
