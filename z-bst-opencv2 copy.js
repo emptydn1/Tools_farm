@@ -111,12 +111,8 @@ async function tap(host, x, y) {
 }
 
 async function swipe(host, x1, y1, x2, y2, duration = 300) {
-    try {
-        await runAdb(["-s", host, "shell", "input", "swipe", String(x1), String(y1), String(x2), String(y2), String(duration)]);
-        await sleep(200)
-    } catch (error) {
-
-    }
+    await runAdb(["-s", host, "shell", "input", "swipe", String(x1), String(y1), String(x2), String(y2), String(duration)]);
+    await sleep(200)
 }
 
 async function input_text(host, text) {
