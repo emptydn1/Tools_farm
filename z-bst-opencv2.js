@@ -655,18 +655,18 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             }
 
 
-                            let count = 1;
+                            // let count = 1;
                             // Bước 3:
                             while (true) {
                                 await tap(host, 100, 245);
 
                                 await sleep(5000);
 
-                                if (count > 15) {
-                                    await runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pathMatchforB });
-                                    count = 0;
-                                }
-                                count++;
+                                // if (count > 15) {
+                                //     await runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pathMatchforB });
+                                //     count = 0;
+                                // }
+                                // count++;
 
                                 // là citys
                                 const result = await captureAndMatch({
