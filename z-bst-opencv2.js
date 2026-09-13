@@ -662,11 +662,11 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                                 await sleep(5000);
 
-                                count++;
-                                if (count > 10) {
+                                if (count > 15) {
                                     await runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pathMatchforB });
                                     count = 0;
                                 }
+                                count++;
 
                                 // là citys
                                 const result = await captureAndMatch({
