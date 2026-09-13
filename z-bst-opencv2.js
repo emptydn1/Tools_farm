@@ -716,7 +716,7 @@ const arg = process.argv[2];
         const workerPromises = [];
 
         for (const [index, port] of ports.entries()) {
-            await sleep(800);
+            await sleep(500);
             const p = runPort(index, port, accounts, { templateImagesPos, templateImagesTodoi, templateImagesCitys, pathMatchforB, path_giao_dich, path_cam_nang });
             workerPromises.push(p);
         }
