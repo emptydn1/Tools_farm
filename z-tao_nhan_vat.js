@@ -250,7 +250,7 @@ function generateId() {
 
 
             console.log(accounts[count]);
-            
+
             // B1
             await waitUntilAllMatch(hosts, `${pathMatch}\\b1.png`);
             // nhan login
@@ -325,15 +325,15 @@ function generateId() {
                                         await input_text(host, generateId());
                                         await sleep(500);
                                         await tap(host, 500, 275);
-                                        await sleep(1000)
+                                        await sleep(500)
                                         await tap(host, 860, 455);
-                                        await sleep(5000);
+                                        await sleep(4000);
                                     }
 
                                     const count = matchedPoints.filter(item => item.mathImagePath.includes('b5.png')).length;
                                     if (count >= 3) {
                                         await tap(host, 75, 30);
-                                        await sleep(1500);
+                                        await sleep(2000);
                                         await tap(host, 65, 470);
                                         return;
                                     }
