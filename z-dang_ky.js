@@ -217,25 +217,6 @@ async function init() {
     return accounts;
 }
 
-function generateId() {
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-
-    let part1 = "";
-
-    for (let i = 0; i < 5; i++) {
-        part1 += letters[Math.floor(Math.random() * letters.length)];
-    }
-
-    const now = new Date();
-
-    const time =
-        String(now.getMinutes()).padStart(2, "0") +
-        String(now.getSeconds()).padStart(2, "0") +
-        String(now.getMilliseconds()).padStart(3, "0");
-
-    return `${part1}${time}`;
-}
-
 
 (async () => {
     try {

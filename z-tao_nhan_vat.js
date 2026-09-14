@@ -151,7 +151,6 @@ async function waitUntilAllMatch(hosts, templatePath) {
             const results = await Promise.all(
                 batch.map(host =>
                     captureAndMatch(host, templatePath).catch(err => {
-                        console.error(`Lỗi ở ${host}:`, err.message);
                         return { host, isOk: false };
                     })
                 )
@@ -250,6 +249,7 @@ function generateId() {
             if (isKilled) break;
 
 
+            console.log(accounts[count][index]);
             // B1
             await waitUntilAllMatch(hosts, `${pathMatch}\\b1.png`);
             // nhan login
@@ -271,7 +271,7 @@ function generateId() {
                 return chunks;
             }
 
-            const BATCH_SIZE = 16;
+            const BATCH_SIZE = 20;
             const batches = chunkArray(hosts, BATCH_SIZE);
 
             for (const batch of batches) {
@@ -296,9 +296,9 @@ function generateId() {
                                     if (mathImagePath == `${pathMatch}\\b2.png`) {
                                         await tap(host, 485, 365);
                                         await sleep(1000);
-                                        await tap(host, 130, 275); // chọn mục cụm 1
-                                        await sleep(1000);
-                                        await tap(host, 630, 145); // chọn hoa sơn
+                                        // await tap(host, 130, 275); // chọn mục cụm 1
+                                        // await sleep(1000);
+                                        // await tap(host, 630, 145); // chọn hoa sơn
 
                                         // await tap(host, 130, 335); // chọn mục cụm 2
                                         // await sleep(1000);
@@ -308,6 +308,9 @@ function generateId() {
                                         // await sleep(1000);
                                         // await tap(host, 630, 220); // chọn long giang
 
+                                        await tap(host, 130, 335); // chọn mục cụm 2
+                                        await sleep(1000);
+                                        await tap(host, 330, 145); // chọn trường giang
 
                                         await sleep(800);
                                         await tap(host, 485, 445); // nhấn nút bắt đầu
@@ -321,9 +324,9 @@ function generateId() {
                                         await input_text(host, generateId());
                                         await sleep(500);
                                         await tap(host, 500, 275);
-                                        await sleep(500);
-                                        await tap(host, 860, 455);
                                         await sleep(1000)
+                                        await tap(host, 860, 455);
+                                        await sleep(1000);
                                     }
 
                                     const count = matchedPoints.filter(item => item.mathImagePath.includes('b5.png')).length;
