@@ -327,13 +327,13 @@ function generateId() {
                                         await tap(host, 500, 275);
                                         await sleep(500)
                                         await tap(host, 860, 455);
-                                        await sleep(4000);
+                                        await sleep(3000);
                                     }
 
                                     const count = matchedPoints.filter(item => item.mathImagePath.includes('b5.png')).length;
                                     if (count >= 3) {
                                         await tap(host, 75, 30);
-                                        await sleep(2000);
+                                        await sleep(2500);
                                         await tap(host, 65, 470);
                                         return;
                                     }
