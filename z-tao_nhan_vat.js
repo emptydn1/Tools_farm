@@ -249,7 +249,8 @@ function generateId() {
             if (isKilled) break;
 
 
-            console.log(accounts[count][index]);
+            console.log(accounts[count]);
+            
             // B1
             await waitUntilAllMatch(hosts, `${pathMatch}\\b1.png`);
             // nhan login
