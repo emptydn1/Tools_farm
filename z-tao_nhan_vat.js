@@ -327,7 +327,7 @@ function generateId() {
                                         await tap(host, 500, 275);
                                         await sleep(1000)
                                         await tap(host, 860, 455);
-                                        await sleep(1000);
+                                        await sleep(5000);
                                     }
 
                                     const count = matchedPoints.filter(item => item.mathImagePath.includes('b5.png')).length;
