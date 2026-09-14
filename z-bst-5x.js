@@ -370,7 +370,7 @@ const actionsNhanVat = {
 
 async function runPort(indexPort, port, accounts, templatePath) {
     const host = `127.0.0.1:${port}`;
-    const { posBST, todoiList, posCitys, basePath, loginPath, checkGameStartPath, path_cam_nang } = templatePath
+    const { posBST, todoiList, posCitys, basePath, loginPath, checkGameStartPath, camNangPath } = templatePath
     let countLogin = 4;
 
     for (let i = 0; i < accounts.length; i++) {
@@ -461,10 +461,10 @@ async function runPort(indexPort, port, accounts, templatePath) {
                     region: { left: 830, top: 80, width: 100, height: 50 },
                     templateImages: [
                         ...posCitys,
-                        `${path_cam_nang}\\bien_kinh.png`,
-                        `${path_cam_nang}\\lam_an.png`,
-                        `${path_cam_nang}\\phuong_tuong.png`,
-                        `${path_cam_nang}\\tuong_duong.png`,
+                        `${camNangPath}\\bien_kinh.png`,
+                        `${camNangPath}\\lam_an.png`,
+                        `${camNangPath}\\phuong_tuong.png`,
+                        `${camNangPath}\\tuong_duong.png`,
                     ],
                     matchThreshold: 0.95,
                 });
@@ -519,7 +519,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                         .toBuffer();
                     const { matchedPoints: camnang } = await findMatchingRegionsAndroids({
                         buffer: pngBuffer1,
-                        templateImages: [`${path_cam_nang}\\b1_cam_nang.png`],
+                        templateImages: [`${camNangPath}\\b1_cam_nang.png`],
                         matchThreshold: 0.8,
                     });
 
@@ -593,7 +593,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                 if (matchedPoints.length > 0) {
                     for (const { x, y, mathImagePath } of matchedPoints) {
                         const found = data.find(item => {
-                            const expectedPath = `${basePath}\\${item.pos}.png`;
+                            const expectedPath = `${basePath}\\todoi\\posBst\\${item.pos}.png`;
                             return mathImagePath === expectedPath;
                         });
 
@@ -608,7 +608,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             await tap(host, 730, 460); // khiêu chiến bst
 
-                            let TARGET_IMAGE = `${basePath}\\todoi\\${found.pos}.png`;
+                            let TARGET_IMAGE = `${basePath}\\todoi\\team\\${found.pos}.png`;
 
                             // Bước 1: vào tổ đội -> check cho tới khi thành công lần đầu
                             await runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath });
@@ -701,12 +701,12 @@ async function runPort(indexPort, port, accounts, templatePath) {
         const loginPath = `${basePath}\\dang-nhap`;
         const checkGameStartPath = `${basePath}\\check-vao-game`;
 
-        const path_cam_nang = `${basePath}\\cam_nang`;
+        const camNangPath = `${basePath}\\cam-nang`;
 
         const workerPromises = [];
         for (const [index, port] of ports.entries()) {
             await sleep(1000);
-            const p = runPort(index, port, accounts, { posBST, todoiList, posCitys, basePath, loginPath, checkGameStartPath, path_cam_nang });
+            const p = runPort(index, port, accounts, { posBST, todoiList, posCitys, basePath, loginPath, checkGameStartPath, camNangPath });
             workerPromises.push(p);
         }
 
