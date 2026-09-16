@@ -620,7 +620,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 if (isScrollDown) {
                                     // cuộn xuống
                                     const targetY = useAltTarget ? 50 : 0;
-                                    const targetTime = useAltTarget ? 1200 : 1350;
+                                    const targetTime = useAltTarget ? 1200 : 1300;
                                     await swipe(host, 115, 315, 115, targetY, targetTime);
                                     isScrollDown = false;
                                 } else {
