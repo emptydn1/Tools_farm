@@ -224,7 +224,7 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     await connectAll();
 
     // // let buffer = fs.readFileSync("./1.png")
-    // let host = "127.0.0.1:16448";
+    let host = "127.0.0.1:16448";
     // const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
     // // const metadata = await sharp(buffer).metadata();
 
@@ -249,7 +249,7 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // await swipe(host, 115, 200, 115, 700, 500);
 
 
-    // await swipe(host, 115, 315, 115, 0, 1200);
+    await swipe(host, 115, 315, 115, 0, 1350);
     // await swipe(host, 115, 315, 115, 50, 1200); // bo nv bst
 
     // const basePath = "C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\5x\\todoi\\temp";
