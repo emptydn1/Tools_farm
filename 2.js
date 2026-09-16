@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import sharp from "sharp";
 
-const inputFolder = "C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\5x";
+const inputFolder = "C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\5x\\todoi\\temp";
 
 const outputFolder = path.join(inputFolder, "cut");
 
@@ -26,10 +26,10 @@ async function main() {
 
             await sharp(inputPath)
                 .extract({
-                    left: 590,
-                    top: 120,
-                    width: 130,
-                    height: 40
+                    left: 580,
+                    top: 125,
+                    width: 145,
+                    height: 30
                 })
                 .png()
                 .toFile(outputPath);

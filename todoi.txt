@@ -53,42 +53,64 @@ git reset --hard origin/main
 
 
 // [
+//     ("15 14", "hoang tram", "pnst"),         1
 //     ("135 65", "vo quang", "pnst"),          2
+//     ("14 35", "phan my44", "pnst"),          3
 //     ("148 68", "lam tai", "pnst"),           4
 //     ("52 46", "nong tu", "pnst"),            5
-//     ("14 35", "phan my44", "pnst"),          3
-//     ("100 74", "che linh4", "pnst"),         7
-//     ("15 14", "hoang tram", "pnst"),         1
-//     ("168 65", "nong nhu", "pnst"),          6
 
-//     ("46 11", "duong hoang", "hhnd"),        12
-//     ("9 29", "tham diep", "hhnd"),           14
+//     ("168 65", "nong nhu", "pnst"),          6
+//     ("100 74", "che linh4", "pnst"),         7
+
+//     ("8 9", "phan trang", "hhnd"),           8
 //     ("34 36", "trinh dao", "hhnd"),          9
-//     ("67 20", "vo minh", "hhnd"),
+//     ("67 20", "vo minh", "hhnd"),            10
 //     ("65 30", "phan long11", "hhnd"),        11
-//     ("8 9", "phan trang", "hhnd"),
-//     ("67 8", "bui sam5", "hhnd"),
+//     ("46 11", "duong hoang", "hhnd"),        12
+//     ("67 8", "bui sam5", "hhnd"),            13
+//     ("9 29", "tham diep", "hhnd"),           14
     
-//     ("194 61", "le dang", "dts"),            16
-//     ("19 71", "lai tu23", "dts"),            20
-//     ("35 69", "che hong22", "dts"),          17
-//     ("83 96", "doan vinh", "dts"),           19
-//     ("63 79", "na linh", "dts"),             18
 //     ("206 41", "phan hieu", "dts"),          15
+//     ("194 61", "le dang", "dts"),            16
+//     ("35 69", "che hong22", "dts"),          17
+//     ("63 79", "na linh", "dts"),             18
+//     ("83 96", "doan vinh", "dts"),           19
+//     ("19 71", "lai tu23", "dts"),            20
 // ]
 
 
-ác bá địa đạo
-31 14
+[
+("22 7", "hoang tram", "abdd"),
+("31 14", "vo quang", "abdd"),
+("39 27", "phan my44", "abdd"),
+("57 5", "lam tai", "abdd"),
+("68 16", "nong tu", "abdd"),
+
+("19 18", "nong nhu", "ddtt"),
+("21 27", "che linh4", "ddtt"),
+("35 18", "phan trang", "ddtt"),
+("39 1", "trinh dao", "ddtt"),
+("55 11", "vo minh", "ddtt"),
+
+("15 34", "phan long11", "ttd"),
+("23 5", "duong hoang", "ttd"),
+("28 19", "bui sam5", "ttd"),
+("54 45", "tham diep", "ttd"),
+("56 18", "phan hieu", "ttd"),
+
+("11 31", "le dang", "ttt1"),
+("41 4", "che hong22", "ttt1"),
+("45 25", "na linh", "ttt1"),
+("62 36", "doan vinh", "ttt1"),
+("66 20", "lai tu23", "ttt1"),
 
 
-
-địa đạo tín tự
-21 27
-39 1
+]
 
 
-thiên tầm động
-28 19
-45 25
-41 4
+ac ba dia dao - > dai ly
+
+
+dia dao tu tin tu -> thanh do
+
+
