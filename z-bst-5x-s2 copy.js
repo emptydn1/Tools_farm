@@ -602,37 +602,19 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             await tap(host, 730, 460); // khiêu chiến bst
 
+                            let TARGET_IMAGE = `${basePath}\\todoi\\team\\${found.pos}.png`;
+
+                            // Bước 1: vào tổ đội -> check cho tới khi thành công lần đầu
+                            await runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath });
+                            await sleep(1000)
 
 
-                            // bước 1 cuộn xuống
-                            // chờ login hoặc đã lên trên map đánh bst
-                            await waitUntilMatch({
-                                deviceId: host,
-                                region: { left: 150, top: 50, width: 180, height: 50 },
-                                templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
-                                matchThreshold: 0.8,
-                            });
-
+                            // Bước 2
                             let isScrollDown = true;
                             let pairCount = 0;        // đếm số lần đã cuộn xuống-lên hoàn chỉnh
                             let useAltTarget = false; // false: cuộn xuống tới y=0, true: cuộn xuống tới y=54
 
                             while (true) {
-                                // check cuộn xuống nhiêm vụ sat thủ thành công
-                                const result = await captureAndMatch({
-                                    deviceId: host,
-                                    region: { left: 0, top: 170, width: 180, height: 80 },
-                                    templateImages: [`${checkGameStartPath}\\check-table-bst.png`],
-                                    matchThreshold: 0.8,
-                                });
-
-                                if (result.length > 0) {
-                                    await tap(host, 100, 245);
-                                    await sleep(500)
-                                    await tap(host, 100, 245);
-                                    break
-                                }
-
                                 if (isScrollDown) {
                                     // cuộn xuống
                                     if (useAltTarget) {
@@ -655,22 +637,8 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     }
                                 }
 
-                                await sleep(400);
-                            }
+                                await sleep(1000);
 
-
-                            // Bước 2: vào tổ đội -> check cho tới khi thành công lần đầu
-                            let TARGET_IMAGE = `${basePath}\\todoi\\team\\${found.pos}.png`;
-                            await runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath });
-                            await sleep(1000)
-
-
-                            // Bước 3: lặp lại
-                            let isScrollDown2 = true;
-                            let pairCount2 = 0;        // đếm số lần đã cuộn xuống-lên hoàn chỉnh
-                            let useAltTarget2 = false; // false: cuộn xuống tới y=0, true: cuộn xuống tới y=54
-
-                            while (true) {
                                 // check cuộn xuống nhiêm vụ sat thủ thành công
                                 const result = await captureAndMatch({
                                     deviceId: host,
@@ -679,36 +647,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     matchThreshold: 0.8,
                                 });
 
-                                if (result.length > 0) {
-                                    await tap(host, 100, 245);
-                                    await sleep(500)
-                                    await tap(host, 100, 245);
-                                    break
-                                }
-
-                                if (isScrollDown2) {
-                                    // cuộn xuống
-                                    if (useAltTarget2) {
-                                        await swipe(host, 115, 295, 115, 0, 2000);
-                                    } else {
-                                        await swipe(host, 115, 295, 115, 0, 2000);
-                                        await sleep(500)
-                                        await swipe(host, 115, 295, 115, 220, 2000);
-                                    }
-
-                                    isScrollDown2 = false;
-                                } else {
-                                    // cuộn lên
-                                    await swipe(host, 115, 200, 115, 700, 500);
-                                    isScrollDown2 = true;
-
-                                    pairCount2++;
-                                    if (pairCount2 % 3 === 0) {
-                                        useAltTarget2 = !useAltTarget2; // sau mỗi 3 lần xuống-lên thì đổi target
-                                    }
-                                }
-
-                                await sleep(400);
+                                if (result.length > 0) break
                             }
 
 

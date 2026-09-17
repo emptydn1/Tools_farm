@@ -613,7 +613,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
 
                             // bước 1 cuộn xuống
-                            await sleep(1000);
                             // chờ login hoặc đã lên trên map đánh bst
                             await waitUntilMatch({
                                 deviceId: host,
@@ -622,34 +621,11 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 matchThreshold: 0.8,
                             });
 
-                            await tap(host, 190, 157)  // to doi
-                            await sleep(500);
-                            await tap(host, 60, 155);   // tab nv
-                            await sleep(1000);
-
                             let isScrollDown = true;
                             let pairCount = 0;        // đếm số lần đã cuộn xuống-lên hoàn chỉnh
                             let useAltTarget = false; // false: cuộn xuống tới y=0, true: cuộn xuống tới y=54
 
                             while (true) {
-                                if (isScrollDown) {
-                                    // cuộn xuống
-                                    const targetY = useAltTarget ? 50 : 0;
-                                    await swipe(host, 115, 315, 115, targetY, 1200);
-                                    isScrollDown = false;
-                                } else {
-                                    // cuộn lên
-                                    await swipe(host, 115, 200, 115, 700, 500);
-                                    isScrollDown = true;
-
-                                    pairCount++;
-                                    if (pairCount % 3 === 0) {
-                                        useAltTarget = !useAltTarget; // sau mỗi 3 lần xuống-lên thì đổi target
-                                    }
-                                }
-
-                                await sleep(1000);
-
                                 // check cuộn xuống nhiêm vụ sat thủ thành công
                                 const result = await captureAndMatch({
                                     deviceId: host,
@@ -664,6 +640,30 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     await tap(host, 100, 245);
                                     break
                                 }
+
+                                if (isScrollDown) {
+                                    // cuộn xuống
+                                    if (useAltTarget) {
+                                        await swipe(host, 115, 295, 115, 0, 2000);
+                                    } else {
+                                        await swipe(host, 115, 295, 115, 0, 2000);
+                                        await sleep(500)
+                                        await swipe(host, 115, 295, 115, 220, 2000);
+                                    }
+
+                                    isScrollDown = false;
+                                } else {
+                                    // cuộn lên
+                                    await swipe(host, 115, 200, 115, 700, 500);
+                                    isScrollDown = true;
+
+                                    pairCount++;
+                                    if (pairCount % 3 === 0) {
+                                        useAltTarget = !useAltTarget; // sau mỗi 3 lần xuống-lên thì đổi target
+                                    }
+                                }
+
+                                await sleep(400);
                             }
 
 
