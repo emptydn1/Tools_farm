@@ -590,8 +590,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             const expectedPath = `${basePath}\\todoi\\posBst\\${item.pos}.png`;
                             return mathImagePath === expectedPath;
                         });
-                        console.log(found);
-
 
                         if (found) {
                             // bảng nhiêm vụ sat thủ
