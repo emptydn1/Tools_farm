@@ -248,8 +248,17 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
     // await swipe(host, 115, 200, 115, 700, 500);
 
+    // await swipe(host, 115, 295, 115, 0, 2000);
+    // await sleep(500)
+    // console.log("Xxx");
+    // await swipe(host, 115, 295, 115, 220, 2000);
 
-    await swipe(host, 115, 315, 115, 0, 1350);
+    // await swipe(host, 115, 295, 115, 50, 2000);
+
+
+
+
+    // await swipe(host, 115, 315, 115, 0, 1350);
     // await swipe(host, 115, 315, 115, 50, 1200); // bo nv bst
 
     // const basePath = "C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\5x\\todoi\\temp";

@@ -617,9 +617,14 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             while (true) {
                                 if (isScrollDown) {
                                     // cuộn xuống
-                                    const targetY = useAltTarget ? 50 : 0;
-                                    const targetTime = useAltTarget ? 1200 : 1300;
-                                    await swipe(host, 115, 315, 115, targetY, targetTime);
+                                    if (useAltTarget) {
+                                        await swipe(host, 115, 295, 115, 0, 2000);
+                                    } else {
+                                        await swipe(host, 115, 295, 115, 0, 2000);
+                                        await sleep(500)
+                                        await swipe(host, 115, 295, 115, 220, 2000);
+                                    }
+
                                     isScrollDown = false;
                                 } else {
                                     // cuộn lên
@@ -649,8 +654,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             // Bước 3:
                             while (true) {
                                 await tap(host, 100, 245);
-                                await sleep(200)
-                                await tap(host, 100, 225);
 
                                 await sleep(5000);
 
