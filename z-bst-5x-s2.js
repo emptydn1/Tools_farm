@@ -651,6 +651,8 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             // Bước 3:
                             while (true) {
                                 await tap(host, 100, 245);
+                                await sleep(200)
+                                await tap(host, 100, 225);
 
                                 await sleep(5000);
 
