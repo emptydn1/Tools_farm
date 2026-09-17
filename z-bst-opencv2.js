@@ -616,61 +616,74 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             await tap(host, 730, 460); // khiêu chiến bst
 
-                            let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\${arg == "2" ? "s2\\" : ""}${found.pos}.png`;
 
-                            // Bước 1: vào tổ đội -> check cho tới khi thành công lần đầu
+
+
+
+                            // bước 1 cuộn xuống
+                            // chờ login hoặc đã lên trên map đánh bst
+                            await waitUntilMatch({
+                                deviceId: host,
+                                region: { left: 150, top: 50, width: 180, height: 50 },
+                                templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b2.png`],
+                                matchThreshold: 0.8,
+                            });
+
+                            async function loopScrollBst(host) {
+                                let isScrollDown = true;
+                                let pairCount = 0;        // đếm số lần đã cuộn xuống-lên hoàn chỉnh
+                                let useAltTarget = false; // false: cuộn xuống tới y=0, true: cuộn xuống tới y=54
+
+                                while (true) {
+                                    // check cuộn xuống nhiêm vụ sat thủ thành công
+                                    const result = await captureAndMatch({
+                                        deviceId: host,
+                                        region: { left: 0, top: 170, width: 180, height: 80 },
+                                        templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\check-table-bst.png`],
+                                        matchThreshold: 0.8,
+                                    });
+
+                                    if (result.length > 0) {
+                                        await tap(host, 100, 245);
+                                        await sleep(500)
+                                        await tap(host, 100, 245);
+                                        break
+                                    }
+
+                                    if (isScrollDown) {
+                                        // cuộn xuống
+                                        const targetY = useAltTarget ? 54 : 0;
+                                        await swipe(host, 115, 295, 115, targetY, 2000);
+                                        isScrollDown = false;
+                                    } else {
+                                        // cuộn lên
+                                        await swipe(host, 115, 200, 115, 700, 500);
+                                        isScrollDown = true;
+
+                                        pairCount++;
+                                        if (pairCount % 3 === 0) {
+                                            useAltTarget = !useAltTarget; // sau mỗi 3 lần xuống-lên thì đổi target
+                                        }
+                                    }
+                                    await sleep(400);
+                                }
+                            }
+
+                            await loopScrollBst(host);
+
+                            // Bước 2: vào tổ đội -> check cho tới khi thành công lần đầu
+                            let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\${arg == "2" ? "s2\\" : ""}${found.pos}.png`;
                             await runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pathMatchforB });
                             await sleep(1000)
 
-
-                            // Bước 2
-                            let isScrollDown = true;
-                            let pairCount = 0;        // đếm số lần đã cuộn xuống-lên hoàn chỉnh
-                            let useAltTarget = false; // false: cuộn xuống tới y=0, true: cuộn xuống tới y=54
-
-                            while (true) {
-                                if (isScrollDown) {
-                                    // cuộn xuống
-                                    const targetY = useAltTarget ? 54 : 0;
-                                    await swipe(host, 115, 295, 115, targetY, 2000);
-                                    isScrollDown = false;
-                                } else {
-                                    // cuộn lên
-                                    await swipe(host, 115, 200, 115, 700, 500);
-                                    isScrollDown = true;
-
-                                    pairCount++;
-                                    if (pairCount % 3 === 0) {
-                                        useAltTarget = !useAltTarget; // sau mỗi 3 lần xuống-lên thì đổi target
-                                    }
-                                }
-
-                                await sleep(1000);
-
-                                // check cuộn xuống nhiêm vụ sat thủ thành công
-                                const result = await captureAndMatch({
-                                    deviceId: host,
-                                    region: { left: 0, top: 170, width: 180, height: 80 },
-                                    templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\check-table-bst.png`],
-                                    matchThreshold: 0.8,
-                                });
-
-                                if (result.length > 0) break
-                            }
+                            await loopScrollBst(host);
 
 
-                            // let count = 1;
                             // Bước 3:
                             while (true) {
                                 await tap(host, 100, 245);
 
                                 await sleep(5000);
-
-                                // if (count > 15) {
-                                //     await runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pathMatchforB });
-                                //     count = 0;
-                                // }
-                                // count++;
 
                                 // là citys
                                 const result = await captureAndMatch({
