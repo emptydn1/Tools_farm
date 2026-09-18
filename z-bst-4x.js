@@ -704,15 +704,15 @@ async function runPort(indexPort, port, accounts, templatePath) {
         let accounts = await init();
 
         const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\4x`;
+        const resourcePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst`;
 
         const posBST = data.map(item => `${basePath}\\todoi\\posBst\\${item.pos}.png`);
         const todoiList = data.map(item => `${basePath}\\todoi\\team\\${item.pos}.png`);
-        const posCitys = Array.from({ length: 7 }, (_, i) => `${basePath}\\citys\\${i + 1}.png`);
 
-        const loginPath = `${basePath}\\dang-nhap`;
-        const checkGameStartPath = `${basePath}\\check-vao-game`;
-
-        const camNangPath = `${basePath}\\cam-nang`;
+        const camNangPath = `${resourcePath}\\cam-nang`;
+        const checkGameStartPath = `${resourcePath}\\check-vao-game`;
+        const posCitys = Array.from({ length: 7 }, (_, i) => `${resourcePath}\\citys\\${i + 1}.png`);
+        const loginPath = `${resourcePath}\\dang-nhap`;
 
         const workerPromises = [];
         for (const [index, port] of ports.entries()) {
