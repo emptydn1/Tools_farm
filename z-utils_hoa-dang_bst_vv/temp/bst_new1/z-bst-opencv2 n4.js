@@ -165,34 +165,33 @@ function setupKeyboard() {
 }
 
 const data = [
-    // Group: abdd
-    { pos: "22 7", name: "hoang tram", group: "abdd" },
-    { pos: "31 14", name: "vo quang", group: "abdd" },
-    { pos: "39 27", name: "phan my44", group: "abdd" },
-    { pos: "57 5", name: "lam tai", group: "abdd" },
-    { pos: "68 16", name: "nong tu", group: "abdd" },
+    // pnst
+    { pos: "148 68", name: "lam tai", group: "pnst" },
+    { pos: "52 46", name: "nong tu", group: "pnst" },
+    { pos: "135 65", name: "vo quang", group: "pnst" },
+    { pos: "14 35", name: "phan my44", group: "pnst" },
+    { pos: "100 74", name: "che linh4", group: "pnst" },
+    { pos: "15 14", name: "hoang tram", group: "pnst" },
+    { pos: "168 65", name: "nong nhu", group: "pnst" },
 
-    // Group: ddtt
-    { pos: "19 18", name: "nong nhu", group: "ddtt" },
-    { pos: "21 27", name: "che linh4", group: "ddtt" },
-    { pos: "35 18", name: "phan trang", group: "ddtt" },
-    { pos: "39 1", name: "trinh dao", group: "ddtt" },
-    { pos: "55 11", name: "vo minh", group: "ddtt" },
+    // hhnd
+    { pos: "8 9", name: "phan trang", group: "hhnd" },
+    { pos: "46 11", name: "duong hoang", group: "hhnd" },
+    { pos: "9 29", name: "tham diep", group: "hhnd" },
+    { pos: "34 36", name: "trinh dao", group: "hhnd" },
+    { pos: "67 20", name: "vo minh", group: "hhnd" },
+    { pos: "65 30", name: "phan long11", group: "hhnd" },
+    { pos: "67 8", name: "bui sam5", group: "hhnd" },
 
-    // Group: ttd
-    { pos: "15 34", name: "phan long11", group: "ttd" },
-    { pos: "23 5", name: "duong hoang", group: "ttd" },
-    { pos: "28 19", name: "bui sam5", group: "ttd" },
-    { pos: "54 45", name: "tham diep", group: "ttd" },
-    { pos: "56 18", name: "phan hieu", group: "ttd" },
-
-    // Group: ttt1
-    { pos: "11 31", name: "le dang", group: "ttt1" },
-    { pos: "41 4", name: "che hong22", group: "ttt1" },
-    { pos: "45 25", name: "na linh", group: "ttt1" },
-    { pos: "62 36", name: "doan vinh", group: "ttt1" },
-    { pos: "66 20", name: "lai tu23", group: "ttt1" }
+    // dts
+    { pos: "63 79", name: "na linh", group: "dts" },
+    { pos: "35 69", name: "che hong22", group: "dts" },
+    { pos: "194 61", name: "le dang", group: "dts" },
+    { pos: "206 41", name: "phan hieu", group: "dts" },
+    { pos: "83 96", name: "doan vinh", group: "dts" },
+    { pos: "19 71", name: "lai tu23", group: "dts" },
 ];
+
 
 
 
@@ -252,6 +251,12 @@ let nhan_tra_nv_bst = async (host) => {
     await sleep(200)
 
     await tap(host, 640, 461)
+
+    // await tap(host, 730, 460)  // nhan thuong
+    // await sleep(1000);
+    // await tap(host, 730, 460)  // tắt thông báo thưởng
+    // await sleep(500);
+    // await tap(host, 730, 460)  // nhan nv
 }
 
 
@@ -285,18 +290,19 @@ async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold
 }
 
 
-async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath }) {
+async function runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pathMatchforB, checkFirst = false }) {
     let done = false; // true nếu check_to_doi thành công (match b4)
 
-    // chờ login hoặc đã lên trên map đánh bst
-    await waitUntilMatch({
-        deviceId: host,
-        region: { left: 150, top: 50, width: 180, height: 50 },
-        templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
-        matchThreshold: 0.8,
-    });
-
     while (!done) {
+        // chờ login hoặc đã lên trên map đánh bst
+        await waitUntilMatch({
+            deviceId: host,
+            region: { left: 150, top: 50, width: 180, height: 50 },
+            templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b2.png`],
+            matchThreshold: 0.8,
+        });
+
+        // if (!checkFirst) await sleep(8000);
         await tap(host, 190, 157)  // to doi
         await sleep(500);
         await tap(host, 190, 157)  // to doi
@@ -307,7 +313,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
         let matchedPoints = await captureAndMatch({
             deviceId: host,
             region: { left: 220, top: 80, width: 120, height: 380 },
-            templateImages: todoiList,
+            templateImages: templateImagesTodoi,
         });
         let target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
 
@@ -317,7 +323,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
             matchedPoints = await captureAndMatch({
                 deviceId: host,
                 region: { left: 220, top: 80, width: 120, height: 380 },
-                templateImages: todoiList,
+                templateImages: templateImagesTodoi,
             });
             target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
         }
@@ -337,7 +343,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
         const matchedPoints2 = await captureAndMatch({
             deviceId: host,
             region: { left: 0, top: 70, width: 530, height: 270 },
-            templateImages: [`${checkGameStartPath}\\check-to-doi.png`],
+            templateImages: [`${pathMatchforB}\\b4.png`],
             matchThreshold: 0.8,
         });
 
@@ -371,12 +377,13 @@ const actionsNhanVat = {
 
 async function runPort(indexPort, port, accounts, templatePath) {
     const host = `127.0.0.1:${port}`;
-    const { posBST, todoiList, posCitys, basePath, loginPath, checkGameStartPath, camNangPath } = templatePath
+    const { templateImagesPos, templateImagesTodoi, templateImagesCitys, pathMatchforB, path_giao_dich, path_cam_nang } = templatePath
     let countLogin = 4;
 
     for (let i = 0; i < accounts.length; i++) {
         for (let round = 0; round < 3; round++) {
             console.log(accounts[i][indexPort]);
+
 
             while (true) {
                 await tap(host, 860, 85) // nút hủy
@@ -385,7 +392,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                 const result3 = await captureAndMatch({
                     deviceId: host,
                     region: { left: 340, top: 415, width: 260, height: 70 },
-                    templateImages: [`${loginPath}\\vao-giang-ho.png`],
+                    templateImages: [`${path_giao_dich}\\b2.png`],
                 });
                 if (result3.length > 0) {
                     await tap(host, 490, 445) // nhấn đăng nhập vào chọn nhân vật
@@ -395,7 +402,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                 const result4 = await captureAndMatch({
                     deviceId: host,
                     region: { left: 750, top: 420, width: 210, height: 80 },
-                    templateImages: [`${loginPath}\\vao_game.png`],
+                    templateImages: [`${path_giao_dich}\\vao_game.png`],
                 });
                 if (result4.length > 0) break;
 
@@ -403,7 +410,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                 const result1 = await captureAndMatch({
                     deviceId: host,
                     region: { left: 330, top: 340, width: 300, height: 100 },
-                    templateImages: [`${loginPath}\\dang-nhap-voi-mbox-id.png`],
+                    templateImages: [`${path_giao_dich}\\b1.png`],
                 });
                 if (result1.length > 0) {
                     await tap(host, 490, 425)// bấm đăng nhập để nhập tài khoản
@@ -414,7 +421,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                 const result2 = await captureAndMatch({
                     deviceId: host,
                     region: { left: 400, top: 120, width: 170, height: 60 },
-                    templateImages: [`${loginPath}\\form_login.png`],
+                    templateImages: [`${path_giao_dich}\\form_login.png`],
                 });
                 if (result2.length > 0) {
                     if (countLogin == 4) {
@@ -450,7 +457,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                 await waitUntilMatch({
                     deviceId: host,
                     region: { left: 150, top: 50, width: 180, height: 50 },
-                    templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
+                    templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b2.png`],
                     matchThreshold: 0.8,
                 });
 
@@ -461,11 +468,11 @@ async function runPort(indexPort, port, accounts, templatePath) {
                     deviceId: host,
                     region: { left: 830, top: 80, width: 100, height: 50 },
                     templateImages: [
-                        ...posCitys,
-                        `${camNangPath}\\bien_kinh.png`,
-                        `${camNangPath}\\lam_an.png`,
-                        `${camNangPath}\\phuong_tuong.png`,
-                        `${camNangPath}\\tuong_duong.png`,
+                        ...templateImagesCitys,
+                        `${path_cam_nang}\\bien_kinh.png`,
+                        `${path_cam_nang}\\lam_an.png`,
+                        `${path_cam_nang}\\phuong_tuong.png`,
+                        `${path_cam_nang}\\tuong_duong.png`,
                     ],
                     matchThreshold: 0.95,
                 });
@@ -484,7 +491,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                         .toBuffer();
                     const { matchedPoints: joinBST } = await findMatchingRegionsAndroids({
                         buffer: pngBuffer1,
-                        templateImages: [`${checkGameStartPath}\\tham-gia-nv-bst.png`],
+                        templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\tham-gia-nv-bst.png`],
                         matchThreshold: 0.8,
                     });
 
@@ -520,7 +527,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                         .toBuffer();
                     const { matchedPoints: camnang } = await findMatchingRegionsAndroids({
                         buffer: pngBuffer1,
-                        templateImages: [`${camNangPath}\\b1_cam_nang.png`],
+                        templateImages: [`${path_cam_nang}\\b1_cam_nang.png`],
                         matchThreshold: 0.8,
                     });
 
@@ -541,6 +548,13 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
 
 
+
+
+
+
+
+
+
             outerLoop:
             while (true) {
                 // phát hiện đã mở bảng nhiệm vụ tại nhiếp thí trần
@@ -553,7 +567,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                         .toBuffer();
                     const { matchedPoints: matchedPoints1 } = await findMatchingRegionsAndroids({
                         buffer: pngBuffer1,
-                        templateImages: [`${checkGameStartPath}\\nv-khieu-chien.png`],
+                        templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b4.png`],
                         matchThreshold: 0.8,
                     });
 
@@ -566,7 +580,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                         .toBuffer();
                     const { matchedPoints } = await findMatchingRegionsAndroids({
                         buffer: pngBuffer2,
-                        templateImages: [`${checkGameStartPath}\\end-bst-1.png`, `${checkGameStartPath}\\end-bst-2.png`],
+                        templateImages: [`${pathMatchforB}\\b2.png`, `${pathMatchforB}\\b3.png`],
                         matchThreshold: 0.8,
                     });
 
@@ -580,14 +594,14 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                 const matchedPoints = await captureAndMatch({
                     deviceId: host,
-                    region: { left: 580, top: 125, width: 145, height: 30 },
-                    templateImages: posBST,
+                    region: { left: 600, top: 120, width: 120, height: 40 },
+                    templateImages: templateImagesPos,
                 });
 
                 if (matchedPoints.length > 0) {
                     for (const { x, y, mathImagePath } of matchedPoints) {
                         const found = data.find(item => {
-                            const expectedPath = `${basePath}\\todoi\\posBst\\${item.pos}.png`;
+                            const expectedPath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\${item.pos}.png`;
                             return mathImagePath === expectedPath;
                         });
 
@@ -596,59 +610,73 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             await waitUntilMatch({
                                 deviceId: host,
                                 region: { left: 350, top: 40, width: 300, height: 60 },
-                                templateImages: [`${checkGameStartPath}\\bang-nv-bst.png`],
+                                templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b3.png`],
                                 matchThreshold: 0.8,
                             });
 
                             await tap(host, 730, 460); // khiêu chiến bst
 
-                            let TARGET_IMAGE = `${basePath}\\todoi\\team\\${found.pos}.png`;
 
-                            // Bước 1: vào tổ đội -> check cho tới khi thành công lần đầu
-                            await runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath });
+
+
+
+                            // bước 1 cuộn xuống
+                            // chờ login hoặc đã lên trên map đánh bst
+                            await waitUntilMatch({
+                                deviceId: host,
+                                region: { left: 150, top: 50, width: 180, height: 50 },
+                                templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b2.png`],
+                                matchThreshold: 0.8,
+                            });
+
+                            async function loopScrollBst(host) {
+                                let isScrollDown = true;
+                                let pairCount = 0;        // đếm số lần đã cuộn xuống-lên hoàn chỉnh
+                                let useAltTarget = false; // false: cuộn xuống tới y=0, true: cuộn xuống tới y=54
+
+                                while (true) {
+                                    // check cuộn xuống nhiêm vụ sat thủ thành công
+                                    const result = await captureAndMatch({
+                                        deviceId: host,
+                                        region: { left: 0, top: 170, width: 180, height: 80 },
+                                        templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\check-table-bst.png`],
+                                        matchThreshold: 0.8,
+                                    });
+
+                                    if (result.length > 0) {
+                                        await tap(host, 100, 245);
+                                        await sleep(500)
+                                        await tap(host, 100, 245);
+                                        break
+                                    }
+
+                                    if (isScrollDown) {
+                                        // cuộn xuống
+                                        const targetY = useAltTarget ? 54 : 0;
+                                        await swipe(host, 115, 295, 115, targetY, 2000);
+                                        isScrollDown = false;
+                                    } else {
+                                        // cuộn lên
+                                        await swipe(host, 115, 200, 115, 700, 500);
+                                        isScrollDown = true;
+
+                                        pairCount++;
+                                        if (pairCount % 3 === 0) {
+                                            useAltTarget = !useAltTarget; // sau mỗi 3 lần xuống-lên thì đổi target
+                                        }
+                                    }
+                                    await sleep(400);
+                                }
+                            }
+
+                            await loopScrollBst(host);
+
+                            // Bước 2: vào tổ đội -> check cho tới khi thành công lần đầu
+                            let TARGET_IMAGE = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\${arg == "2" ? "s2\\" : ""}${found.pos}.png`;
+                            await runToDoiUntilCheck({ host, TARGET_IMAGE, templateImagesTodoi, pathMatchforB });
                             await sleep(1000)
 
-
-                            // Bước 2
-                            let isScrollDown = true;
-                            let pairCount = 0;        // đếm số lần đã cuộn xuống-lên hoàn chỉnh
-                            let useAltTarget = false; // false: cuộn xuống tới y=0, true: cuộn xuống tới y=54
-
-                            while (true) {
-                                if (isScrollDown) {
-                                    // cuộn xuống
-                                    if (useAltTarget) {
-                                        await swipe(host, 115, 295, 115, 0, 2000);
-                                    } else {
-                                        await swipe(host, 115, 295, 115, 0, 2000);
-                                        await sleep(500)
-                                        await swipe(host, 115, 295, 115, 220, 2000);
-                                    }
-
-                                    isScrollDown = false;
-                                } else {
-                                    // cuộn lên
-                                    await swipe(host, 115, 200, 115, 700, 500);
-                                    isScrollDown = true;
-
-                                    pairCount++;
-                                    if (pairCount % 3 === 0) {
-                                        useAltTarget = !useAltTarget; // sau mỗi 3 lần xuống-lên thì đổi target
-                                    }
-                                }
-
-                                await sleep(1000);
-
-                                // check cuộn xuống nhiêm vụ sat thủ thành công
-                                const result = await captureAndMatch({
-                                    deviceId: host,
-                                    region: { left: 0, top: 170, width: 180, height: 80 },
-                                    templateImages: [`${checkGameStartPath}\\check-table-bst.png`],
-                                    matchThreshold: 0.8,
-                                });
-
-                                if (result.length > 0) break
-                            }
+                            await loopScrollBst(host);
 
 
                             // Bước 3:
@@ -661,7 +689,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 const result = await captureAndMatch({
                                     deviceId: host,
                                     region: { left: 830, top: 80, width: 100, height: 50 },
-                                    templateImages: posCitys,
+                                    templateImages: templateImagesCitys,
                                     matchThreshold: 0.95,
                                 });
 
@@ -670,7 +698,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     await waitUntilMatch({
                                         deviceId: host,
                                         region: { left: 150, top: 50, width: 180, height: 50 },
-                                        templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
+                                        templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\b2.png`],
                                         matchThreshold: 0.8,
                                     });
 
@@ -686,27 +714,27 @@ async function runPort(indexPort, port, accounts, templatePath) {
     }
 }
 
+const arg = process.argv[2];
+
 (async () => {
     try {
         setupKeyboard();
         await connectAll();
         let accounts = await init();
 
-        const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\5x`;
+        const templateImagesPos = data.map(item => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\${item.pos}.png`);
+        const templateImagesTodoi = data.map(item => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\z-output\\todoi\\${arg == "2" ? "s2\\" : ""}${item.pos}.png`);
+        const templateImagesCitys = Array.from({ length: 7 }, (_, i) => `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\city\\${i + 1}.png`);
+        const pathMatchforB = "C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\"
+        const path_cam_nang = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\cam_nang`;
+        const path_giao_dich = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-giao-dich\\gom-van\\huy`;
 
-        const posBST = data.map(item => `${basePath}\\todoi\\posBst\\${item.pos}.png`);
-        const todoiList = data.map(item => `${basePath}\\todoi\\team\\${item.pos}.png`);
-        const posCitys = Array.from({ length: 7 }, (_, i) => `${basePath}\\citys\\${i + 1}.png`);
-
-        const loginPath = `${basePath}\\dang-nhap`;
-        const checkGameStartPath = `${basePath}\\check-vao-game`;
-
-        const camNangPath = `${basePath}\\cam-nang`;
 
         const workerPromises = [];
+
         for (const [index, port] of ports.entries()) {
             await sleep(1000);
-            const p = runPort(index, port, accounts, { posBST, todoiList, posCitys, basePath, loginPath, checkGameStartPath, camNangPath });
+            const p = runPort(index, port, accounts, { templateImagesPos, templateImagesTodoi, templateImagesCitys, pathMatchforB, path_giao_dich, path_cam_nang });
             workerPromises.push(p);
         }
 
