@@ -1,1 +1,1 @@
-node z-bst-5x-s2.js
+node z-bst-5x.js
