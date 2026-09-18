@@ -17,6 +17,60 @@ function question(text) {
     });
 }
 
+async function init() {
+    let input;
+
+    // Nhập 1 lần
+    while (true) {
+        input = await question("Nhập: ");
+
+        const arr = input.split("-");
+
+        if (arr.length !== 3) {
+            console.log("❌ Nhập sai! Ví dụ: 1+5-huy-1+15");
+            continue;
+        }
+
+        const accountRange = arr[0].split("+");
+        const name = arr[1];
+        const numberRange = arr[2].split("+");
+
+        if (
+            accountRange.length !== 2 ||
+            numberRange.length !== 2 ||
+            isNaN(accountRange[0]) ||
+            isNaN(accountRange[1]) ||
+            isNaN(numberRange[0]) ||
+            isNaN(numberRange[1]) ||
+            !name
+        ) {
+            console.log("❌ Nhập sai! Ví dụ: 1+5-huy-1+15");
+            continue;
+        }
+
+        const start = parseInt(accountRange[0]);
+        const end = parseInt(accountRange[1]);
+
+        const startNumber = parseInt(numberRange[0]);
+        const endNumber = parseInt(numberRange[1]);
+
+        const accounts = [];
+
+        for (let i = start; i <= end; i++) {
+            const temp = [];
+
+            for (let j = startNumber; j <= endNumber; j++) {
+                temp.push(`${i}${name}${j}`);
+            }
+
+            accounts.push(temp);
+        }
+
+        return accounts;
+    }
+}
+
+
 function runAdb(args) {
     return new Promise((resolve, reject) => {
         const proc = spawn("adb", args);
@@ -173,48 +227,6 @@ async function waitUntilAllMatch(hosts, templatePath) {
             }
         }
     }
-}
-
-
-async function init() {
-    let input1;
-    let input2;
-    let arr1;
-    let arr2;
-
-    // Nhập lần 1
-    while (true) {
-        input1 = await question("Nhập lần 1: ");
-        arr1 = input1.split("-");
-        if (arr1.length >= 3) break;
-        console.log("❌ Nhập sai! Phải có dạng: 1-hoangdnvn-10");
-    }
-
-    // Nhập lần 2
-    while (true) {
-        input2 = await question("Nhập lần 2: ");
-        arr2 = input2.split("-");
-        if (arr2.length >= 3) break;
-        console.log("❌ Nhập sai! Phải có dạng: 3-hoangdnvn-13");
-    }
-
-    const start = parseInt(arr1[0]);
-    const name = arr1[1];
-    const end = parseInt(arr2[0]);
-
-    const startNumber = parseInt(arr1[2]);
-    const endNumber = parseInt(arr2[2]);
-
-    const accounts = [];
-
-    for (let i = start; i <= end; i++) {
-        let temp = [];
-        for (let j = startNumber; j <= endNumber; j++) {
-            temp.push(`${i}${name}${j}`);
-        }
-        accounts.push(temp)
-    }
-    return accounts;
 }
 
 
