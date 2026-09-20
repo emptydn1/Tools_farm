@@ -627,7 +627,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     const result = await captureAndMatch({
                                         deviceId: host,
                                         region: { left: 0, top: 170, width: 180, height: 80 },
-                                        templateImages: [`C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\login\\check-table-bst.png`],
+                                        templateImages: [`${checkGameStartPath}\\check-table-bst.png`],
                                         matchThreshold: 0.8,
                                     });
 
