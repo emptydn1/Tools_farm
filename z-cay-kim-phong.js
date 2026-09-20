@@ -185,6 +185,30 @@ async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold
     }
 }
 
+let nv1 = async () => {
+    await tap(host, 60, 155)
+    await tap(host, 185, 245)
+    await tap(host, 815, 460)
+}
+
+let nv2 = async () => {
+    await tap(host, 60, 155)
+    await tap(host, 180, 210)
+    await tap(host, 815, 460)
+}
+
+let nv3 = async () => {
+    await tap(host, 60, 155)
+    await tap(host, 180, 175)
+    await tap(host, 815, 460)
+}
+
+const actionsNhanVat = {
+    1: (host) => tap(host, 75, 130),
+    2: (host) => tap(host, 75, 230),
+    3: (host) => tap(host, 75, 330),
+};
+
 async function runPort(indexPort, port, accounts, templatePath) {
     const host = `127.0.0.1:${port}`;
     const { loginPath } = templatePath
@@ -259,17 +283,36 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
             countLogin++
 
+
+
         }
     }
 }
+
+
+// def nv1_bst():
+//     n1_bst = [(60, 155), (180, 210), (815, 460)]
+//     tap_points(n1_bst, 0.3, merge_devices)
+
+// def nv2_bst():
+//     n2_bst = [(60, 155), (185, 245), (815, 460)]
+//     tap_points(n2_bst, 0.3, merge_devices)
+
+// def nv3_bst_suphu():
+//     n2_bst = [(60, 155), (185, 175), (815, 460)]
+//     tap_points(n2_bst, 0.3, merge_devices)
+
 
 (async () => {
     try {
         // setupKeyboard();
         await connectAll();
-        let accounts = await init();
-        console.log(accounts);
-
+        // let accounts = await init();
+        let accounts = [
+            [
+                '45tambodn5'
+            ]
+        ];
 
         const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\5x`;
         const resourcePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst`;

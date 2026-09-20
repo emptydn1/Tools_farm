@@ -226,13 +226,13 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // // let buffer = fs.readFileSync("./1.png")
     let host = "127.0.0.1:16448";
     // const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
-    // // const metadata = await sharp(buffer).metadata();
+    // const metadata = await sharp(buffer).metadata();
 
-    // // console.log(metadata.height);
+    // console.log(metadata.height);
 
-    // // const pngBuffer = await sharp(buffer)
-    // //     .extract({ left: 480, top: 430, width: 320, height: 70 })
-    // //     .toBuffer();
+    // const pngBuffer = await sharp(buffer)
+    //     .extract({ left: 480, top: 430, width: 320, height: 70 })
+    //     .toBuffer();
 
 
     // let i = 1;
@@ -242,6 +242,9 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
 
 
+    for (let index = 0; index < 40; index++) {
+        await tap(host, 310, 290)
+    }
 
 
 
