@@ -129,9 +129,13 @@ async function input_text(host, text) {
 
 
 // const ports = [16448]
-const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
-
-
+const ports = [
+    16448,
+    16480, 16512, 16544, 16576,
+    16608, 16640, 16672, 16704, 16736,
+    16768, 16800, 16832, 16864, 16896,
+    16928, 16960, 16992, 17024, 17056
+]
 
 
 
@@ -662,10 +666,19 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             await loopScrollBst(host)
 
+
+
+                            let countReTodoi = 0;
                             // Bước 3:
                             while (true) {
                                 await tap(host, 100, 245);
 
+                                if (countReTodoi > 5) {
+                                    await runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath });
+                                    countReTodoi = 0;
+                                }
+
+                                countReTodoi++
                                 await sleep(5000);
 
                                 // là citys
