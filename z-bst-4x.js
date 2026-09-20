@@ -673,7 +673,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             while (true) {
                                 await tap(host, 100, 245);
 
-                                if (countReTodoi > 5) {
+                                if (countReTodoi > 10) {
                                     await runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath });
                                     countReTodoi = 0;
                                 }
