@@ -650,7 +650,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                             useAltTarget = !useAltTarget; // sau mỗi 3 lần xuống-lên thì đổi target
                                         }
                                     }
-                                    await sleep(600);
+                                    await sleep(400);
                                 }
                             }
 
