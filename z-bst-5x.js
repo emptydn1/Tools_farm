@@ -618,7 +618,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     // check cuộn xuống nhiêm vụ sat thủ thành công
                                     const result = await captureAndMatch({
                                         deviceId: host,
-                                        region: { left: 0, top: 170, width: 180, height: 80 },
+                                        region: { left: 10, top: 205, width: 180, height: 80 },
                                         templateImages: [`${checkGameStartPath}\\check-table-bst.png`],
                                         matchThreshold: 0.8,
                                     });

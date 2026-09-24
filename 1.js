@@ -223,23 +223,23 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
     await connectAll();
 
-    // // let buffer = fs.readFileSync("./1.png")
-    let host = "127.0.0.1:16448";
-    // const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
+    // let buffer = fs.readFileSync("./1.png")
+    // let host = "127.0.0.1:16448";
+    const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
     // const metadata = await sharp(buffer).metadata();
 
     // console.log(metadata.height);
 
-    // const pngBuffer = await sharp(buffer)
-    //     .extract({ left: 50, top: 50, width: 200, height: 70 })
-    //     .toBuffer();
+    const pngBuffer = await sharp(buffer)
+        .extract({ left: 10, top: 205, width: 180, height: 80 })
+        .toBuffer();
 
 
     // let i = 1;
     // while (fs.existsSync(`./${i}.png`)) i++;
     // fs.writeFileSync(`./${i}.png`, pngBuffer);
 
-    // fs.writeFileSync(`./1.png`, pngBuffer);
+    fs.writeFileSync(`./2.png`, pngBuffer);
 
 
 
@@ -248,7 +248,7 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // }
 
 
-    await swipe(host, 115, 215, 115, 700, 500);
+    // await swipe(host, 115, 215, 115, 700, 500);
 
     // await swipe(host, 115, 295, 115, 54, 2000);
     // await swipe(host, 115, 295, 115, 0, 2000);
