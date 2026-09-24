@@ -129,9 +129,13 @@ async function input_text(host, text) {
 
 
 // const ports = [16448]
-const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
-
-
+const ports = [
+    16448,
+    16480, 16512, 16544, 16576,
+    16608, 16640, 16672, 16704, 16736,
+    16768, 16800, 16832, 16864, 16896,
+    16928, 16960, 16992, 17024, 17056
+]
 
 
 
@@ -164,35 +168,35 @@ function setupKeyboard() {
     console.log('Phím điều khiển: [i] Tiếp tục  [o] Tạm dừng  [k] Kill all\n');
 }
 
+
 const data = [
-    // Group: abdd
-    { pos: "22 7", name: "hoang tram", group: "abdd" },
-    { pos: "31 14", name: "vo quang", group: "abdd" },
-    { pos: "39 27", name: "phan my44", group: "abdd" },
-    { pos: "57 5", name: "lam tai", group: "abdd" },
-    { pos: "68 16", name: "nong tu", group: "abdd" },
+    // pnst
+    { pos: "148 68", name: "lam tai", group: "pnst" },
+    { pos: "52 46", name: "nong tu", group: "pnst" },
+    { pos: "135 65", name: "vo quang", group: "pnst" },
+    { pos: "14 35", name: "phan my44", group: "pnst" },
+    { pos: "100 74", name: "che linh4", group: "pnst" },
+    { pos: "15 14", name: "hoang tram", group: "pnst" },
+    { pos: "168 65", name: "nong nhu", group: "pnst" },
 
-    // Group: ddtt
-    { pos: "19 18", name: "nong nhu", group: "ddtt" },
-    { pos: "21 27", name: "che linh4", group: "ddtt" },
-    { pos: "35 18", name: "phan trang", group: "ddtt" },
-    { pos: "39 1", name: "trinh dao", group: "ddtt" },
-    { pos: "55 11", name: "vo minh", group: "ddtt" },
+    // hhnd
+    { pos: "8 9", name: "phan trang", group: "hhnd" },
+    { pos: "46 11", name: "duong hoang", group: "hhnd" },
+    { pos: "9 29", name: "tham diep", group: "hhnd" },
+    { pos: "34 36", name: "trinh dao", group: "hhnd" },
+    { pos: "67 20", name: "vo minh", group: "hhnd" },
+    { pos: "65 30", name: "phan long11", group: "hhnd" },
+    { pos: "67 8", name: "bui sam5", group: "hhnd" },
 
-    // Group: ttd
-    { pos: "15 34", name: "phan long11", group: "ttd" },
-    { pos: "23 5", name: "duong hoang", group: "ttd" },
-    { pos: "28 19", name: "bui sam5", group: "ttd" },
-    { pos: "54 45", name: "tham diep", group: "ttd" },
-    { pos: "56 18", name: "phan hieu", group: "ttd" },
-
-    // Group: ttt1
-    { pos: "11 31", name: "le dang", group: "ttt1" },
-    { pos: "41 4", name: "che hong22", group: "ttt1" },
-    { pos: "45 25", name: "na linh", group: "ttt1" },
-    { pos: "62 36", name: "doan vinh", group: "ttt1" },
-    { pos: "66 20", name: "lai tu23", group: "ttt1" }
+    // dts
+    { pos: "63 79", name: "na linh", group: "dts" },
+    { pos: "35 69", name: "che hong22", group: "dts" },
+    { pos: "194 61", name: "le dang", group: "dts" },
+    { pos: "206 41", name: "phan hieu", group: "dts" },
+    { pos: "83 96", name: "doan vinh", group: "dts" },
+    { pos: "19 71", name: "lai tu23", group: "dts" },
 ];
+
 
 
 
@@ -215,9 +219,9 @@ async function captureAndMatch({ deviceId, region, templateImages, matchThreshol
 
 let nhan_tra_nv_bst = async (host) => {
     await sleep(1000);
-    await tap(host, 190, 185)  // to doi
+    await tap(host, 190, 157)  // to doi
     await sleep(500);
-    await tap(host, 190, 185)  // to doi
+    await tap(host, 190, 157)  // to doi
     await sleep(500);
     await tap(host, 184, 111)  // huy? hien thong tin chu pt
     await sleep(500);
@@ -297,11 +301,11 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
     });
 
     while (!done) {
-        await tap(host, 190, 185)  // to doi
+        await tap(host, 190, 157)  // to doi
         await sleep(500);
-        await tap(host, 190, 185)  // to doi
+        await tap(host, 190, 157)  // to doi
         await sleep(500);
-        await tap(host, 140, 260)  // doi xung quanh
+        await tap(host, 140, 250)  // doi xung quanh
         await sleep(1000);
 
         let matchedPoints = await captureAndMatch({
@@ -331,7 +335,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
         }
 
         await sleep(1000);
-        await tap(host, 190, 185); // to doi
+        await tap(host, 190, 157); // to doi
         await sleep(1000);
 
         const matchedPoints2 = await captureAndMatch({
@@ -345,7 +349,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
             await tap(host, 60, 385);   // click ra ngoai goc 8h
             await tap(host, 60, 385);   // click ra ngoai goc 8h
             await sleep(500);
-            await tap(host, 60, 190);   // tab nv
+            await tap(host, 60, 155);   // tab nv
             done = true; // check_to_doi thành công
         } else {
             await tap(host, 60, 385);   // click ra ngoai goc 8h
@@ -510,13 +514,13 @@ async function runPort(indexPort, port, accounts, templatePath) {
                     }
                 } else {
                     // click cam nang de toi lai diem boss sat thu
-                    await tap(host, 38, 125)
+                    await tap(host, 790, 30)  // click mũi tên ra
                     await sleep(1000);
 
                     // kiểm tra hiển thị cẩm nang chưa
                     const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
                     const pngBuffer1 = await sharp(buffer)
-                        .extract({ left: 50, top: 50, width: 200, height: 70 })
+                        .extract({ left: 455, top: 0, width: 320, height: 60 })
                         .toBuffer();
                     const { matchedPoints: camnang } = await findMatchingRegionsAndroids({
                         buffer: pngBuffer1,
@@ -525,8 +529,12 @@ async function runPort(indexPort, port, accounts, templatePath) {
                     });
 
                     if (camnang.length > 0) {
+                        for (const { x, y, mathImagePath } of camnang) {
+                            await tap(host, x + 455, y + 10);
+                        }
+                        await sleep(300);
                         await tap(host, 260, 275);
-                        await sleep(400);
+                        await sleep(300);
                         await tap(host, 855, 450);
                     }
                 }
@@ -576,7 +584,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                 const matchedPoints = await captureAndMatch({
                     deviceId: host,
-                    region: { left: 580, top: 125, width: 145, height: 30 },
+                    region: { left: 600, top: 120, width: 120, height: 40 },
                     templateImages: posBST,
                 });
 
@@ -632,18 +640,12 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                                     if (isScrollDown) {
                                         // cuộn xuống
-                                        if (useAltTarget) {
-                                            await swipe(host, 115, 295, 115, 0, 2000);
-                                        } else {
-                                            await swipe(host, 115, 295, 115, 0, 2000);
-                                            await sleep(500)
-                                            await swipe(host, 115, 295, 115, 220, 2000);
-                                        }
-
+                                        const targetY = useAltTarget ? 54 : 0;
+                                        await swipe(host, 115, 295, 115, targetY, 2000);
                                         isScrollDown = false;
                                     } else {
                                         // cuộn lên
-                                        await swipe(host, 115, 215, 115, 700, 500);
+                                        await swipe(host, 115, 200, 115, 700, 500);
                                         isScrollDown = true;
 
                                         pairCount++;
@@ -651,7 +653,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                             useAltTarget = !useAltTarget; // sau mỗi 3 lần xuống-lên thì đổi target
                                         }
                                     }
-
                                     await sleep(400);
                                 }
                             }
@@ -665,10 +666,19 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             await loopScrollBst(host)
 
+
+
+                            // let countReTodoi = 0;
                             // Bước 3:
                             while (true) {
                                 await tap(host, 100, 245);
 
+                                // if (countReTodoi > 10) {
+                                //     await runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath });
+                                //     countReTodoi = 0;
+                                // }
+
+                                // countReTodoi++
                                 await sleep(5000);
 
                                 // là citys
@@ -706,7 +716,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
         await connectAll();
         let accounts = await init();
 
-        const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\5x`;
+        const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\4x`;
         const resourcePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst`;
 
         const posBST = data.map(item => `${basePath}\\todoi\\posBst\\${item.pos}.png`);

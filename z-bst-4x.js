@@ -131,10 +131,10 @@ async function input_text(host, text) {
 // const ports = [16448]
 const ports = [
     16448,
-    16480, 16512, 16544, 16576,
-    16608, 16640, 16672, 16704, 16736,
-    16768, 16800, 16832, 16864, 16896,
-    16928, 16960, 16992, 17024, 17056
+    // 16480, 16512, 16544, 16576,
+    // 16608, 16640, 16672, 16704, 16736,
+    // 16768, 16800, 16832, 16864, 16896,
+    // 16928, 16960, 16992, 17024, 17056
 ]
 
 
@@ -219,9 +219,9 @@ async function captureAndMatch({ deviceId, region, templateImages, matchThreshol
 
 let nhan_tra_nv_bst = async (host) => {
     await sleep(1000);
-    await tap(host, 190, 157)  // to doi
+    await tap(host, 190, 185)  // to doi
     await sleep(500);
-    await tap(host, 190, 157)  // to doi
+    await tap(host, 190, 185)  // to doi
     await sleep(500);
     await tap(host, 184, 111)  // huy? hien thong tin chu pt
     await sleep(500);
@@ -301,11 +301,11 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
     });
 
     while (!done) {
-        await tap(host, 190, 157)  // to doi
+        await tap(host, 190, 185)  // to doi
         await sleep(500);
-        await tap(host, 190, 157)  // to doi
+        await tap(host, 190, 185)  // to doi
         await sleep(500);
-        await tap(host, 140, 250)  // doi xung quanh
+        await tap(host, 140, 260)  // doi xung quanh
         await sleep(1000);
 
         let matchedPoints = await captureAndMatch({
@@ -335,7 +335,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
         }
 
         await sleep(1000);
-        await tap(host, 190, 157); // to doi
+        await tap(host, 190, 185); // to doi
         await sleep(1000);
 
         const matchedPoints2 = await captureAndMatch({
@@ -349,7 +349,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
             await tap(host, 60, 385);   // click ra ngoai goc 8h
             await tap(host, 60, 385);   // click ra ngoai goc 8h
             await sleep(500);
-            await tap(host, 60, 155);   // tab nv
+            await tap(host, 60, 190);   // tab nv
             done = true; // check_to_doi thành công
         } else {
             await tap(host, 60, 385);   // click ra ngoai goc 8h
@@ -514,13 +514,13 @@ async function runPort(indexPort, port, accounts, templatePath) {
                     }
                 } else {
                     // click cam nang de toi lai diem boss sat thu
-                    await tap(host, 790, 30)  // click mũi tên ra
+                    await tap(host, 38, 125)
                     await sleep(1000);
 
                     // kiểm tra hiển thị cẩm nang chưa
                     const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
                     const pngBuffer1 = await sharp(buffer)
-                        .extract({ left: 455, top: 0, width: 320, height: 60 })
+                        .extract({ left: 50, top: 50, width: 200, height: 70 })
                         .toBuffer();
                     const { matchedPoints: camnang } = await findMatchingRegionsAndroids({
                         buffer: pngBuffer1,
@@ -529,17 +529,14 @@ async function runPort(indexPort, port, accounts, templatePath) {
                     });
 
                     if (camnang.length > 0) {
-                        for (const { x, y, mathImagePath } of camnang) {
-                            await tap(host, x + 455, y + 10);
-                        }
-                        await sleep(300);
                         await tap(host, 260, 275);
-                        await sleep(300);
+                        await sleep(400);
                         await tap(host, 855, 450);
                     }
                 }
                 await sleep(300);
             }
+
 
 
 
@@ -645,7 +642,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                         isScrollDown = false;
                                     } else {
                                         // cuộn lên
-                                        await swipe(host, 115, 200, 115, 700, 500);
+                                        await swipe(host, 115, 215, 115, 700, 500);
                                         isScrollDown = true;
 
                                         pairCount++;

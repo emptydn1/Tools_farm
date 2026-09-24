@@ -231,23 +231,27 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // console.log(metadata.height);
 
     // const pngBuffer = await sharp(buffer)
-    //     .extract({ left: 480, top: 430, width: 320, height: 70 })
+    //     .extract({ left: 50, top: 50, width: 200, height: 70 })
     //     .toBuffer();
 
 
     // let i = 1;
     // while (fs.existsSync(`./${i}.png`)) i++;
-    // fs.writeFileSync(`./${i}.png`, buffer);
+    // fs.writeFileSync(`./${i}.png`, pngBuffer);
+
+    // fs.writeFileSync(`./1.png`, pngBuffer);
 
 
 
-
-    for (let index = 0; index < 40; index++) {
-        await tap(host, 310, 290)
-    }
-
+    // for (let index = 0; index < 40; index++) {
+    //     await tap(host, 310, 290)
+    // }
 
 
+    await swipe(host, 115, 215, 115, 700, 500);
+
+    // await swipe(host, 115, 295, 115, 54, 2000);
+    // await swipe(host, 115, 295, 115, 0, 2000);
     // await swipe(host, 115, 315, 115, 0, 1350);
     // await swipe(host, 115, 315, 115, 50, 1200); // bo nv bst
 
