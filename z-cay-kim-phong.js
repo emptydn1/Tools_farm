@@ -185,23 +185,48 @@ async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold
     }
 }
 
-let nv1 = async () => {
-    await tap(host, 60, 155)
-    await tap(host, 185, 245)
-    await tap(host, 815, 460)
-}
 
-let nv2 = async () => {
-    await tap(host, 60, 155)
-    await tap(host, 180, 210)
-    await tap(host, 815, 460)
-}
-
-let nv3 = async () => {
-    await tap(host, 60, 155)
+let nv1 = async (host) => {
+    await tap(host, 60, 190)
+    await sleep(500);
     await tap(host, 180, 175)
+    await sleep(500);
     await tap(host, 815, 460)
 }
+
+let nv2 = async (host) => {
+    await tap(host, 60, 190)
+    await sleep(500);
+    await tap(host, 180, 210)
+    await sleep(500);
+    await tap(host, 815, 460)
+}
+
+let nv3 = async (host) => {
+    await tap(host, 60, 190)
+    await sleep(500);
+    await tap(host, 185, 245)
+    await sleep(500);
+    await tap(host, 815, 460)
+}
+
+let loopClick = async (host) => {
+    for (let index = 0; index < 40; index++) {
+        await tap(host, 310, 290)
+    }
+}
+
+let checkLuyenCong = async (host, checkGameStartPath) => {
+    // đã login xong
+    await waitUntilMatch({
+        deviceId: host,
+        region: { left: 150, top: 50, width: 180, height: 50 },
+        templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
+        matchThreshold: 0.8,
+    });
+    await sleep(1000);
+}
+
 
 const actionsNhanVat = {
     1: (host) => tap(host, 75, 130),
@@ -211,96 +236,109 @@ const actionsNhanVat = {
 
 async function runPort(indexPort, port, accounts, templatePath) {
     const host = `127.0.0.1:${port}`;
-    const { loginPath } = templatePath
+    const { loginPath, checkGameStartPath } = templatePath
     let countLogin = 4;
 
     for (let i = 0; i < accounts.length; i++) {
         for (let round = 0; round < 3; round++) {
             console.log(accounts[i][indexPort]);
 
-            while (true) {
-                await tap(host, 860, 85) // nút hủy
-                await sleep(300);
+            // while (true) {
+            //     await tap(host, 860, 85) // nút hủy
+            //     await sleep(300);
 
-                const result3 = await captureAndMatch({
-                    deviceId: host,
-                    region: { left: 340, top: 415, width: 260, height: 70 },
-                    templateImages: [`${loginPath}\\vao-giang-ho.png`],
-                });
-                if (result3.length > 0) {
-                    await tap(host, 490, 445) // nhấn đăng nhập vào chọn nhân vật
-                    continue;
-                }
+            //     const result3 = await captureAndMatch({
+            //         deviceId: host,
+            //         region: { left: 340, top: 415, width: 260, height: 70 },
+            //         templateImages: [`${loginPath}\\vao-giang-ho.png`],
+            //     });
+            //     if (result3.length > 0) {
+            //         await tap(host, 490, 445) // nhấn đăng nhập vào chọn nhân vật
+            //         continue;
+            //     }
 
-                const result4 = await captureAndMatch({
-                    deviceId: host,
-                    region: { left: 750, top: 420, width: 210, height: 80 },
-                    templateImages: [`${loginPath}\\vao_game.png`],
-                });
-                if (result4.length > 0) break;
-
-
-                const result1 = await captureAndMatch({
-                    deviceId: host,
-                    region: { left: 330, top: 340, width: 300, height: 100 },
-                    templateImages: [`${loginPath}\\dang-nhap-voi-mbox-id.png`],
-                });
-                if (result1.length > 0) {
-                    await tap(host, 490, 425)// bấm đăng nhập để nhập tài khoản
-                    await sleep(1000);
-                }
+            //     const result4 = await captureAndMatch({
+            //         deviceId: host,
+            //         region: { left: 750, top: 420, width: 210, height: 80 },
+            //         templateImages: [`${loginPath}\\vao_game.png`],
+            //     });
+            //     if (result4.length > 0) break;
 
 
-                const result2 = await captureAndMatch({
-                    deviceId: host,
-                    region: { left: 400, top: 120, width: 170, height: 60 },
-                    templateImages: [`${loginPath}\\form_login.png`],
-                });
-                if (result2.length > 0) {
-                    if (countLogin == 4) {
-                        await tap(host, 480, 200) // chỗ nhập tài khoản
-                        await sleep(1000);
-                        await input_text(host, accounts[i][indexPort]);
-                        await sleep(500);
-                    }
+            //     const result1 = await captureAndMatch({
+            //         deviceId: host,
+            //         region: { left: 330, top: 340, width: 300, height: 100 },
+            //         templateImages: [`${loginPath}\\dang-nhap-voi-mbox-id.png`],
+            //     });
+            //     if (result1.length > 0) {
+            //         await tap(host, 490, 425)// bấm đăng nhập để nhập tài khoản
+            //         await sleep(1000);
+            //     }
 
-                    await tap(host, 585, 360) // nhấn đăng nhập
-                    await sleep(500);
-                    await tap(host, 490, 445) // nhấn đăng nhập vào chọn nhân vật
-                    await sleep(500);
-                }
-            }
 
-            if (countLogin == 4) countLogin = 1;
+            //     const result2 = await captureAndMatch({
+            //         deviceId: host,
+            //         region: { left: 400, top: 120, width: 170, height: 60 },
+            //         templateImages: [`${loginPath}\\form_login.png`],
+            //     });
+            //     if (result2.length > 0) {
+            //         if (countLogin == 4) {
+            //             await tap(host, 480, 200) // chỗ nhập tài khoản
+            //             await sleep(1000);
+            //             await input_text(host, accounts[i][indexPort]);
+            //             await sleep(500);
+            //         }
 
-            await actionsNhanVat[countLogin](host);
-            await sleep(100);
-            await actionsNhanVat[countLogin](host);
-            await sleep(100);
-            await actionsNhanVat[countLogin](host);
+            //         await tap(host, 585, 360) // nhấn đăng nhập
+            //         await sleep(500);
+            //         await tap(host, 490, 445) // nhấn đăng nhập vào chọn nhân vật
+            //         await sleep(500);
+            //     }
+            // }
+
+            // if (countLogin == 4) countLogin = 1;
+
+            // await actionsNhanVat[countLogin](host);
+            // await sleep(100);
+            // await actionsNhanVat[countLogin](host);
+            // await sleep(100);
+            // await actionsNhanVat[countLogin](host);
+            // await sleep(1000);
+            // await tap(host, 864, 453);
+
+            // countLogin++
+
+
+            await checkLuyenCong(host, checkGameStartPath);
+
+
+
+            // await nv1(host);             // b1
+
+            // await clickNv(host);
+
+            // await sleep(1000);
+            // await nv2(host);
+            // await sleep(1000);
+            await clickNv(host);
             await sleep(1000);
-            await tap(host, 864, 453);
+            await nv1(host);
+            await sleep(1000);
 
-            countLogin++
+            let resourcePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\`
+            // đã login xong
+            await waitUntilMatch({
+                deviceId: host,
+                region: { left: 150, top: 50, width: 180, height: 50 },
+                templateImages: [`${resourcePath}\\b1.png`],
+            });
+
 
 
 
         }
     }
 }
-
-
-// def nv1_bst():
-//     n1_bst = [(60, 155), (180, 210), (815, 460)]
-//     tap_points(n1_bst, 0.3, merge_devices)
-
-// def nv2_bst():
-//     n2_bst = [(60, 155), (185, 245), (815, 460)]
-//     tap_points(n2_bst, 0.3, merge_devices)
-
-// def nv3_bst_suphu():
-//     n2_bst = [(60, 155), (185, 175), (815, 460)]
-//     tap_points(n2_bst, 0.3, merge_devices)
 
 
 (async () => {
@@ -310,7 +348,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
         // let accounts = await init();
         let accounts = [
             [
-                '45tambodn5'
+                '40tambodn5'
             ]
         ];
 
@@ -318,11 +356,12 @@ async function runPort(indexPort, port, accounts, templatePath) {
         const resourcePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst`;
 
         const loginPath = `${resourcePath}\\dang-nhap`;
+        const checkGameStartPath = `${resourcePath}\\check-vao-game`;
 
         const workerPromises = [];
         for (const [index, port] of ports.entries()) {
             await sleep(1000);
-            const p = runPort(index, port, accounts, { loginPath });
+            const p = runPort(index, port, accounts, { loginPath, checkGameStartPath });
             workerPromises.push(p);
         }
 

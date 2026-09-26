@@ -221,25 +221,32 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
 
 
-    await connectAll();
+    // await connectAll();
 
-    // let buffer = fs.readFileSync("./1.png")
+    // let buffer = fs.readFileSync(`C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\fn\\1.png`)
     // let host = "127.0.0.1:16448";
-    const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
+    // const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
     // const metadata = await sharp(buffer).metadata();
 
     // console.log(metadata.height);
 
-    const pngBuffer = await sharp(buffer)
-        .extract({ left: 10, top: 205, width: 180, height: 80 })
-        .toBuffer();
+    // const pngBuffer = await sharp(buffer)
+    //     .extract({ left: 10, top: 205, width: 180, height: 60 })
+    //     .toBuffer();
 
 
     // let i = 1;
     // while (fs.existsSync(`./${i}.png`)) i++;
-    // fs.writeFileSync(`./${i}.png`, pngBuffer);
+    // fs.writeFileSync(`./${i}.png`, buffer);
 
-    fs.writeFileSync(`./2.png`, pngBuffer);
+    // fs.writeFileSync(`./111111.png`, pngBuffer);
+
+
+
+
+
+
+
 
 
 
@@ -255,83 +262,44 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // await swipe(host, 115, 315, 115, 0, 1350);
     // await swipe(host, 115, 315, 115, 50, 1200); // bo nv bst
 
-    // const basePath = "C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\5x\\todoi\\temp";
-    // const basePath2 = "C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\5x\\todoi\\posBst";
 
-    // const imagePaths = [
-    //     `${basePath}\\11 31.png`,
-    //     `${basePath}\\15 34.png`,
-    //     `${basePath}\\19 18.png`,
-    //     `${basePath}\\21 27.png`,
-    //     `${basePath}\\22 7.png`,
-    //     `${basePath}\\23 5.png`,
-    //     `${basePath}\\28 19.png`,
-    //     `${basePath}\\31 14.png`,
-    //     `${basePath}\\35 18.png`,
-    //     `${basePath}\\39 1.png`,
-    //     `${basePath}\\39 27.png`,
-    //     `${basePath}\\41 4.png`,
-    //     `${basePath}\\45 25.png`,
-    //     `${basePath}\\54 45.png`,
-    //     `${basePath}\\55 11.png`,
-    //     `${basePath}\\56 18.png`,
-    //     `${basePath}\\57 5.png`,
-    //     `${basePath}\\62 36.png`,
-    //     `${basePath}\\66 20.png`,
-    //     `${basePath}\\68 16.png`
-    // ];
-    // const imagePaths2 = [
-    //     `${basePath2}\\11 31.png`,
-    //     `${basePath2}\\15 34.png`,
-    //     `${basePath2}\\19 18.png`,
-    //     `${basePath2}\\21 27.png`,
-    //     `${basePath2}\\22 7.png`,
-    //     `${basePath2}\\23 5.png`,
-    //     `${basePath2}\\28 19.png`,
-    //     `${basePath2}\\31 14.png`,
-    //     `${basePath2}\\35 18.png`,
-    //     `${basePath2}\\39 1.png`,
-    //     `${basePath2}\\39 27.png`,
-    //     `${basePath2}\\41 4.png`,
-    //     `${basePath2}\\45 25.png`,
-    //     `${basePath2}\\54 45.png`,
-    //     `${basePath2}\\55 11.png`,
-    //     `${basePath2}\\56 18.png`,
-    //     `${basePath2}\\57 5.png`,
-    //     `${basePath2}\\62 36.png`,
-    //     `${basePath2}\\66 20.png`,
-    //     `${basePath2}\\68 16.png`
 
-    //     // `${basePath2}\\31 14.png`,
-    //     // `${basePath2}\\54 45.png`,
-    // ];
 
-    // for (const e of imagePaths) {
-    //     let buffer = fs.readFileSync(e)
-    //     const pngBuffer = await sharp(buffer)
-    //         .extract({
-    //             left: 580,
-    //             top: 125,
-    //             width: 145,
-    //             height: 30
-    //         })
-    //         .toBuffer();
-    //     // fs.writeFileSync("xxxxxxxx.png", pngBuffer)
-    //     const { matchedPoints } = await findMatchingRegionsAndroids({
-    //         buffer: pngBuffer,
-    //         templateImages: imagePaths2,
-    //         matchThreshold: 0.95,
-    //     });
-    //     if (matchedPoints.length > 0) {
-    //         console.log(matchedPoints[0].mathImagePath);
-    //     }
-    // }
+    let resourcePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\`
+    const fn = Array.from({ length: 7 }, (_, i) => `${resourcePath}\\fn\\${i + 1}.png`);
+    const nv = Array.from({ length: 7 }, (_, i) => `${resourcePath}\\nv\\${i + 1}.png`);
 
-    // console.log(matchedPoints);
+    // let templateImages = Array.from({ length: 6 }, (_, i) => `${resourcePath}\\b${i + 1}.png`);
 
-    // let target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
 
-    // console.log(target);
+    let templateImages = [
+        // 'C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\\\b1.png',
+        // 'C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\\\b2.png',
+        // 'C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\\\b3.png',
+        // 'C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\\\b4.png',
+        // 'C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\\\b5.png',
+    ]
+
+    for (const e of fn) {
+        let buffer = fs.readFileSync(e)
+        const pngBuffer = await sharp(buffer)
+            .extract({ left: 10, top: 205, width: 180, height: 60 })
+            .toBuffer();
+
+        const { matchedPoints } = await findMatchingRegionsAndroids({
+            buffer: pngBuffer,
+            templateImages,
+            matchThreshold: 0.95,
+        });
+        if (matchedPoints.length > 0) {
+            console.log(e);
+
+            // console.log(matchedPoints[0].mathImagePath);
+        }
+    }
+
+
+
 })()
 
 

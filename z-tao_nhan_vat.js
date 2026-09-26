@@ -315,13 +315,13 @@ function generateId() {
                                         // await sleep(1000);
                                         // await tap(host, 630, 145); // chọn hoa sơn
 
-                                        // await tap(host, 130, 335); // chọn mục cụm 2
-                                        // await sleep(1000);
-                                        // await tap(host, 630, 145); // chọn châu giang
-
                                         await tap(host, 130, 335); // chọn mục cụm 2
                                         await sleep(1000);
-                                        await tap(host, 630, 220); // chọn long giang
+                                        await tap(host, 630, 145); // chọn châu giang
+
+                                        // await tap(host, 130, 335); // chọn mục cụm 2
+                                        // await sleep(1000);
+                                        // await tap(host, 630, 220); // chọn long giang
 
                                         // await tap(host, 130, 335); // chọn mục cụm 2
                                         // await sleep(1000);
