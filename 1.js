@@ -221,8 +221,8 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
 
 
-    // await connectAll();
-
+    await connectAll();
+    // let buffer = fs.readFileSync('./z-match-img/z-cay-kim-phong/kim_phong/temp/1.png')
     // let buffer = fs.readFileSync(`C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\fn\\1.png`)
     // let host = "127.0.0.1:16448";
     // const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
@@ -231,7 +231,7 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // console.log(metadata.height);
 
     // const pngBuffer = await sharp(buffer)
-    //     .extract({ left: 10, top: 205, width: 180, height: 60 })
+    //     .extract({ left: 80, top: 80, width: 200, height: 40 })
     //     .toBuffer();
 
 
@@ -265,41 +265,63 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
 
 
-    let resourcePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\`
-    const fn = Array.from({ length: 7 }, (_, i) => `${resourcePath}\\fn\\${i + 1}.png`);
-    const nv = Array.from({ length: 7 }, (_, i) => `${resourcePath}\\nv\\${i + 1}.png`);
+    // let resourcePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\`
+    // const fn = Array.from({ length: 7 }, (_, i) => `${resourcePath}\\fn\\${i + 1}.png`);
+    // const nv = Array.from({ length: 7 }, (_, i) => `${resourcePath}\\nv\\${i + 1}.png`);
 
-    // let templateImages = Array.from({ length: 6 }, (_, i) => `${resourcePath}\\b${i + 1}.png`);
+    // // let templateImages = Array.from({ length: 6 }, (_, i) => `${resourcePath}\\b${i + 1}.png`);
 
 
-    let templateImages = [
-        // 'C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\\\b1.png',
-        // 'C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\\\b2.png',
-        // 'C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\\\b3.png',
-        // 'C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\\\b4.png',
-        // 'C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\\\b5.png',
-    ]
+    // let templateImages = [
+    //     // 'C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\\\b1.png',
+    //     // 'C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\\\b2.png',
+    //     // 'C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\\\b3.png',
+    //     // 'C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\\\b4.png',
+    //     // 'C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\\\b5.png',
+    // ]
 
-    for (const e of fn) {
-        let buffer = fs.readFileSync(e)
-        const pngBuffer = await sharp(buffer)
-            .extract({ left: 10, top: 205, width: 180, height: 60 })
-            .toBuffer();
+    // for (const e of fn) {
+    //     let buffer = fs.readFileSync(e)
+    //     const pngBuffer = await sharp(buffer)
+    //         .extract({ left: 10, top: 205, width: 180, height: 60 })
+    //         .toBuffer();
 
-        const { matchedPoints } = await findMatchingRegionsAndroids({
-            buffer: pngBuffer,
-            templateImages,
-            matchThreshold: 0.95,
-        });
-        if (matchedPoints.length > 0) {
-            console.log(e);
+    //     const { matchedPoints } = await findMatchingRegionsAndroids({
+    //         buffer: pngBuffer,
+    //         templateImages,
+    //         matchThreshold: 0.95,
+    //     });
+    //     if (matchedPoints.length > 0) {
+    //         console.log(e);
 
-            // console.log(matchedPoints[0].mathImagePath);
-        }
+    //         // console.log(matchedPoints[0].mathImagePath);
+    //     }
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+    let buffer = fs.readFileSync('./z-match-img/z-cay-kim-phong/kim_phong/temp/1.png')
+    const pngBuffer = await sharp(buffer)
+        .extract({ left: 80, top: 80, width: 200, height: 40 })
+        .toBuffer();
+    let templateImages = ["./z-match-img/z-cay-kim-phong/kim_phong/duoc-diem.png"]
+    const { matchedPoints } = await findMatchingRegionsAndroids({
+        buffer: pngBuffer,
+        templateImages,
+        matchThreshold: 0.95,
+    });
+    if (matchedPoints.length > 0) {
+        console.log(matchedPoints[0].mathImagePath);
     }
-
-
-
 })()
 
 

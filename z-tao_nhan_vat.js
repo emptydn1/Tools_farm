@@ -315,9 +315,9 @@ function generateId() {
                                         // await sleep(1000);
                                         // await tap(host, 630, 145); // chọn hoa sơn
 
-                                        await tap(host, 130, 335); // chọn mục cụm 2
-                                        await sleep(1000);
-                                        await tap(host, 630, 145); // chọn châu giang
+                                        // await tap(host, 130, 335); // chọn mục cụm 2
+                                        // await sleep(1000);
+                                        // await tap(host, 630, 145); // chọn châu giang
 
                                         // await tap(host, 130, 335); // chọn mục cụm 2
                                         // await sleep(1000);
@@ -326,6 +326,10 @@ function generateId() {
                                         // await tap(host, 130, 335); // chọn mục cụm 2
                                         // await sleep(1000);
                                         // await tap(host, 330, 145); // chọn trường giang
+
+                                        await tap(host, 130, 400); // chọn mục cụm 3
+                                        await sleep(1000);
+                                        await tap(host, 330, 145); // chọn đông hải
 
                                         await sleep(800);
                                         await tap(host, 485, 445); // nhấn nút bắt đầu
