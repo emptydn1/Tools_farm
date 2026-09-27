@@ -131,11 +131,11 @@ async function input_text(host, text) {
 // const ports = [16448]
 const ports = [
     16448,
-    // 16480,
-    // 16512, 16544, 16576,
-    // 16608, 16640, 16672, 16704, 16736,
-    // 16768, 16800, 16832, 16864, 16896,
-    // 16928, 16960, 16992, 17024, 17056
+    16480,
+    16512, 16544, 16576,
+    16608, 16640, 16672, 16704, 16736,
+    16768, 16800, 16832, 16864, 16896,
+    16928, 16960, 16992, 17024, 17056
 ]
 
 
@@ -592,6 +592,8 @@ const actionsNhanVat = {
                 await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
 
 
+
+
                 // khu vực nhiệm vụ kimphong 5x
                 await Promise.all(hosts.map(host => nv3(host)));
                 await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
@@ -648,6 +650,7 @@ const actionsNhanVat = {
                 await Promise.all(hosts.map(host => nv3(host)));
                 await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
                 // end 5x
+
 
 
 
