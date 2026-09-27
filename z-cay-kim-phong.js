@@ -131,11 +131,11 @@ async function input_text(host, text) {
 // const ports = [16448]
 const ports = [
     16448,
-    16480,
-    16512, 16544, 16576,
-    16608, 16640, 16672, 16704, 16736,
-    16768, 16800, 16832, 16864, 16896,
-    16928, 16960, 16992, 17024, 17056
+    // 16480,
+    // 16512, 16544, 16576,
+    // 16608, 16640, 16672, 16704, 16736,
+    // 16768, 16800, 16832, 16864, 16896,
+    // 16928, 16960, 16992, 17024, 17056
 ]
 
 
@@ -367,7 +367,6 @@ let phu_ban_do_kim_phong = async (host, templatePath) => {
 
 
 
-
 const actionsNhanVat = {
     1: (host) => tap(host, 75, 130),
     2: (host) => tap(host, 75, 230),
@@ -379,7 +378,7 @@ const actionsNhanVat = {
     try {
         // setupKeyboard();
         await connectAll();
-        let accounts = await init();
+        // let accounts = await init();
         // let accounts = [["12312"]]
         // console.log(accounts);
 
@@ -594,10 +593,71 @@ const actionsNhanVat = {
 
 
                 // khu vực nhiệm vụ kimphong 5x
+                await Promise.all(hosts.map(host => nv3(host)));
+                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => nv3(host)));
+                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => nv3(host)));
+                await Promise.all(hosts.map(host => waitUntilMatch({
+                    deviceId: host,
+                    region: { left: 10, top: 205, width: 180, height: 60 },
+                    templateImages: [`${basePath}\\5x-1.png`],
+                })));
+                await Promise.all(hosts.map(host => nv3(host)));
+                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => nv3(host)));
+                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => nv3(host)));
+                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => nv3(host)));
+                await Promise.all(hosts.map(host => waitUntilMatch({
+                    deviceId: host,
+                    region: { left: 10, top: 205, width: 180, height: 60 },
+                    templateImages: [`${basePath}\\5x-2.png`],
+                })));
+                await Promise.all(hosts.map(host => nv3(host)));
+                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+
+                await Promise.all(
+                    hosts.map(async host => {
+                        while (true) {
+                            await nv3(host);
+
+                            const results3 = await captureAndMatch({
+                                deviceId: host,
+                                region: { left: 80, top: 80, width: 200, height: 40 },
+                                templateImages: [`${basePath}\\5x-popup.png`],
+                            });
+
+                            if (results3.length > 0) break;
+
+                            await sleep(500);
+                        }
+                    })
+                );
+
+                await Promise.all(hosts.map(async host => {
+                    for (let index = 0; index < 40; index++) {
+                        await tap(host, 310, 290)
+                    }
+                }));
+                await Promise.all(hosts.map(host => nv3(host)));
+                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => nv3(host)));
+                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => nv3(host)));
+                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                // end 5x
+
 
 
                 await Promise.all(hosts.map(host => phu_ban_do_kim_phong(host, { checkGameStartPath, basePath })));
-                await sleep(1500);
+                await Promise.all(hosts.map(host => waitUntilMatch({
+                    deviceId: host,
+                    region: { left: 150, top: 50, width: 180, height: 50 },
+                    templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
+                    matchThreshold: 0.8,
+                })));
                 await Promise.all(hosts.map(host => logout(host)));
             }
         }

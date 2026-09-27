@@ -605,6 +605,34 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
 
 
+
+
+                            // test this
+                            await waitUntilMatch({
+                                deviceId: host,
+                                region: { left: 150, top: 50, width: 180, height: 50 },
+                                templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
+                                matchThreshold: 0.8,
+                            });
+
+                            if (found.pos == "100 74") {
+                                // phù đến phục ngưu sơn tây
+                                await tap(host, 801, 300); // nhấn phù
+                                await sleep(500);
+                                await tap(host, 310, 380);
+                                await sleep(500);
+                                await tap(host, 310, 420);
+                                await sleep(500);
+                                await tap(host, 310, 285);
+                                await sleep(1000);
+                            }
+
+
+
+
+
+
+
                             // bước 1 cuộn xuống
                             // chờ login hoặc đã lên trên map đánh bst
                             await waitUntilMatch({
