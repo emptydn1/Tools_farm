@@ -356,7 +356,6 @@ let phu_ban_do_kim_phong = async (host, templatePath) => {
     await tap(host, 855, 60);   // click bản đồ, hủy mở bản đồ
     await sleep(500);
     await tap(host, 855, 60);   // click bản đồ, hủy mở bản đồ
-    await sleep(500);
 }
 
 
@@ -598,6 +597,7 @@ const actionsNhanVat = {
 
 
                 await Promise.all(hosts.map(host => phu_ban_do_kim_phong(host, { checkGameStartPath, basePath })));
+                await sleep(1500);
                 await Promise.all(hosts.map(host => logout(host)));
             }
         }
