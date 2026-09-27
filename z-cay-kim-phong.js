@@ -131,11 +131,11 @@ async function input_text(host, text) {
 // const ports = [16448]
 const ports = [
     16448,
-    // 16480,
-    // 16512, 16544, 16576,
-    // 16608, 16640, 16672, 16704, 16736,
-    // 16768, 16800, 16832, 16864, 16896,
-    // 16928, 16960, 16992, 17024, 17056
+    16480,
+    16512, 16544, 16576,
+    16608, 16640, 16672, 16704, 16736,
+    16768, 16800, 16832, 16864, 16896,
+    16928, 16960, 16992, 17024, 17056
 ]
 
 
@@ -380,8 +380,8 @@ const actionsNhanVat = {
     try {
         // setupKeyboard();
         await connectAll();
-        // let accounts = await init();
-        let accounts = [["12312"]]
+        let accounts = await init();
+        // let accounts = [["12312"]]
         // console.log(accounts);
 
         const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-cay-kim-phong\\`
@@ -598,13 +598,7 @@ const actionsNhanVat = {
 
 
                 await Promise.all(hosts.map(host => phu_ban_do_kim_phong(host, { checkGameStartPath, basePath })));
-
-
-
-
-
-
-                // logout
+                await Promise.all(hosts.map(host => logout(host)));
             }
         }
 
