@@ -307,13 +307,24 @@ const actionsNhanVat = {
     try {
         // setupKeyboard();
         await connectAll();
-        let accounts = await init();
+        // let accounts = await init();
+        let accounts = [
+            [
+                '41tambodn1',
+                '41tambodn2',
+            ]
+        ];
 
-        const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-cay-kim-phong\\`
+        const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\zzzzzzzzzzzzz\\`
         const resourcePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst`;
 
         const loginPath = `${resourcePath}\\dang-nhap`;
         const checkGameStartPath = `${resourcePath}\\check-vao-game`;
+
+
+
+
+
 
 
 
@@ -543,8 +554,8 @@ const actionsNhanVat = {
 
 
 
-                // // nhiệm vụ kim phong 5x
-                // await Promise.all(rowHosts.map(host => nv3(host)));
+                // nhiệm vụ kim phong 5x
+                await Promise.all(rowHosts.map(host => nv3(host)));
             }
         }
 
