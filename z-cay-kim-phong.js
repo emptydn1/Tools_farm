@@ -632,8 +632,19 @@ const actionsNhanVat = {
                     templateImages: [`${basePath}\\5x-2.png`],
                 })));
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => waitUntilMatch({
+                    deviceId: host,
+                    region: { left: 150, top: 50, width: 180, height: 50 },
+                    templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
+                    matchThreshold: 0.8,
+                })));
 
+                await Promise.all(hosts.map(async host => {
+                    for (let index = 0; index < 20; index++) {
+                        await tap(host, 310, 290)
+                    }
+                }));
+                await sleep(1000);
                 await Promise.all(
                     hosts.map(async host => {
                         while (true) {
