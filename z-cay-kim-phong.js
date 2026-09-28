@@ -499,13 +499,11 @@ const arg = process.argv[2];
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\mac_sau.png`],
-                    countClick: 25
                 })));
                 await Promise.all(hosts.map(host => nv2(host)));
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\pho_nam_bang.png`],
-                    countClick: 30
                 })));
 
 
@@ -533,13 +531,11 @@ const arg = process.argv[2];
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\pho_nam_bang.png`],
-                    countClick: 30
                 })));
                 await Promise.all(hosts.map(host => nv1(host)));
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\cong_tieu_tu.png`],
-                    countClick: 30
                 })));
 
 
@@ -562,7 +558,6 @@ const arg = process.argv[2];
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\pho_nam_bang.png`],
-                    countClick: 25
                 })));
                 await Promise.all(hosts.map(host => nv1(host)));
                 await Promise.all(hosts.map(host => loopClick(host, {
@@ -573,13 +568,11 @@ const arg = process.argv[2];
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\le_thu_thuy.png`],
-                    countClick: 25
                 })));
                 await Promise.all(hosts.map(host => nv1(host)));
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\ha_vo_tu.png`],
-                    countClick: 30
                 })));
 
 
@@ -602,19 +595,16 @@ const arg = process.argv[2];
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\le_thu_thuy.png`],
-                    countClick: 25
                 })));
                 await Promise.all(hosts.map(host => nv1(host)));
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\mac_sau.png`],
-                    countClick: 25
                 })));
                 await Promise.all(hosts.map(host => nv1(host)));
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\manh_pham.png`],
-                    countClick: 25
                 })));
 
 
@@ -631,7 +621,6 @@ const arg = process.argv[2];
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\manh_pham.png`],
-                    countClick: 25
                 })));
                 console.log("mua ngựa và mang máu");
                 await waitForInput();   // mang ngựa, mang máu
