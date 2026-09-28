@@ -304,6 +304,7 @@ let phu_ban_do_kim_phong = async (host, templatePath) => {
     await tap(host, 250, 370)  // click câu cá
     await sleep(500);
     await tap(host, 860, 470)  // click tham gia
+    await sleep(1000)
 
     await waitUntilMatch({
         deviceId: host,
@@ -311,6 +312,7 @@ let phu_ban_do_kim_phong = async (host, templatePath) => {
         templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
         matchThreshold: 0.8,
     });
+
     await sleep(1000)
     await tap(host, 855, 60);   // click bản đồ
     await sleep(500);
@@ -536,8 +538,6 @@ const actionsNhanVat = {
                 await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
                 await Promise.all(hosts.map(host => nv2(host)));
                 await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
-                await waitForInput(); // mang ngựa
-
                 await Promise.all(hosts.map(host => nv1(host)));
                 await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
                 await Promise.all(hosts.map(host => nv2(host)));
@@ -591,7 +591,7 @@ const actionsNhanVat = {
 
                 await Promise.all(hosts.map(host => nv1(host)));
                 await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
-                await waitForInput();
+                await waitForInput();   // mang ngựa, mang máu
 
 
 
