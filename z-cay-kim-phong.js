@@ -378,7 +378,7 @@ const actionsNhanVat = {
     try {
         // setupKeyboard();
         await connectAll();
-        // let accounts = await init();
+        let accounts = await init();
         // let accounts = [["12312"]]
         // console.log(accounts);
 
