@@ -298,7 +298,7 @@ let logout = async (host) => {
 
 let ban_do_kim_phong = async (host) => {
     await tap(host, 320, 295);  // nhấn nút giao dịch
-    await sleep(500);
+    await sleep(800);
 
     await tap(host, 775, 480);  // bấm nút bán nhanh
     await sleep(800);
