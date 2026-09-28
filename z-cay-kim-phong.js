@@ -301,7 +301,7 @@ let ban_do_kim_phong = async (host) => {
     await sleep(1000);
 
     await tap(host, 775, 480);  // bấm nút bán nhanh
-    await sleep(1000);
+    await sleep(1500);
 
     await tap(host, 215, 160);  // tick
     await sleep(100);
