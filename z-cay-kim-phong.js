@@ -596,7 +596,16 @@ const actionsNhanVat = {
 
                 // khu vực nhiệm vụ kimphong 5x
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await waitUntilMatch({
+                    deviceId: host,
+                    region: { left: 150, top: 50, width: 180, height: 50 },
+                    templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
+                    matchThreshold: 0.8,
+                });
+                for (let index = 0; index < 20; index++) {
+                    await tap(host, 310, 290)
+                }
+                await sleep(1000);
                 await Promise.all(hosts.map(host => nv3(host)));
                 await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
                 await Promise.all(hosts.map(host => nv3(host)));
@@ -635,6 +644,7 @@ const actionsNhanVat = {
 
                             await sleep(500);
                         }
+                        return true;
                     })
                 );
 
