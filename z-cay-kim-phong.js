@@ -311,7 +311,7 @@ let phu_ban_do_kim_phong = async (host, templatePath) => {
         templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
         matchThreshold: 0.8,
     });
-
+    await sleep(1000)
     await tap(host, 855, 60);   // click bản đồ
     await sleep(500);
 
