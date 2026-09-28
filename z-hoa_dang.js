@@ -136,9 +136,9 @@ function setupKeyboard() {
                             base.clone()
                                 .extract({
                                     left: 300,
-                                    top: 0,
+                                    top: 110,
                                     width: metadata.width - 300,
-                                    height: metadata.height,
+                                    height: metadata.height - 110,
                                 })
                                 .toBuffer(),
                             base.clone()
@@ -185,7 +185,7 @@ function setupKeyboard() {
 
                             for (const { x, y, mathImagePath } of matchedFilter) {
                                 exclude.push(mathImagePath);
-                                await tap(host, x + 300, y);
+                                await tap(host, x + 300, y + 110);
                             }
                         } else {
                             const positions = [
