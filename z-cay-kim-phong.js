@@ -610,9 +610,9 @@ const actionsNhanVat = {
                 await Promise.all(hosts.map(host => nv3(host)));
                 await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath, 20)));
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath, 20)));
+                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath, 30)));
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath, 20)));
+                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath, 30)));
                 await Promise.all(hosts.map(host => nv3(host)));
                 await Promise.all(hosts.map(host => waitUntilMatch({
                     deviceId: host,
