@@ -746,7 +746,7 @@ const arg = process.argv[2];
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${basePath}\\kim_phong\\duoc-diem.png`],
-                    countClick: 0
+                    countClick: 1
                 })));
 
                 await Promise.all(hosts.map(host => ban_do_kim_phong(host, { checkGameStartPath, basePath })));
