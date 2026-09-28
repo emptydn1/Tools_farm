@@ -450,7 +450,7 @@ const actionsNhanVat = {
 
         // ---- Xử lý 3 round cho MỘT DÒNG account, dùng chung 20 host ----
         async function processRow(accountRow) {
-            let countLogin = hosts.map(() => 4);
+            let countLogin = hosts.map(() => 2);
 
             for (let round = 0; round < 3; round++) {
                 console.log(`round ${round}`, accountRow);
