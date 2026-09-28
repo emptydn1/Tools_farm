@@ -131,11 +131,11 @@ async function input_text(host, text) {
 // const ports = [16448]
 const ports = [
     16448,
-    16480,
-    16512, 16544, 16576,
-    16608, 16640, 16672, 16704, 16736,
-    16768, 16800, 16832, 16864, 16896,
-    16928, 16960, 16992, 17024, 17056
+    // 16480,
+    // 16512, 16544, 16576,
+    // 16608, 16640, 16672, 16704, 16736,
+    // 16768, 16800, 16832, 16864, 16896,
+    // 16928, 16960, 16992, 17024, 17056
 ]
 
 
@@ -225,6 +225,12 @@ let tangSucManhSinhKhi = async (host) => {
 }
 
 let autoSkill = async (host) => {
+    // mở bảng kỹ năng
+    await tap(host, 946, 257);
+    await sleep(1000);
+    await tap(host, 757, 315);
+    await sleep(800);
+
     //click skill
     await tap(host, 250, 135)
     await sleep(500);
@@ -261,18 +267,25 @@ let autoSkill = async (host) => {
     await tap(host, 867, 90)    // hủy bảng nâng skill
 }
 
-let loopClick = async (host, checkGameStartPath, countClick = 40) => {
-    await waitUntilMatch({
-        deviceId: host,
-        region: { left: 150, top: 50, width: 180, height: 50 },
-        templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
-        matchThreshold: 0.8,
-    });
+
+
+let loopClick = async (host, { region, templateImages, matchThreshold = 0.8, countClick = 40 }) => {
+    if (templateImages != null) {
+        console.log("luyennnnn");
+
+        await waitUntilMatch({
+            deviceId: host,
+            region,
+            templateImages,
+            matchThreshold,
+        });
+    }
+
     for (let index = 0; index < countClick; index++) {
-        await tap(host, 310, 290)
+        await tap(host, 310, 290);
     }
     await sleep(1000);
-}
+};
 
 
 let logout = async (host) => {
@@ -369,16 +382,16 @@ const actionsNhanVat = {
     try {
         // setupKeyboard();
         await connectAll();
-        let accounts = await init();
-        // let accounts = [["12312"]]
-        // console.log(accounts);
+        // let accounts = await init();
+        let accounts = [["12312"]]
+        console.log(accounts);
 
-        const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-cay-kim-phong\\`
+        const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-cay-kim-phong`
         const resourcePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst`;
 
         const loginPath = `${resourcePath}\\dang-nhap`;
         const checkGameStartPath = `${resourcePath}\\check-vao-game`;
-
+        const khuVucPath = `${basePath}\\khu_vuc`;
 
 
         const hosts = ports.map(port => `127.0.0.1:${port}`);
@@ -450,7 +463,7 @@ const actionsNhanVat = {
 
         // ---- Xử lý 3 round cho MỘT DÒNG account, dùng chung 20 host ----
         async function processRow(accountRow) {
-            let countLogin = hosts.map(() => 2);
+            let countLogin = hosts.map(() => 4);
 
             for (let round = 0; round < 3; round++) {
                 console.log(`round ${round}`, accountRow);
@@ -468,16 +481,8 @@ const actionsNhanVat = {
                     await actionsNhanVat[countLogin[idx]](host);
                     await sleep(1000);
                 }));
-
                 await Promise.all(hosts.map(host => tap(host, 864, 453)));
-
                 hosts.forEach((_, idx) => countLogin[idx]++);
-
-
-
-
-
-
 
 
 
@@ -492,39 +497,39 @@ const actionsNhanVat = {
 
                 // nhiệm vụ vào phái
                 await Promise.all(hosts.map(host => nvSuphu(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
-
-
-
-
-
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\suphu.png`],
+                    countClick: 20,
+                })));
 
                 // nang skill và cài đặt auto
-                await Promise.all(hosts.map(host => tap(host, 946, 257)));
-                await sleep(1000);
-                await Promise.all(hosts.map(host => tap(host, 757, 315)));
-                await sleep(800);
-                await Promise.all(hosts.map(host => waitUntilMatch({
-                    deviceId: host,
-                    region: { left: 70, top: 80, width: 150, height: 70 },
-                    templateImages: [`${basePath}\\ki_nang.png`],
-                    matchThreshold: 0.8,
-                })));
-                await Promise.all(hosts.map(host => autoSkill(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => autoSkill(host)));
                 await sleep(1000)
 
                 // tăng sức mạnh sinh khí
                 await Promise.all(hosts.map(host => tangSucManhSinhKhi(host)));
                 await sleep(1000)
 
+
+
                 // ---- Mỗi bước dưới đây chạy song song trên cả 20 host,
                 //      chờ tất cả xong bước đó rồi mới sang bước tiếp theo ----
-
                 await Promise.all(hosts.map(host => nv1(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\mac_sau.png`],
+                    countClick: 25
+                })));
                 await Promise.all(hosts.map(host => nv2(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\pho_nam_bang.png`],
+                    countClick: 30
+                })));
 
+
+                // đánh boss
                 await Promise.all(hosts.map(host => nv1(host)));
                 await Promise.all(hosts.map(host => waitUntilMatch({
                     deviceId: host,
@@ -538,41 +543,73 @@ const actionsNhanVat = {
                     templateImages: [`${basePath}\\b2.png`],
                 })));
 
+
                 await Promise.all(hosts.map(host => nv1(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\mac_sau.png`],
+                })));
                 await Promise.all(hosts.map(host => nv2(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\pho_nam_bang.png`],
+                    countClick: 30
+                })));
                 await Promise.all(hosts.map(host => nv1(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\cong_tieu_tu.png`],
+                    countClick: 30
+                })));
+
+
+                // đánh boss
                 await Promise.all(hosts.map(host => nv2(host)));
                 await Promise.all(hosts.map(host => waitUntilMatch({
                     deviceId: host,
                     region: { left: 10, top: 205, width: 180, height: 60 },
                     templateImages: [`${basePath}\\b2.png`],
                 })));
-
                 await Promise.all(hosts.map(host => nv1(host)));
                 await Promise.all(hosts.map(host => waitUntilMatch({
                     deviceId: host,
                     region: { left: 10, top: 205, width: 180, height: 60 },
                     templateImages: [`${basePath}\\b3.png`],
                 })));
-                await Promise.all(hosts.map(host => nv2(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
-                await Promise.all(hosts.map(host => nv1(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
-                await Promise.all(hosts.map(host => nv2(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
-                await Promise.all(hosts.map(host => nv1(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
 
+
+                await Promise.all(hosts.map(host => nv2(host)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\pho_nam_bang.png`],
+                    countClick: 25
+                })));
+                await Promise.all(hosts.map(host => nv1(host)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\mac_sau.png`],
+                })));
+                await Promise.all(hosts.map(host => nv2(host)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\le_thu_thuy.png`],
+                    countClick: 25
+                })));
+                await Promise.all(hosts.map(host => nv1(host)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\ha_vo_tu.png`],
+                    countClick: 30
+                })));
+
+
+                // đánh boss
                 await Promise.all(hosts.map(host => nv2(host)));
                 await Promise.all(hosts.map(host => waitUntilMatch({
                     deviceId: host,
                     region: { left: 10, top: 205, width: 180, height: 60 },
                     templateImages: [`${basePath}\\b4.png`],
                 })));
-
                 await Promise.all(hosts.map(host => nv1(host)));
                 await Promise.all(hosts.map(host => waitUntilMatch({
                     deviceId: host,
@@ -580,12 +617,28 @@ const actionsNhanVat = {
                     templateImages: [`${basePath}\\b3.png`],
                 })));
 
+
                 await Promise.all(hosts.map(host => nv2(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\le_thu_thuy.png`],
+                    countClick: 25
+                })));
                 await Promise.all(hosts.map(host => nv1(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\mac_sau.png`],
+                    countClick: 25
+                })));
                 await Promise.all(hosts.map(host => nv1(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\manh_pham.png`],
+                    countClick: 25
+                })));
+
+
+                // đánh boss
                 await Promise.all(hosts.map(host => nv1(host)));
                 await Promise.all(hosts.map(host => waitUntilMatch({
                     deviceId: host,
@@ -593,8 +646,13 @@ const actionsNhanVat = {
                     templateImages: [`${basePath}\\b5.png`],
                 })));
 
+
                 await Promise.all(hosts.map(host => nv1(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\manh_pham.png`],
+                    countClick: 25
+                })));
                 console.log("mua ngựa và mang máu");
                 await waitForInput();   // mang ngựa, mang máu
 
@@ -603,21 +661,46 @@ const actionsNhanVat = {
 
                 // khu vực nhiệm vụ kimphong 5x
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath, 20)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\van_nhi.png`],
+                    countClick: 25
+                })));
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath, 20)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\thai_cong_cong.png`],
+                    countClick: 25
+                })));
+
+
+                // đánh boss
                 await Promise.all(hosts.map(host => nv3(host)));
                 await Promise.all(hosts.map(host => waitUntilMatch({
                     deviceId: host,
                     region: { left: 10, top: 205, width: 180, height: 60 },
                     templateImages: [`${basePath}\\5x-1.png`],
                 })));
+
+
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath, 20)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\thai_cong_cong.png`],
+                    countClick: 25
+                })));
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath, 30)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\van_nhi.png`],
+                    countClick: 25
+                })));
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath, 30)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\tieu_su.png`],
+                    countClick: 25
+                })));
                 await Promise.all(hosts.map(host => nv3(host)));
                 await Promise.all(hosts.map(host => waitUntilMatch({
                     deviceId: host,
@@ -625,7 +708,11 @@ const actionsNhanVat = {
                     templateImages: [`${basePath}\\5x-2.png`],
                 })));
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath, 20)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\van_nhi.png`],
+                    countClick: 25
+                })));
                 await Promise.all(
                     hosts.map(async host => {
                         while (true) {
@@ -634,7 +721,7 @@ const actionsNhanVat = {
                             const results3 = await captureAndMatch({
                                 deviceId: host,
                                 region: { left: 80, top: 80, width: 200, height: 40 },
-                                templateImages: [`${basePath}\\5x-popup.png`],
+                                templateImages: [`${khuVucPath}\\pho_loi_thu.png`],
                             });
 
                             if (results3.length > 0) break;
@@ -644,18 +731,25 @@ const actionsNhanVat = {
                         return true;
                     })
                 );
-
-                await Promise.all(hosts.map(async host => {
-                    for (let index = 0; index < 40; index++) {
-                        await tap(host, 310, 290)
-                    }
-                }));
+                await Promise.all(hosts.map(host => loopClick(host, { countClick: 40 })));
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\tang_chu.png`],
+                    countClick: 20
+                })));
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\pho_loi_thu.png`],
+                    countClick: 20
+                })));
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${khuVucPath}\\dao_thach_mon.png`],
+                    countClick: 30
+                })));
                 // end 5x
 
 
