@@ -173,7 +173,6 @@ async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold
 
 
 let nvSuphu = async (host) => {
-    console.log("nvSuphu");
     await tap(host, 60, 190)
     await sleep(500);
     await tap(host, 180, 175)   //2
@@ -182,7 +181,6 @@ let nvSuphu = async (host) => {
 }
 
 let nv1 = async (host) => {
-    console.log("nv1");
     await tap(host, 60, 190)
     await sleep(500);
     await tap(host, 180, 210)
@@ -191,7 +189,6 @@ let nv1 = async (host) => {
 }
 
 let nv2 = async (host) => {
-    console.log("nv2");
     await tap(host, 60, 190)
     await sleep(500);
     await tap(host, 180, 245)
@@ -200,7 +197,6 @@ let nv2 = async (host) => {
 }
 
 let nv3 = async (host) => {
-    console.log("nv3");
     await tap(host, 60, 190)
     await sleep(500);
     await tap(host, 185, 280)
@@ -210,7 +206,6 @@ let nv3 = async (host) => {
 
 
 let tangSucManhSinhKhi = async (host) => {
-    console.log("tangSucManhSinhKhi");
     await tap(host, 60, 60);
     await sleep(500);
     await tap(host, 455, 440);
@@ -230,12 +225,6 @@ let tangSucManhSinhKhi = async (host) => {
 }
 
 let autoSkill = async (host) => {
-    // nang skill
-    await tap(host, 946, 257)
-    await sleep(1000);
-    await tap(host, 757, 315)
-    await sleep(800);
-
     //click skill
     await tap(host, 250, 135)
     await sleep(500);
@@ -505,8 +494,23 @@ const actionsNhanVat = {
                 await Promise.all(hosts.map(host => nvSuphu(host)));
                 await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
 
+
+
+
+
+
                 // nang skill và cài đặt auto
-                await Promise.all(hosts.map(host => autoSkill(host)));
+                await Promise.all(hosts.map(host => tap(host, 946, 257)));
+                await sleep(1000);
+                await Promise.all(hosts.map(host => tap(host, 757, 315)));
+                await sleep(800);
+                await Promise.all(hosts.map(host => waitUntilMatch({
+                    deviceId: host,
+                    region: { left: 70, top: 80, width: 150, height: 70 },
+                    templateImages: [`${basePath}\\ki_nang.png`],
+                    matchThreshold: 0.8,
+                })));
+                await Promise.all(hosts.map(host => autoSkill(host, checkGameStartPath)));
                 await sleep(1000)
 
                 // tăng sức mạnh sinh khí
