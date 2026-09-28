@@ -382,8 +382,8 @@ const actionsNhanVat = {
     try {
         // setupKeyboard();
         await connectAll();
-        // let accounts = await init();
-        let accounts = [["12312"]]
+        let accounts = await init();
+        // let accounts = [["12312"]]
         console.log(accounts);
 
         const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-cay-kim-phong`
