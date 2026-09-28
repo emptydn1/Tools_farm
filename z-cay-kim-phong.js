@@ -271,8 +271,6 @@ let autoSkill = async (host) => {
 
 let loopClick = async (host, { region, templateImages, matchThreshold = 0.8, countClick = 40 }) => {
     if (templateImages != null) {
-        console.log("luyennnnn");
-
         await waitUntilMatch({
             deviceId: host,
             region,
@@ -339,19 +337,32 @@ let phu_ban_do_kim_phong = async (host, templatePath) => {
     await sleep(500);
 
     await tap(host, 215, 160);  // tick
+    await sleep(100);
     await tap(host, 275, 160);
+    await sleep(100);
     await tap(host, 335, 160);
+    await sleep(100);
     await tap(host, 395, 160);
+    await sleep(100);
     await tap(host, 455, 160);
+    await sleep(100);
     await tap(host, 515, 160);
+    await sleep(100);
     await tap(host, 575, 160);
+    await sleep(100);
 
     await tap(host, 215, 255);  // tick
+    await sleep(100);
     await tap(host, 275, 255);
+    await sleep(100);
     await tap(host, 335, 255);
+    await sleep(100);
     await tap(host, 395, 255);
+    await sleep(100);
     await tap(host, 455, 255);
+    await sleep(100);
     await tap(host, 515, 255);
+    await sleep(100);
     await tap(host, 575, 255);
 
     await sleep(1000)
@@ -377,6 +388,7 @@ const actionsNhanVat = {
     3: (host) => tap(host, 75, 330),
 };
 
+const arg = process.argv[2];
 
 (async () => {
     try {
@@ -464,6 +476,7 @@ const actionsNhanVat = {
         // ---- Xử lý 3 round cho MỘT DÒNG account, dùng chung 20 host ----
         async function processRow(accountRow) {
             let countLogin = hosts.map(() => 4);
+            if (arg) countLogin = hosts.map(() => arg);
 
             for (let round = 0; round < 3; round++) {
                 console.log(`round ${round}`, accountRow);
