@@ -296,40 +296,7 @@ let logout = async (host) => {
 }
 
 
-let phu_ban_do_kim_phong = async (host, templatePath) => {
-    let { checkGameStartPath, basePath } = templatePath;
-
-    await tap(host, 38, 125)
-    await sleep(500);
-    await tap(host, 250, 370)  // click câu cá
-    await sleep(500);
-    await tap(host, 860, 470)  // click tham gia
-    await sleep(3000)
-
-    await waitUntilMatch({
-        deviceId: host,
-        region: { left: 150, top: 50, width: 180, height: 50 },
-        templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
-        matchThreshold: 0.8,
-    });
-
-    await sleep(1000)
-    await tap(host, 855, 60);   // click bản đồ
-    await sleep(500);
-
-    while (true) {
-        await tap(host, 190, 340);  // click được điểm
-
-        const result3 = await captureAndMatch({
-            deviceId: host,
-            region: { left: 80, top: 80, width: 200, height: 40 },
-            templateImages: [`${basePath}\\kim_phong\\duoc-diem.png`],
-        });
-        if (result3.length > 0) break;
-
-        await sleep(500);
-    }
-
+let ban_do_kim_phong = async (host) => {
     await tap(host, 320, 295);  // nhấn nút giao dịch
     await sleep(500);
 
@@ -768,7 +735,32 @@ const arg = process.argv[2];
 
 
 
-                await Promise.all(hosts.map(host => phu_ban_do_kim_phong(host, { checkGameStartPath, basePath })));
+                await Promise.all(hosts.map(host => tap(host, 38, 125)));
+                await sleep(500);
+                await Promise.all(hosts.map(host => tap(host, 250, 370))); // click câu cá
+                await sleep(500);
+                await Promise.all(hosts.map(host => tap(host, 860, 470))); // click tham gia
+                await sleep(3000);
+                await Promise.all(hosts.map(host => waitUntilMatch({
+                    deviceId: host,
+                    region: { left: 150, top: 50, width: 180, height: 50 },
+                    templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
+                    matchThreshold: 0.8,
+                })));
+                await sleep(1000)
+                await Promise.all(hosts.map(host => tap(host, 855, 60))); // click bản đồ
+                await sleep(500);
+                await Promise.all(hosts.map(host => tap(host, 190, 340)));
+                await Promise.all(hosts.map(host => tap(host, 190, 340)));
+                await Promise.all(hosts.map(host => tap(host, 190, 340)));
+
+                await Promise.all(hosts.map(host => loopClick(host, {
+                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    templateImages: [`${basePath}\\kim_phong\\duoc-diem.png`],
+                    countClick: 0
+                })));
+
+                await Promise.all(hosts.map(host => ban_do_kim_phong(host, { checkGameStartPath, basePath })));
                 await Promise.all(hosts.map(host => waitUntilMatch({
                     deviceId: host,
                     region: { left: 150, top: 50, width: 180, height: 50 },
