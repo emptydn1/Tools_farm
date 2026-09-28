@@ -590,6 +590,7 @@ const actionsNhanVat = {
 
                 await Promise.all(hosts.map(host => nv1(host)));
                 await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await waitForInput();
 
 
 
