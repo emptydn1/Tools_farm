@@ -272,14 +272,14 @@ let autoSkill = async (host) => {
     await tap(host, 867, 90)    // hủy bảng nâng skill
 }
 
-let loopClick = async (host, checkGameStartPath) => {
+let loopClick = async (host, checkGameStartPath, countClick = 40) => {
     await waitUntilMatch({
         deviceId: host,
         region: { left: 150, top: 50, width: 180, height: 50 },
         templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
         matchThreshold: 0.8,
     });
-    for (let index = 0; index < 40; index++) {
+    for (let index = 0; index < countClick; index++) {
         await tap(host, 310, 290)
     }
     await sleep(1000);
@@ -304,7 +304,7 @@ let phu_ban_do_kim_phong = async (host, templatePath) => {
     await tap(host, 250, 370)  // click câu cá
     await sleep(500);
     await tap(host, 860, 470)  // click tham gia
-    await sleep(1000)
+    await sleep(3000)
 
     await waitUntilMatch({
         deviceId: host,
@@ -598,21 +598,9 @@ const actionsNhanVat = {
 
                 // khu vực nhiệm vụ kimphong 5x
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => waitUntilMatch({
-                    deviceId: host,
-                    region: { left: 150, top: 50, width: 180, height: 50 },
-                    templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
-                    matchThreshold: 0.8,
-                })));
-
-                await Promise.all(hosts.map(async host => {
-                    for (let index = 0; index < 20; index++) {
-                        await tap(host, 310, 290)
-                    }
-                }));
-                await sleep(1000);
+                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath, 20)));
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath, 20)));
                 await Promise.all(hosts.map(host => nv3(host)));
                 await Promise.all(hosts.map(host => waitUntilMatch({
                     deviceId: host,
@@ -620,11 +608,11 @@ const actionsNhanVat = {
                     templateImages: [`${basePath}\\5x-1.png`],
                 })));
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath, 20)));
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath, 20)));
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath, 20)));
                 await Promise.all(hosts.map(host => nv3(host)));
                 await Promise.all(hosts.map(host => waitUntilMatch({
                     deviceId: host,
@@ -632,19 +620,7 @@ const actionsNhanVat = {
                     templateImages: [`${basePath}\\5x-2.png`],
                 })));
                 await Promise.all(hosts.map(host => nv3(host)));
-                await Promise.all(hosts.map(host => waitUntilMatch({
-                    deviceId: host,
-                    region: { left: 150, top: 50, width: 180, height: 50 },
-                    templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
-                    matchThreshold: 0.8,
-                })));
-
-                await Promise.all(hosts.map(async host => {
-                    for (let index = 0; index < 20; index++) {
-                        await tap(host, 310, 290)
-                    }
-                }));
-                await sleep(1000);
+                await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath, 20)));
                 await Promise.all(
                     hosts.map(async host => {
                         while (true) {
