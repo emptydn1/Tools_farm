@@ -350,7 +350,7 @@ let phu_ban_do_kim_phong = async (host, templatePath) => {
     await tap(host, 515, 255);
     await tap(host, 575, 255);
 
-    await waitForInput();
+    await sleep(1000)
     await tap(host, 700, 410);   // bán   
     await sleep(500);
     await tap(host, 855, 60);   // click bản đồ, hủy mở bản đồ
@@ -536,6 +536,7 @@ const actionsNhanVat = {
                 await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
                 await Promise.all(hosts.map(host => nv2(host)));
                 await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
+                await waitForInput(); // mang ngựa
 
                 await Promise.all(hosts.map(host => nv1(host)));
                 await Promise.all(hosts.map(host => loopClick(host, checkGameStartPath)));
