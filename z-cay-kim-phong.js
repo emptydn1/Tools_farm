@@ -176,7 +176,7 @@ let nvSuphu = async (host) => {
     console.log("nvSuphu");
     await tap(host, 60, 190)
     await sleep(500);
-    await tap(host, 180, 135)
+    await tap(host, 180, 175)   //2
     await sleep(500);
     await tap(host, 815, 460)
 }
@@ -185,7 +185,7 @@ let nv1 = async (host) => {
     console.log("nv1");
     await tap(host, 60, 190)
     await sleep(500);
-    await tap(host, 180, 175)
+    await tap(host, 180, 210)
     await sleep(500);
     await tap(host, 815, 460)
 }
@@ -194,7 +194,7 @@ let nv2 = async (host) => {
     console.log("nv2");
     await tap(host, 60, 190)
     await sleep(500);
-    await tap(host, 180, 210)
+    await tap(host, 180, 245)
     await sleep(500);
     await tap(host, 815, 460)
 }
@@ -203,7 +203,7 @@ let nv3 = async (host) => {
     console.log("nv3");
     await tap(host, 60, 190)
     await sleep(500);
-    await tap(host, 185, 245)
+    await tap(host, 185, 280)
     await sleep(500);
     await tap(host, 815, 460)
 }
