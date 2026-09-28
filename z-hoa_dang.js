@@ -135,9 +135,9 @@ function setupKeyboard() {
                         const [hoa_dang_buffer, cau_hoi_buffer] = await Promise.all([
                             base.clone()
                                 .extract({
-                                    left: 300,
+                                    left: 250,
                                     top: 110,
-                                    width: metadata.width - 300,
+                                    width: metadata.width - 250,
                                     height: metadata.height - 110,
                                 })
                                 .toBuffer(),
@@ -185,7 +185,7 @@ function setupKeyboard() {
 
                             for (const { x, y, mathImagePath } of matchedFilter) {
                                 exclude.push(mathImagePath);
-                                await tap(host, x + 300, y + 110);
+                                await tap(host, x + 250, y + 110);
                             }
                         } else {
                             const positions = [

@@ -232,9 +232,9 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
     const pngBuffer = await sharp(buffer)
         .extract({
-            left: 300,
+            left: 250,
             top: 110,
-            width: metadata.width - 300,
+            width: metadata.width - 250,
             height: metadata.height - 110,
         })
         .toBuffer();
