@@ -369,7 +369,7 @@ let mangNgua = async (host) => {
     await tap(host, 890, 260); // túi trang bị
     await sleep(500)
     await tap(host, 620, 190); // ngựa
-    await sleep(1000)
+    await sleep(1500)
     await tap(host, 686, 381); // Đeo
 }
 
