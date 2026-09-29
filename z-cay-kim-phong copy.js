@@ -131,11 +131,11 @@ async function input_text(host, text) {
 // const ports = [16448]
 const ports = [
     16448,
-    16480,
-    16512, 16544, 16576,
-    16608, 16640, 16672, 16704, 16736,
-    16768, 16800, 16832, 16864, 16896,
-    16928, 16960, 16992, 17024, 17056
+    // 16480,
+    // 16512, 16544, 16576,
+    // 16608, 16640, 16672, 16704, 16736,
+    // 16768, 16800, 16832, 16864, 16896,
+    // 16928, 16960, 16992, 17024, 17056
 ]
 
 
@@ -385,7 +385,7 @@ const arg = process.argv[2];
     try {
         // setupKeyboard();
         await connectAll();
-        let accounts = await init();
+        // let accounts = await init();
         // let accounts = [["12312"]]
         // console.log(accounts);
 
@@ -648,8 +648,86 @@ const arg = process.argv[2];
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\manh_pham.png`],
                 })));
-
                 await waitForInput();   // mang ngựa, mang máu
+
+
+
+
+                // // mua ngựa và mang máu
+                // await Promise.all(hosts.map(host => mangNgua(host)));
+                // await Promise.all(hosts.map(host => waitUntilMatch({
+                //     deviceId: host,
+                //     region: { left: 310, top: 400, width: 80, height: 60 },
+                //     templateImages: [`${mangKimPhong}\\ngua.png`],
+                //     matchThreshold: 0.8,
+                // })));
+                // await Promise.all(hosts.map(host => tap(host, 865, 95)));
+                // await sleep(1000);
+
+                // console.log("click phúc lợi");
+                // await Promise.all(hosts.map(host => tap(host, 689, 50)));
+                // await sleep(8000)
+                // await tap(host, 135, 420);  // quà online
+                // await tap(host, 135, 420);  // quà online
+                // await tap(host, 135, 420);  // quà online
+
+                // await sleep(500);
+                // for (const y of [265, 335, 405]) {      // nhận máu
+                //     await tap(host, 805, y);
+                //     await sleep(300);
+                //     await tap(host, 805, y);
+                //     await sleep(300);
+                // }
+                // await tap(host, 867, 90)    // hủy bảng nâng skill
+
+                // await Promise.all(
+                //     hosts.map(async host => {
+                //         while (true) {
+                //             const results = await captureAndMatch({
+                //                 deviceId: host,
+                //                 region: { left: 640, top: 0, width: 90, height: 60 },
+                //                 templateImages: [`${mangKimPhong}\\phuc_loi2.png`],
+                //                 matchThreshold: 0.8
+                //             });
+
+                //             if (results.length > 0) {
+                //                 for (const { x, y, mathImagePath } of results) {
+                //                     await tap(host, x + 640, y + 10);
+                //                 }
+
+                //                 await sleep(8000)
+
+                //                 const results2 = await captureAndMatch({
+                //                     deviceId: host,
+                //                     region: { left: 70, top: 80, width: 110, height: 50 },
+                //                     templateImages: [`${mangKimPhong}\\phuc-loi-table.png`],
+                //                     matchThreshold: 0.8
+                //                 });
+
+                //                 if (results2.length > 0) {
+                //                     await tap(host, 135, 420);  // quà online
+                //                     await tap(host, 135, 420);  // quà online
+                //                     await tap(host, 135, 420);  // quà online
+
+                //                     await sleep(500);
+                //                     for (const y of [265, 335, 405]) {      // nhận máu
+                //                         await tap(host, 805, y);
+                //                         await sleep(300);
+                //                         await tap(host, 805, y);
+                //                         await sleep(300);
+                //                     }
+                //                     await tap(host, 867, 90)    // hủy bảng nâng skill
+                //                     break;
+                //                 }
+                //             } else {
+                //                 await tap(host, 785, 20);   // arrow
+                //             }
+                //             await sleep(1000);
+                //         }
+                //     })
+                // );
+                // await sleep(1000);
+
 
 
 
@@ -792,6 +870,9 @@ const arg = process.argv[2];
         }
 
         while (!isKilled) await sleep(500);
+
+
+
 
         console.log("Tất cả đã dừng!");
         process.exit(0);
