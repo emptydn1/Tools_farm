@@ -366,11 +366,13 @@ let ban_do_kim_phong = async (host) => {
 }
 
 let mangNgua = async (host) => {
-    await tap(host, 890, 260); // túi trang bị
-    await sleep(500)
-    await tap(host, 620, 190); // ngựa
-    await sleep(2000)
-    await tap(host, 686, 381); // Đeo
+    await tap(host, 890, 260);  // túi trang bị
+    await sleep(300)
+    await tap(host, 620, 190);  // ngựa
+    await sleep(300)
+    await tap(host, 680, 335);  // Đeo
+    await sleep(300)
+    await tap(host, 865, 95);   // tắt túi trang bị
 }
 
 const actionsNhanVat = {
@@ -649,7 +651,11 @@ const arg = process.argv[2];
                     templateImages: [`${khuVucPath}\\manh_pham.png`],
                 })));
 
-                await waitForInput();   // mang ngựa, mang máu
+                // mua ngựa
+                await Promise.all(hosts.map(host => mangNgua(host)));
+                console.log("nhận máu để đi tiếp");
+                await waitForInput();   // nhận phúc lợi
+
 
 
 
