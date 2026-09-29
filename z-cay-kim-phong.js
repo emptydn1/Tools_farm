@@ -293,6 +293,8 @@ let loopClick = async (host, { region, templateImages, matchThreshold = 0.8, cou
 
 
 let logout = async (host) => {
+    await tap(host, 946, 257)
+    await sleep(800);
     await tap(host, 946, 337)
     await sleep(800);
     await tap(host, 153, 115)
