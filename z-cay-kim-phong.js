@@ -131,11 +131,11 @@ async function input_text(host, text) {
 // const ports = [16448]
 const ports = [
     16448,
-    // 16480,
-    // 16512, 16544, 16576,
-    // 16608, 16640, 16672, 16704, 16736,
-    // 16768, 16800, 16832, 16864, 16896,
-    // 16928, 16960, 16992, 17024, 17056
+    16480,
+    16512, 16544, 16576,
+    16608, 16640, 16672, 16704, 16736,
+    16768, 16800, 16832, 16864, 16896,
+    16928, 16960, 16992, 17024, 17056
 ]
 
 
@@ -173,7 +173,7 @@ async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold
 
 
 let nvSuphu = async (host) => {
-    await sleep(1000);
+    await sleep(500);
     await tap(host, 60, 190)
     await sleep(500);
     await tap(host, 180, 175)   //2
@@ -385,7 +385,7 @@ const arg = process.argv[2];
     try {
         // setupKeyboard();
         await connectAll();
-        // let accounts = await init();
+        let accounts = await init();
         // let accounts = [["12312"]]
         // console.log(accounts);
 
@@ -849,13 +849,11 @@ const arg = process.argv[2];
 
         // ---- Chạy TUẦN TỰ qua từng dòng account (vì chỉ có 20 host, phải tái sử dụng) ----
         // Trong mỗi dòng, cả 20 host chạy SONG SONG với nhau (đồng bộ theo từng bước).
-        // for (let i = 0; i < accounts.length; i++) {
-        //     await processRow(accounts[i]);
-        // }
+        for (let i = 0; i < accounts.length; i++) {
+            await processRow(accounts[i]);
+        }
 
-        // while (!isKilled) await sleep(500);
-
-
+        while (!isKilled) await sleep(500);
 
         console.log("Tất cả đã dừng!");
         process.exit(0);
