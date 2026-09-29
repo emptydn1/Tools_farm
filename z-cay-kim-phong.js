@@ -279,6 +279,8 @@ let loopClick = async (host, { region, templateImages, matchThreshold = 0.8, cou
         });
     }
 
+    await sleep(500);
+
     for (let index = 0; index < countClick; index++) {
         await tap(host, 310, 290);
     }
