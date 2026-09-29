@@ -131,11 +131,11 @@ async function input_text(host, text) {
 // const ports = [16448]
 const ports = [
     16448,
-    16480,
-    16512, 16544, 16576,
-    16608, 16640, 16672, 16704, 16736,
-    16768, 16800, 16832, 16864, 16896,
-    16928, 16960, 16992, 17024, 17056
+    // 16480,
+    // 16512, 16544, 16576,
+    // 16608, 16640, 16672, 16704, 16736,
+    // 16768, 16800, 16832, 16864, 16896,
+    // 16928, 16960, 16992, 17024, 17056
 ]
 
 
@@ -369,7 +369,7 @@ let mangNgua = async (host) => {
     await tap(host, 890, 260); // túi trang bị
     await sleep(500)
     await tap(host, 620, 190); // ngựa
-    await sleep(800)
+    await sleep(1000)
     await tap(host, 686, 381); // Đeo
 }
 
@@ -385,7 +385,7 @@ const arg = process.argv[2];
     try {
         // setupKeyboard();
         await connectAll();
-        let accounts = await init();
+        // let accounts = await init();
         // let accounts = [["12312"]]
         // console.log(accounts);
 
@@ -659,14 +659,14 @@ const arg = process.argv[2];
                         while (true) {
                             const results = await captureAndMatch({
                                 deviceId: host,
-                                region: { left: 455, top: 0, width: 320, height: 60 },
-                                templateImages: [`${mangKimPhong}\\phuc_loi.png`],
+                                region: { left: 640, top: 0, width: 90, height: 60 },
+                                templateImages: [`${mangKimPhong}\\phuc_loi2.png`],
                                 matchThreshold: 0.8
                             });
 
                             if (results.length > 0) {
                                 for (const { x, y, mathImagePath } of results) {
-                                    await tap(host, x + 455, y + 10);
+                                    await tap(host, x + 640, y + 10);
                                 }
 
                                 await sleep(8000)
@@ -696,15 +696,21 @@ const arg = process.argv[2];
                             } else {
                                 await tap(host, 785, 20);   // arrow
                             }
-                            await sleep(500);
+                            await sleep(1000);
                         }
                     })
                 );
 
-                //  mang ngưa và đeo
+                //  mang ngưa và check
                 await Promise.all(hosts.map(host => mangNgua(host)));
+                await Promise.all(hosts.map(host => waitUntilMatch({
+                    deviceId: host,
+                    region: { left: 310, top: 400, width: 80, height: 60 },
+                    templateImages: [`${mangKimPhong}\\ngua.png`],
+                    matchThreshold: 0.8,
+                })));
+                await Promise.all(hosts.map(host => tap(host, 865, 95)));
                 await sleep(1000);
-
 
 
 
@@ -843,11 +849,13 @@ const arg = process.argv[2];
 
         // ---- Chạy TUẦN TỰ qua từng dòng account (vì chỉ có 20 host, phải tái sử dụng) ----
         // Trong mỗi dòng, cả 20 host chạy SONG SONG với nhau (đồng bộ theo từng bước).
-        for (let i = 0; i < accounts.length; i++) {
-            await processRow(accounts[i]);
-        }
+        // for (let i = 0; i < accounts.length; i++) {
+        //     await processRow(accounts[i]);
+        // }
 
-        while (!isKilled) await sleep(500);
+        // while (!isKilled) await sleep(500);
+
+
 
         console.log("Tất cả đã dừng!");
         process.exit(0);

@@ -223,7 +223,7 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
     await connectAll();
     // let buffer = fs.readFileSync('./z-match-img/z-cay-kim-phong/kim_phong/temp/1.png')
-    let buffer = fs.readFileSync(`./asdddw.png`)
+    let buffer = fs.readFileSync(`./9.png`)
     // let host = "127.0.0.1:16448";
     // const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
     // const metadata = await sharp(buffer).metadata();
@@ -231,7 +231,7 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // console.log(metadata.height);
 
     const pngBuffer = await sharp(buffer)
-        .extract({ left: 70, top: 80, width: 110, height: 50 })
+        .extract({ left: 640, top: 0, width: 90, height: 60 })
         .toBuffer();
 
     // let i = 1;
