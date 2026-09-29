@@ -245,6 +245,10 @@ let autoSkill = async (host) => {
     await tap(host, 867, 90)    // hủy bảng nâng skill
     await sleep(1000);
 
+    // test
+    await tap(host, 946, 257);
+    await sleep(1000);
+
 
     // auto
     await swipe(host, 690, 455, 690, 455, 2000);
