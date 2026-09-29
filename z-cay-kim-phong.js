@@ -269,7 +269,7 @@ let autoSkill = async (host) => {
 
 
 
-let loopClick = async (host, { region, templateImages, matchThreshold = 0.8, countClick = 40 }) => {
+let loopClick = async (host, { region, templateImages, matchThreshold = 0.8, countClick = 40, timeOut = 0 }) => {
     if (templateImages != null) {
         await waitUntilMatch({
             deviceId: host,
@@ -279,7 +279,7 @@ let loopClick = async (host, { region, templateImages, matchThreshold = 0.8, cou
         });
     }
 
-    await sleep(500);
+    await sleep(timeOut);
 
     for (let index = 0; index < countClick; index++) {
         await tap(host, 310, 290);
@@ -528,6 +528,7 @@ const arg = process.argv[2];
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\mac_sau.png`],
+                    timeOut: 1000,
                 })));
                 await Promise.all(hosts.map(host => nv2(host)));
                 await Promise.all(hosts.map(host => loopClick(host, {
