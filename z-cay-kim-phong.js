@@ -654,6 +654,16 @@ const arg = process.argv[2];
 
                 // await waitForInput();   // mang ngựa, mang máu
                 // mua ngựa và mang máu
+                await Promise.all(hosts.map(host => mangNgua(host)));
+                await Promise.all(hosts.map(host => waitUntilMatch({
+                    deviceId: host,
+                    region: { left: 310, top: 400, width: 80, height: 60 },
+                    templateImages: [`${mangKimPhong}\\ngua.png`],
+                    matchThreshold: 0.8,
+                })));
+                await Promise.all(hosts.map(host => tap(host, 865, 95)));
+                await sleep(1000);
+
                 await Promise.all(
                     hosts.map(async host => {
                         while (true) {
@@ -700,16 +710,6 @@ const arg = process.argv[2];
                         }
                     })
                 );
-
-                //  mang ngưa và check
-                await Promise.all(hosts.map(host => mangNgua(host)));
-                await Promise.all(hosts.map(host => waitUntilMatch({
-                    deviceId: host,
-                    region: { left: 310, top: 400, width: 80, height: 60 },
-                    templateImages: [`${mangKimPhong}\\ngua.png`],
-                    matchThreshold: 0.8,
-                })));
-                await Promise.all(hosts.map(host => tap(host, 865, 95)));
                 await sleep(1000);
 
 
