@@ -448,7 +448,7 @@ const arg = process.argv[2];
             if (arg) countLogin = hosts.map(() => arg);
 
             for (let round = 0; round < 3; round++) {
-                console.log(`round ${round}`, accountRow);
+                console.log(`round ${round + 1}`, accountRow[0]);
 
                 // Bước 1: đăng nhập - đồng bộ từng tick cho cả 20 host
                 await loginAllHosts(accountRow, countLogin);
