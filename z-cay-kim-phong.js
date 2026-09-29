@@ -213,11 +213,12 @@ let tangSucManhSinhKhi = async (host) => {
     await tap(host, 680, 195);
     await sleep(500);
 
-    await input_text(host, "80");
-    await sleep(500);
-    await tap(host, 680, 223);
-    await sleep(500);
     await input_text(host, "9999");
+    // await input_text(host, "80");
+    // await sleep(500);
+    // await tap(host, 680, 223);
+    // await sleep(500);
+    // await input_text(host, "9999");
     await sleep(500);
     await tap(host, 710, 420);
     await sleep(500);
@@ -270,18 +271,18 @@ let autoSkill = async (host) => {
     await sleep(500);
 
 
-    // await tap(host, 130, 430) // click mục nhặt đồ
-    // await sleep(1500)
+    await tap(host, 130, 430) // click mục nhặt đồ
+    await sleep(1500)
 
-    // // bên trái
-    // await tap(host, 205, 225)
-    // await tap(host, 205, 260)
+    // bên trái
+    await tap(host, 205, 225)
+    await tap(host, 205, 260)
 
-    // // bên phải
-    // await tap(host, 415, 155)
-    // await tap(host, 415, 190)
-    // await tap(host, 415, 225)
-    // await tap(host, 415, 260)
+    // bên phải
+    await tap(host, 415, 155)
+    await tap(host, 415, 190)
+    await tap(host, 415, 225)
+    await tap(host, 415, 260)
 
     await tap(host, 867, 90)    // hủy bảng auto
 }

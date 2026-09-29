@@ -131,11 +131,11 @@ async function input_text(host, text) {
 // const ports = [16448]
 const ports = [
     16448,
-    16480,
-    16512, 16544, 16576,
-    16608, 16640, 16672, 16704, 16736,
-    16768, 16800, 16832, 16864, 16896,
-    16928, 16960, 16992, 17024, 17056
+    // 16480,
+    // 16512, 16544, 16576,
+    // 16608, 16640, 16672, 16704, 16736,
+    // 16768, 16800, 16832, 16864, 16896,
+    // 16928, 16960, 16992, 17024, 17056
 ]
 
 
@@ -194,9 +194,9 @@ const arg = process.argv[2];
     try {
         // setupKeyboard();
         await connectAll();
-        let accounts = await init();
+        // let accounts = await init();
         // let accounts = [["12312"]]
-        console.log(accounts);
+        // console.log(accounts);
 
         const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-cay-kim-phong`
         const resourcePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst`;
@@ -317,6 +317,35 @@ const arg = process.argv[2];
         // }
 
         // while (!isKilled) await sleep(500);
+
+        let trangBiKimPhong = async (host) => {
+            await tap(host, 875, 258);  // mục trang bị
+            await sleep(500);
+            for (let i = 0; i < 7; i++) {
+                await tap(host, 560, 135);
+                await sleep(500);
+                await tap(host, 686, 381);
+                await sleep(500);
+            }
+            await sleep(500)
+
+            await tap(host, 875, 359);   // mục đạo cụ
+            await sleep(500);
+            await tap(host, 560, 135)
+            await sleep(500);
+            await tap(host, 700, 435);
+            await sleep(500);
+            await tap(host, 678, 235);
+
+            await sleep(500);
+            await tap(host, 865, 85);
+            await sleep(500);
+            await tap(host, 865, 85);
+            await sleep(500);
+            await tap(host, 865, 85);
+        }
+        await Promise.all(hosts.map(host => trangBiKimPhong(host)));
+
 
         console.log("Tất cả đã dừng!");
         process.exit(0);
