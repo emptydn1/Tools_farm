@@ -268,7 +268,22 @@ let autoSkill = async (host) => {
     await sleep(500);
     await tap(host, 270, 290)
     await sleep(500);
-    await tap(host, 867, 90)    // hủy bảng nâng skill
+
+
+    // await tap(host, 130, 430) // click mục nhặt đồ
+    // await sleep(1500)
+
+    // // bên trái
+    // await tap(host, 205, 225)
+    // await tap(host, 205, 260)
+
+    // // bên phải
+    // await tap(host, 415, 155)
+    // await tap(host, 415, 190)
+    // await tap(host, 415, 225)
+    // await tap(host, 415, 260)
+
+    await tap(host, 867, 90)    // hủy bảng auto
 }
 
 
@@ -347,15 +362,6 @@ let ban_do_kim_phong = async (host) => {
     await sleep(500);
     await tap(host, 855, 60);   // click bản đồ, hủy mở bản đồ
 }
-
-
-
-
-
-
-
-
-
 
 const actionsNhanVat = {
     1: (host) => tap(host, 75, 130),
