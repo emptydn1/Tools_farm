@@ -773,7 +773,6 @@ const arg = process.argv[2];
                     matchThreshold: 0.8,
                 })));
 
-                await waitForInput();   // nhận bộ kim phong khóa
                 await Promise.all(hosts.map(host => logout(host)));
             }
         }
