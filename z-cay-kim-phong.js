@@ -173,6 +173,7 @@ async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold
 
 
 let nvSuphu = async (host) => {
+    await sleep(1000);
     await tap(host, 60, 190)
     await sleep(500);
     await tap(host, 180, 175)   //2
@@ -364,6 +365,14 @@ let ban_do_kim_phong = async (host) => {
     await tap(host, 855, 60);   // click bản đồ, hủy mở bản đồ
 }
 
+let mangNgua = async (host) => {
+    await tap(host, 890, 260); // túi trang bị
+    await sleep(500)
+    await tap(host, 620, 190); // ngựa
+    await sleep(800)
+    await tap(host, 686, 381); // Đeo
+}
+
 const actionsNhanVat = {
     1: (host) => tap(host, 75, 130),
     2: (host) => tap(host, 75, 230),
@@ -378,7 +387,7 @@ const arg = process.argv[2];
         await connectAll();
         let accounts = await init();
         // let accounts = [["12312"]]
-        console.log(accounts);
+        // console.log(accounts);
 
         const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-cay-kim-phong`
         const resourcePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst`;
@@ -386,6 +395,7 @@ const arg = process.argv[2];
         const loginPath = `${resourcePath}\\dang-nhap`;
         const checkGameStartPath = `${resourcePath}\\check-vao-game`;
         const khuVucPath = `${basePath}\\khu_vuc`;
+        const mangKimPhong = `${basePath}\\mang-kim-phong`;
 
 
         const hosts = ports.map(port => `127.0.0.1:${port}`);
@@ -638,8 +648,63 @@ const arg = process.argv[2];
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\manh_pham.png`],
                 })));
-                console.log("mua ngựa và mang máu");
-                await waitForInput();   // mang ngựa, mang máu
+
+
+
+
+                // await waitForInput();   // mang ngựa, mang máu
+                // mua ngựa và mang máu
+                await Promise.all(
+                    hosts.map(async host => {
+                        while (true) {
+                            const results = await captureAndMatch({
+                                deviceId: host,
+                                region: { left: 455, top: 0, width: 320, height: 60 },
+                                templateImages: [`${mangKimPhong}\\phuc_loi.png`],
+                                matchThreshold: 0.8
+                            });
+
+                            if (results.length > 0) {
+                                for (const { x, y, mathImagePath } of results) {
+                                    await tap(host, x + 455, y + 10);
+                                }
+
+                                await sleep(8000)
+
+                                const results2 = await captureAndMatch({
+                                    deviceId: host,
+                                    region: { left: 70, top: 80, width: 110, height: 50 },
+                                    templateImages: [`${mangKimPhong}\\phuc-loi-table.png`],
+                                    matchThreshold: 0.8
+                                });
+
+                                if (results2.length > 0) {
+                                    await tap(host, 135, 420);  // quà online
+                                    await tap(host, 135, 420);  // quà online
+                                    await tap(host, 135, 420);  // quà online
+
+                                    await sleep(500);
+                                    for (const y of [265, 335, 405]) {      // nhận máu
+                                        await tap(host, 805, y);
+                                        await sleep(300);
+                                        await tap(host, 805, y);
+                                        await sleep(300);
+                                    }
+                                    await tap(host, 867, 90)    // hủy bảng nâng skill
+                                    break;
+                                }
+                            } else {
+                                await tap(host, 785, 20);   // arrow
+                            }
+                            await sleep(500);
+                        }
+                    })
+                );
+
+                //  mang ngưa và đeo
+                await Promise.all(hosts.map(host => mangNgua(host)));
+                await sleep(1000);
+
 
 
 
@@ -713,7 +778,6 @@ const arg = process.argv[2];
 
                             await sleep(500);
                         }
-                        return true;
                     })
                 );
                 await Promise.all(hosts.map(host => loopClick(host, { countClick: 40 })));
@@ -727,7 +791,7 @@ const arg = process.argv[2];
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\pho_loi_thu.png`],
-                    countClick: 20
+                    countClick: 25
                 })));
                 await Promise.all(hosts.map(host => nv3(host)));
                 await Promise.all(hosts.map(host => loopClick(host, {

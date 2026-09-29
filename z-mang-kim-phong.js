@@ -326,7 +326,7 @@ const arg = process.argv[2];
             await sleep(500);
             for (let i = 0; i < 7; i++) {
                 await tap(host, 560, 135);
-                await sleep(500);
+                await sleep(800);
                 await tap(host, 686, 381);
                 await sleep(500);
             }
@@ -347,7 +347,10 @@ const arg = process.argv[2];
             await sleep(500);
             await tap(host, 865, 85);
         }
-        await Promise.all(hosts.map(host => trangBiKimPhong(host)));
+        // await Promise.all(hosts.map(host => trangBiKimPhong(host)));
+
+        // phuc loi
+        // .extract({ left: 455, top: 0, width: 320, height: 60 })
 
 
         console.log("Tất cả đã dừng!");
