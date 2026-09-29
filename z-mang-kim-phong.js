@@ -319,6 +319,9 @@ const arg = process.argv[2];
         // while (!isKilled) await sleep(500);
 
         let trangBiKimPhong = async (host) => {
+            await tap(host, 890, 260);  // túi trang bị
+            await sleep(800);
+
             await tap(host, 875, 258);  // mục trang bị
             await sleep(500);
             for (let i = 0; i < 7; i++) {
