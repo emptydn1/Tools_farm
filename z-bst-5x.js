@@ -693,10 +693,10 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             // Bước 3:
                             while (true) {
                                 await tap(host, 100, 265);
-                                await sleep(1000);
+                                await sleep(1500);
                                 await tap(host, 100, 265);
 
-                                await sleep(4000);
+                                await sleep(3500);
 
                                 // là citys
                                 const result = await captureAndMatch({
