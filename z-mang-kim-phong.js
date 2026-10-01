@@ -131,11 +131,11 @@ async function input_text(host, text) {
 // const ports = [16448]
 const ports = [
     16448,
-    // 16480,
-    // 16512, 16544, 16576,
-    // 16608, 16640, 16672, 16704, 16736,
-    // 16768, 16800, 16832, 16864, 16896,
-    // 16928, 16960, 16992, 17024, 17056
+    16480,
+    16512, 16544, 16576,
+    16608, 16640, 16672, 16704, 16736,
+    16768, 16800, 16832, 16864, 16896,
+    16928, 16960, 16992, 17024, 17056
 ]
 
 
@@ -170,12 +170,6 @@ async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold
         await sleep(interval)
     }
 }
-
-const actionsNhanVat = {
-    1: (host) => tap(host, 75, 130),
-    2: (host) => tap(host, 75, 230),
-    3: (host) => tap(host, 75, 330),
-};
 
 let logout = async (host) => {
     await tap(host, 946, 257)
@@ -218,6 +212,12 @@ let trangBiKimPhong = async (host) => {
     await tap(host, 865, 85);
 }
 
+const actionsNhanVat = {
+    1: (host) => tap(host, 75, 130),
+    2: (host) => tap(host, 75, 230),
+    3: (host) => tap(host, 75, 330),
+};
+
 const arg = process.argv[2];
 
 (async () => {
@@ -234,6 +234,7 @@ const arg = process.argv[2];
         const loginPath = `${resourcePath}\\dang-nhap`;
         const checkGameStartPath = `${resourcePath}\\check-vao-game`;
         const khuVucPath = `${basePath}\\khu_vuc`;
+        const mangKimPhong = `${basePath}\\mang-kim-phong`;
 
 
         const hosts = ports.map(port => `127.0.0.1:${port}`);
@@ -328,8 +329,6 @@ const arg = process.argv[2];
                 hosts.forEach((_, idx) => countLogin[idx]++);
 
 
-
-
                 await waitForInput()
 
 
@@ -347,6 +346,12 @@ const arg = process.argv[2];
                 await Promise.all(hosts.map(host => logout(host)));
             }
         }
+
+        for (let i = 0; i < accounts.length; i++) {
+            await processRow(accounts[i]);
+        }
+
+        while (!isKilled) await sleep(500);
 
         console.log("Tất cả đã dừng!");
         process.exit(0);
