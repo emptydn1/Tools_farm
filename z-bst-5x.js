@@ -664,6 +664,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             await loopScrollBst(host)
 
                             if (found.pos == "45 25") {
+                                await sleep(1000)
                                 // phù đến thiên tầm tháp 1
                                 await tap(host, 801, 300); // nhấn phù
                                 await sleep(500);
