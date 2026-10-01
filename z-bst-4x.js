@@ -612,19 +612,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 matchThreshold: 0.8,
                             });
 
-                            if (found.pos == "100 74") {
-                                await sleep(2000)
-                                // phù đến phục ngưu sơn tây
-                                await tap(host, 801, 300); // nhấn phù
-                                await sleep(500);
-                                await tap(host, 310, 380);
-                                await sleep(500);
-                                await tap(host, 310, 420);
-                                await sleep(500);
-                                await tap(host, 310, 285);
-                                await sleep(1000);
-                            }
-
                             async function loopScrollBst(host) {
                                 let isScrollDown = true;
                                 let pairCount = 0;        // đếm số lần đã cuộn xuống-lên hoàn chỉnh
@@ -666,6 +653,18 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             }
 
                             await loopScrollBst(host)
+
+                            if (found.pos == "100 74") {
+                                // phù đến phục ngưu sơn tây
+                                await tap(host, 801, 300); // nhấn phù
+                                await sleep(500);
+                                await tap(host, 310, 380);
+                                await sleep(500);
+                                await tap(host, 310, 420);
+                                await sleep(500);
+                                await tap(host, 310, 285);
+                                await sleep(1000);
+                            }
 
                             // Bước 2: vào tổ đội -> check cho tới khi thành công lần đầu
                             let TARGET_IMAGE = `${basePath}\\todoi\\team\\${found.pos}.png`;
