@@ -603,11 +603,8 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             await tap(host, 730, 460); // khiêu chiến bst
 
-
-
-
-
-                            // test this
+                            // bước 1 cuộn xuống
+                            // chờ login hoặc đã lên trên map đánh bst
                             await waitUntilMatch({
                                 deviceId: host,
                                 region: { left: 150, top: 50, width: 180, height: 50 },
@@ -616,6 +613,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             });
 
                             if (found.pos == "100 74") {
+                                await sleep(2000)
                                 // phù đến phục ngưu sơn tây
                                 await tap(host, 801, 300); // nhấn phù
                                 await sleep(500);
@@ -626,21 +624,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 await tap(host, 310, 285);
                                 await sleep(1000);
                             }
-
-
-
-
-
-
-
-                            // bước 1 cuộn xuống
-                            // chờ login hoặc đã lên trên map đánh bst
-                            await waitUntilMatch({
-                                deviceId: host,
-                                region: { left: 150, top: 50, width: 180, height: 50 },
-                                templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
-                                matchThreshold: 0.8,
-                            });
 
                             async function loopScrollBst(host) {
                                 let isScrollDown = true;
