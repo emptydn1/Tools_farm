@@ -664,7 +664,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 await tap(host, 310, 420);
                                 await sleep(500);
                                 await tap(host, 310, 285);
-                                await sleep(1000);
+                                await sleep(3000);
 
                                 await tap(host, 100, 265);  // đi tới boss
                                 await sleep(500)
