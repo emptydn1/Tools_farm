@@ -629,9 +629,9 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     });
 
                                     if (result.length > 0) {
-                                        await tap(host, 100, 245);
+                                        await tap(host, 100, 265);
                                         await sleep(500)
-                                        await tap(host, 100, 245);
+                                        await tap(host, 100, 265);
                                         break
                                     }
 
@@ -663,7 +663,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             await loopScrollBst(host)
 
-                            if (found.pos == "45 25") {
+                            if (["45 25", "66 20"].includes(found.pos)) {
                                 await sleep(1000)
                                 // phù đến thiên tầm tháp 1
                                 await tap(host, 801, 300); // nhấn phù
@@ -675,6 +675,11 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 await tap(host, 310, 420);
                                 await sleep(500);
                                 await tap(host, 310, 285);
+                                await sleep(1000);
+
+                                await tap(host, 100, 265);  // đi tới boss
+                                await sleep(500)
+                                await tap(host, 100, 265);
                                 await sleep(1000);
                             }
 

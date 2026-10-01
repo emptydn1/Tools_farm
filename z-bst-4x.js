@@ -627,9 +627,9 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     });
 
                                     if (result.length > 0) {
-                                        await tap(host, 100, 245);
+                                        await tap(host, 100, 265);
                                         await sleep(500)
-                                        await tap(host, 100, 245);
+                                        await tap(host, 100, 265);
                                         break
                                     }
 
@@ -664,6 +664,11 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 await tap(host, 310, 420);
                                 await sleep(500);
                                 await tap(host, 310, 285);
+                                await sleep(1000);
+
+                                await tap(host, 100, 265);  // đi tới boss
+                                await sleep(500)
+                                await tap(host, 100, 265);
                                 await sleep(1000);
                             }
 
