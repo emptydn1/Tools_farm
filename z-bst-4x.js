@@ -219,9 +219,9 @@ async function captureAndMatch({ deviceId, region, templateImages, matchThreshol
 
 let nhan_tra_nv_bst = async (host) => {
     await sleep(1000);
-    await tap(host, 190, 185)  // to doi
+    await tap(host, 175, 185)  // to doi
     await sleep(500);
-    await tap(host, 190, 185)  // to doi
+    await tap(host, 175, 185)  // to doi
     await sleep(500);
     await tap(host, 184, 111)  // huy? hien thong tin chu pt
     await sleep(500);
@@ -301,9 +301,9 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
     });
 
     while (!done) {
-        await tap(host, 190, 185)  // to doi
+        await tap(host, 175, 185)  // to doi
         await sleep(500);
-        await tap(host, 190, 185)  // to doi
+        await tap(host, 175, 185)  // to doi
         await sleep(500);
         await tap(host, 140, 260)  // doi xung quanh
         await sleep(1000);
@@ -335,7 +335,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
         }
 
         await sleep(1000);
-        await tap(host, 190, 185); // to doi
+        await tap(host, 175, 185); // to doi
         await sleep(1000);
 
         const matchedPoints2 = await captureAndMatch({
