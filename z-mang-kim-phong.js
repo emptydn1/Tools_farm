@@ -171,6 +171,12 @@ async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold
     }
 }
 
+const actionsNhanVat = {
+    1: (host) => tap(host, 75, 130),
+    2: (host) => tap(host, 75, 230),
+    3: (host) => tap(host, 75, 330),
+};
+
 let logout = async (host) => {
     await tap(host, 946, 257)
     await sleep(800);
@@ -182,11 +188,35 @@ let logout = async (host) => {
     await sleep(500);
 }
 
-const actionsNhanVat = {
-    1: (host) => tap(host, 75, 130),
-    2: (host) => tap(host, 75, 230),
-    3: (host) => tap(host, 75, 330),
-};
+let trangBiKimPhong = async (host) => {
+    await tap(host, 890, 260);  // túi trang bị
+    await sleep(800);
+
+    await tap(host, 875, 258);  // mục trang bị
+    await sleep(500);
+    for (let i = 0; i < 7; i++) {
+        await tap(host, 560, 135);
+        await sleep(300);
+        await tap(host, 686, 381);
+        await sleep(300);
+    }
+    await sleep(500)
+
+    await tap(host, 875, 359);   // mục đạo cụ
+    await sleep(500);
+    await tap(host, 560, 135)
+    await sleep(500);
+    await tap(host, 700, 435);
+    await sleep(500);
+    await tap(host, 678, 235);
+
+    await sleep(500);
+    await tap(host, 865, 85);
+    await sleep(500);
+    await tap(host, 865, 85);
+    await sleep(500);
+    await tap(host, 865, 85);
+}
 
 const arg = process.argv[2];
 
@@ -194,7 +224,7 @@ const arg = process.argv[2];
     try {
         // setupKeyboard();
         await connectAll();
-        // let accounts = await init();
+        let accounts = await init();
         // let accounts = [["12312"]]
         // console.log(accounts);
 
@@ -300,57 +330,26 @@ const arg = process.argv[2];
 
 
 
+                await waitForInput()
 
 
 
 
+                await Promise.all(hosts.map(host => trangBiKimPhong(host)));
 
+                await Promise.all(hosts.map(host => waitUntilMatch({
+                    deviceId: host,
+                    region: { left: 150, top: 50, width: 180, height: 50 },
+                    templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
+                    matchThreshold: 0.8,
+                })));
+
+                await Promise.all(hosts.map(host => logout(host)));
 
 
             }
         }
 
-        // // ---- Chạy TUẦN TỰ qua từng dòng account (vì chỉ có 20 host, phải tái sử dụng) ----
-        // // Trong mỗi dòng, cả 20 host chạy SONG SONG với nhau (đồng bộ theo từng bước).
-        // for (let i = 0; i < accounts.length; i++) {
-        //     await processRow(accounts[i]);
-        // }
-
-        // while (!isKilled) await sleep(500);
-
-        let trangBiKimPhong = async (host) => {
-            await tap(host, 890, 260);  // túi trang bị
-            await sleep(800);
-
-            await tap(host, 875, 258);  // mục trang bị
-            await sleep(500);
-            for (let i = 0; i < 7; i++) {
-                await tap(host, 560, 135);
-                await sleep(800);
-                await tap(host, 686, 381);
-                await sleep(500);
-            }
-            await sleep(500)
-
-            await tap(host, 875, 359);   // mục đạo cụ
-            await sleep(500);
-            await tap(host, 560, 135)
-            await sleep(500);
-            await tap(host, 700, 435);
-            await sleep(500);
-            await tap(host, 678, 235);
-
-            await sleep(500);
-            await tap(host, 865, 85);
-            await sleep(500);
-            await tap(host, 865, 85);
-            await sleep(500);
-            await tap(host, 865, 85);
-        }
-        // await Promise.all(hosts.map(host => trangBiKimPhong(host)));
-
-        // phuc loi
-        // .extract({ left: 455, top: 0, width: 320, height: 60 })
 
 
         console.log("Tất cả đã dừng!");
