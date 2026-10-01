@@ -606,33 +606,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             await tap(host, 730, 460); // khiêu chiến bst
 
 
-
-
-                            // test this
-                            await waitUntilMatch({
-                                deviceId: host,
-                                region: { left: 150, top: 50, width: 180, height: 50 },
-                                templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
-                                matchThreshold: 0.8,
-                            });
-
-                            if (found.pos == "45 25") {
-                                // phù đến thiên tầm tháp 1
-                                await tap(host, 801, 300); // nhấn phù
-                                await sleep(500);
-                                await tap(host, 310, 380);
-                                await sleep(500);
-                                await swipe(host, 310, 420, 310, 270, 2000);
-                                await sleep(500);
-                                await tap(host, 310, 285);
-                                await sleep(500);
-                                await tap(host, 310, 285);
-                                await sleep(1000);
-                            }
-
-
-
-
                             // bước 1 cuộn xuống
                             // chờ login hoặc đã lên trên map đánh bst
                             await waitUntilMatch({
@@ -690,6 +663,20 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             }
 
                             await loopScrollBst(host)
+
+                            if (found.pos == "45 25") {
+                                // phù đến thiên tầm tháp 1
+                                await tap(host, 801, 300); // nhấn phù
+                                await sleep(500);
+                                await tap(host, 310, 380);
+                                await sleep(500);
+                                await swipe(host, 310, 420, 310, 270, 2000);
+                                await sleep(500);
+                                await tap(host, 310, 285);
+                                await sleep(500);
+                                await tap(host, 310, 285);
+                                await sleep(1000);
+                            }
 
                             // Bước 2: vào tổ đội -> check cho tới khi thành công lần đầu
                             let TARGET_IMAGE = `${basePath}\\todoi\\team\\${found.pos}.png`;
