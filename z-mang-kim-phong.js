@@ -345,12 +345,8 @@ const arg = process.argv[2];
                 })));
 
                 await Promise.all(hosts.map(host => logout(host)));
-
-
             }
         }
-
-
 
         console.log("Tất cả đã dừng!");
         process.exit(0);
