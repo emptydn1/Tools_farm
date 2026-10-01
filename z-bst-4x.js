@@ -675,18 +675,10 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             await loopScrollBst(host)
 
 
-
-                            // let countReTodoi = 0;
                             // Bước 3:
                             while (true) {
-                                await tap(host, 100, 245);
+                                await tap(host, 100, 260);
 
-                                // if (countReTodoi > 10) {
-                                //     await runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath });
-                                //     countReTodoi = 0;
-                                // }
-
-                                // countReTodoi++
                                 await sleep(5000);
 
                                 // là citys

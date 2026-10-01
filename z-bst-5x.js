@@ -670,9 +670,9 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 await sleep(500);
                                 await tap(host, 310, 380);
                                 await sleep(500);
-                                await swipe(host, 310, 420, 310, 270, 2000);
+                                await swipe(host, 310, 420, 310, 380, 2000);
                                 await sleep(500);
-                                await tap(host, 310, 285);
+                                await tap(host, 310, 420);
                                 await sleep(500);
                                 await tap(host, 310, 285);
                                 await sleep(1000);
@@ -687,7 +687,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             // Bước 3:
                             while (true) {
-                                await tap(host, 100, 245);
+                                await tap(host, 100, 260);
 
                                 await sleep(5000);
 
