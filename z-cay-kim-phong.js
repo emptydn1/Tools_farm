@@ -557,6 +557,7 @@ const arg = process.argv[2];
 
                 await Promise.all(hosts.map(host => tap(host, 60, 385)));
                 await Promise.all(hosts.map(host => tap(host, 60, 385)));
+                await sleep(1000);
 
                 await Promise.all(hosts.map(host => nv2(host)));
                 await Promise.all(hosts.map(host => loopClick(host, {
