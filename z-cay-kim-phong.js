@@ -661,9 +661,9 @@ const arg = process.argv[2];
                 })));
 
                 // mua ngựa
-                await Promise.all(hosts.map(host => mangNgua(host)));
-                await sleep(1000)
                 await Promise.all(hosts.map(host => turnOffNhatDoVaThemAutoSkill(host)));
+                await sleep(1000)
+                await Promise.all(hosts.map(host => mangNgua(host)));
                 console.log("nhận máu để đi tiếp");
                 await waitForInput();   // nhận phúc lợi
 
