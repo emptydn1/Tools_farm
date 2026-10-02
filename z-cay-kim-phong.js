@@ -739,19 +739,16 @@ const arg = process.argv[2];
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\tang_chu.png`],
-                    countClick: 20
                 })));
                 await Promise.all(hosts.map(host => nv3(host)));
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\pho_loi_thu.png`],
-                    countClick: 25
                 })));
                 await Promise.all(hosts.map(host => nv3(host)));
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\dao_thach_mon.png`],
-                    countClick: 30
                 })));
                 // end 5x
 
