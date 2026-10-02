@@ -270,7 +270,7 @@ let nangSkill = async (host) => {
     await tap(host, 867, 90)    // hủy bảng auto
 }
 
-let turnOffNhatDoVaThemAutoSkill = async (host) => {
+let themAutoSkill = async (host) => {
     // auto
     await swipe(host, 690, 455, 690, 455, 2000);
     await sleep(2000);
@@ -661,7 +661,7 @@ const arg = process.argv[2];
                 })));
 
                 // mua ngựa
-                await Promise.all(hosts.map(host => turnOffNhatDoVaThemAutoSkill(host)));
+                await Promise.all(hosts.map(host => themAutoSkill(host)));
                 await sleep(1000)
                 await Promise.all(hosts.map(host => mangNgua(host)));
                 console.log("nhận máu để đi tiếp");
