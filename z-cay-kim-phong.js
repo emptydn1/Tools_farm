@@ -226,7 +226,7 @@ let tangSucManhSinhKhi = async (host) => {
     await tap(host, 870, 95);
 }
 
-let autoSkill = async (host) => {
+let nangSkill = async (host) => {
     // mở bảng kỹ năng
     await tap(host, 946, 257);
     await sleep(1000);
@@ -247,11 +247,12 @@ let autoSkill = async (host) => {
     await tap(host, 867, 90)    // hủy bảng nâng skill
     await sleep(1000);
 
-    // test
+    // chuyển về bảng skill để tiện tool logout
     await tap(host, 946, 257);
     await sleep(1000);
+}
 
-
+let turnOffNhatDoVaThemAutoSkill = async (host) => {
     // auto
     await swipe(host, 690, 455, 690, 455, 2000);
     await sleep(2000);
@@ -511,7 +512,7 @@ const arg = process.argv[2];
                 })));
 
                 // nang skill và cài đặt auto
-                await Promise.all(hosts.map(host => autoSkill(host)));
+                await Promise.all(hosts.map(host => nangSkill(host)));
                 await sleep(1000)
 
                 // tăng sức mạnh sinh khí
@@ -657,6 +658,8 @@ const arg = process.argv[2];
 
                 // mua ngựa
                 await Promise.all(hosts.map(host => mangNgua(host)));
+                await sleep(1000)
+                await Promise.all(hosts.map(host => turnOffNhatDoVaThemAutoSkill(host)));
                 console.log("nhận máu để đi tiếp");
                 await waitForInput();   // nhận phúc lợi
 
