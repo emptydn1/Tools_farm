@@ -250,6 +250,24 @@ let nangSkill = async (host) => {
     // chuyển về bảng skill để tiện tool logout
     await tap(host, 946, 257);
     await sleep(1000);
+
+    // auto
+    await swipe(host, 690, 455, 690, 455, 2000);
+    await sleep(2000);
+    await tap(host, 130, 430) // click mục nhặt đồ
+    await sleep(1500)
+
+    // bên trái
+    await tap(host, 205, 225)
+    await tap(host, 205, 260)
+
+    // bên phải
+    await tap(host, 415, 155)
+    await tap(host, 415, 190)
+    await tap(host, 415, 225)
+    await tap(host, 415, 260)
+
+    await tap(host, 867, 90)    // hủy bảng auto
 }
 
 let turnOffNhatDoVaThemAutoSkill = async (host) => {
@@ -271,22 +289,6 @@ let turnOffNhatDoVaThemAutoSkill = async (host) => {
     await sleep(500);
     await tap(host, 270, 290)
     await sleep(500);
-
-
-    await tap(host, 130, 430) // click mục nhặt đồ
-    await sleep(1500)
-
-    // bên trái
-    await tap(host, 205, 225)
-    await tap(host, 205, 260)
-
-    // bên phải
-    await tap(host, 415, 155)
-    await tap(host, 415, 190)
-    await tap(host, 415, 225)
-    await tap(host, 415, 260)
-
-    await tap(host, 867, 90)    // hủy bảng auto
 }
 
 
