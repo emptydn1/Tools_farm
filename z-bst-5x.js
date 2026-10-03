@@ -693,10 +693,10 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             // Bước 3:
                             while (true) {
                                 await tap(host, 100, 265);
-                                await sleep(1500);
+                                await sleep(500);
                                 await tap(host, 100, 265);
 
-                                await sleep(3500);
+                                await sleep(4500);
 
                                 // là citys
                                 const result = await captureAndMatch({
@@ -707,14 +707,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 });
 
                                 if (result.length > 0) {
-                                    // đã login xong
-                                    await waitUntilMatch({
-                                        deviceId: host,
-                                        region: { left: 150, top: 50, width: 180, height: 50 },
-                                        templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
-                                        matchThreshold: 0.8,
-                                    });
-
                                     await nhan_tra_nv_bst(host);
                                     break;
                                 }
