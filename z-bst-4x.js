@@ -683,10 +683,10 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             // Bước 3:
                             while (true) {
                                 await tap(host, 100, 265);
-                                await sleep(500);
+                                await sleep(800);
                                 await tap(host, 100, 265);
 
-                                await sleep(4500);
+                                await sleep(4000);
 
                                 // là citys
                                 const result = await captureAndMatch({
@@ -697,7 +697,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 });
 
                                 if (result.length > 0) {
-                                    await sleep(500);
+                                    await sleep(500)
                                     await nhan_tra_nv_bst(host);
                                     break;
                                 }

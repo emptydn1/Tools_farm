@@ -212,6 +212,16 @@ let trangBiKimPhong = async (host) => {
     await tap(host, 865, 85);
 }
 
+let tatSkill2 = async (host) => {
+    await swipe(host, 690, 455, 690, 455, 2000);
+    await sleep(2000);
+    await tap(host, 130, 255);
+    await sleep(500);
+    await tap(host, 285, 205);  // tắt skill 2
+    await sleep(500);
+    await tap(host, 867, 90)    // hủy bảng auto
+}
+
 const actionsNhanVat = {
     1: (host) => tap(host, 75, 130),
     2: (host) => tap(host, 75, 230),
@@ -343,6 +353,8 @@ const arg = process.argv[2];
                     matchThreshold: 0.8,
                 })));
 
+                await Promise.all(hosts.map(host => tatSkill2(host)));
+                await sleep(1000);
                 await Promise.all(hosts.map(host => logout(host)));
             }
         }

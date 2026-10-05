@@ -284,11 +284,11 @@ let themAutoSkill = async (host) => {
     await tap(host, 214, 215)
     await sleep(500);
 
-    // thêm skill auto 2
-    await tap(host, 270, 215)
-    await sleep(500);
-    await tap(host, 270, 290)
-    await sleep(500);
+    // // thêm skill auto 2
+    // await tap(host, 270, 215)
+    // await sleep(500);
+    // await tap(host, 270, 290)
+    // await sleep(500);
 
     await tap(host, 867, 90)    // hủy bảng auto
 }
