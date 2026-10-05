@@ -190,25 +190,25 @@ let trangBiKimPhong = async (host) => {
     await sleep(500);
     for (let i = 0; i < 7; i++) {
         await tap(host, 560, 135);
-        await sleep(300);
+        await sleep(500);
         await tap(host, 686, 381);
-        await sleep(300);
+        await sleep(500);
     }
     await sleep(500)
 
     await tap(host, 875, 359);   // mục đạo cụ
-    await sleep(500);
+    await sleep(700);
     await tap(host, 560, 135)
-    await sleep(500);
+    await sleep(700);
     await tap(host, 700, 435);
-    await sleep(500);
+    await sleep(700);
     await tap(host, 678, 235);
 
-    await sleep(500);
+    await sleep(700);
     await tap(host, 865, 85);
-    await sleep(500);
+    await sleep(700);
     await tap(host, 865, 85);
-    await sleep(500);
+    await sleep(700);
     await tap(host, 865, 85);
 }
 
