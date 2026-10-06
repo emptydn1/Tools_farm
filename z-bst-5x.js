@@ -707,7 +707,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 });
 
                                 if (result.length > 0) {
-                                    await sleep(500);
+                                    await sleep(800);
                                     await nhan_tra_nv_bst(host);
                                     break;
                                 }
