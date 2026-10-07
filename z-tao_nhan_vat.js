@@ -327,9 +327,13 @@ function generateId() {
                                         // await sleep(1000);
                                         // await tap(host, 330, 145); // chọn trường giang
 
+                                        // await tap(host, 130, 400); // chọn mục cụm 3
+                                        // await sleep(1000);
+                                        // await tap(host, 330, 145); // chọn đông hải
+
                                         await tap(host, 130, 400); // chọn mục cụm 3
                                         await sleep(1000);
-                                        await tap(host, 330, 145); // chọn đông hải
+                                        await tap(host, 330, 220); // chọn nam hải
 
                                         await sleep(800);
                                         await tap(host, 485, 445); // nhấn nút bắt đầu
