@@ -811,7 +811,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                             matchThreshold: 0.8,
                                         });
 
-                                        if (result.length > 0) roiDoi = false;
+                                        if (result.length > 0) roiDoi = true;
                                     }
 
                                     await tap(host, 820, 270)  // nc npc
