@@ -575,6 +575,87 @@ async function runPort(indexPort, port, accounts, templatePath) {
                         await logout(host)
                         break outerLoop;
                     }
+
+
+                    // nếu không ở chỗ boss sat thủ hoặc chưa click nhận nv thì check lại
+                    let takeTask = false
+                    while (!takeTask) {
+                        // is citys and bst_cam_nang
+                        const result = await captureAndMatch({
+                            deviceId: host,
+                            region: { left: 830, top: 80, width: 100, height: 50 },
+                            templateImages: [
+                                ...posCitys,
+                                `${camNangPath}\\bien_kinh.png`,
+                                `${camNangPath}\\lam_an.png`,
+                                `${camNangPath}\\phuong_tuong.png`,
+                                `${camNangPath}\\tuong_duong.png`,
+                            ],
+                            matchThreshold: 0.95,
+                        });
+                        if (result.length > 0) {
+                            await tap(host, 820, 270)  // nc npc
+                            await sleep(100);
+                            await tap(host, 820, 270)  // nc npc
+                            await sleep(100);
+                            await tap(host, 820, 270)  // nc npc
+                            await sleep(1000);
+
+                            // kiểm tra đã nc với npc nv bst chưa
+                            const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
+                            const pngBuffer1 = await sharp(buffer)
+                                .extract({ left: 40, top: 280, width: 300, height: 50 })
+                                .toBuffer();
+                            const { matchedPoints: joinBST } = await findMatchingRegionsAndroids({
+                                buffer: pngBuffer1,
+                                templateImages: [`${checkGameStartPath}\\tham-gia-nv-bst.png`],
+                                matchThreshold: 0.8,
+                            });
+
+                            if (joinBST.length > 0) {
+                                await tap(host, 180, 295)  // click tham gia nv
+                                await sleep(1000)
+                                await tap(host, 640, 461)
+                                await sleep(200)
+                                await tap(host, 640, 461)
+                                await sleep(200)
+                                await tap(host, 640, 461)
+                                await sleep(200)
+                                await tap(host, 640, 461)
+                                await sleep(200)
+
+                                await tap(host, 390, 470)
+                                await sleep(200)
+                                await tap(host, 390, 470)
+                                await sleep(200)
+
+                                await tap(host, 640, 461)
+                                takeTask = true;
+                            }
+                        } else {
+                            // click cam nang de toi lai diem boss sat thu
+                            await tap(host, 38, 125)
+                            await sleep(1000);
+
+                            // kiểm tra hiển thị cẩm nang chưa
+                            const buffer = await runAdb(["-s", host, "exec-out", "screencap", "-p"]);
+                            const pngBuffer1 = await sharp(buffer)
+                                .extract({ left: 50, top: 50, width: 200, height: 70 })
+                                .toBuffer();
+                            const { matchedPoints: camnang } = await findMatchingRegionsAndroids({
+                                buffer: pngBuffer1,
+                                templateImages: [`${camNangPath}\\b1_cam_nang.png`],
+                                matchThreshold: 0.8,
+                            });
+
+                            if (camnang.length > 0) {
+                                await tap(host, 260, 275);
+                                await sleep(400);
+                                await tap(host, 855, 450);
+                            }
+                        }
+                        await sleep(300);
+                    }
                     await sleep(500);
                 }
 
@@ -729,7 +810,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
         const workerPromises = [];
         for (const [index, port] of ports.entries()) {
-            await sleep(1000);
+            await sleep(1500);
             const p = runPort(index, port, accounts, { posBST, todoiList, posCitys, basePath, loginPath, checkGameStartPath, camNangPath });
             workerPromises.push(p);
         }
