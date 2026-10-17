@@ -231,22 +231,24 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // console.log(metadata.height);
 
     // const pngBuffer = await sharp(buffer)
-    //     .extract({ left: 640, top: 0, width: 90, height: 60 })
+    //     .extract({ top: 240, left: 65, width: 100, height: 60 })
     //     .toBuffer();
 
     // let i = 1;
     // while (fs.existsSync(`./${i}.png`)) i++;
-    // fs.writeFileSync(`./${i}.png`, buffer);
+    // fs.writeFileSync(`./${i}.png`, pngBuffer);
 
-    // fs.writeFileSync(`./111111.png`, pngBuffer);
+    // fs.writeFileSync(`./111111.png`, buffer);
 
-
-    await swipe(host, 310, 420, 310, 380, 2000);
-    await sleep(500);
-    await tap(host, 310, 420);
-    await sleep(500);
-    await tap(host, 310, 285);
-
+    // top: 259, left: 79, width: 82, height: 21
+    // await tap(host, 175, 185)  // to doi
+    // await sleep(500);
+    // await tap(host, 175, 185)  // to doi
+    // await sleep(500);
+    // await tap(host, 184, 111)  // huy? hien thong tin chu pt
+    // await sleep(500);
+    // await tap(host, 400, 440)  // roi doi
+    // await sleep(500);
 
 
 
@@ -308,20 +310,20 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
 
 
+    const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
 
-    // let buffer = fs.readFileSync('./z-match-img/z-cay-kim-phong/kim_phong/temp/1.png')
-    // const pngBuffer = await sharp(buffer)
-    //     .extract({ left: 80, top: 80, width: 200, height: 40 })
-    //     .toBuffer();
-    // let templateImages = ["./z-match-img/z-cay-kim-phong/kim_phong/duoc-diem.png"]
-    // const { matchedPoints } = await findMatchingRegionsAndroids({
-    //     buffer: pngBuffer,
-    //     templateImages,
-    //     matchThreshold: 0.95,
-    // });
-    // if (matchedPoints.length > 0) {
-    //     console.log(matchedPoints[0].mathImagePath);
-    // }
+    const pngBuffer = await sharp(buffer)
+        .extract({ top: 240, left: 65, width: 100, height: 60 })
+        .toBuffer();
+
+    const { matchedPoints } = await findMatchingRegionsAndroids({
+        buffer: pngBuffer,
+        templateImages: ["./todoi.png"],
+        matchThreshold: 0.8,
+    });
+    if (matchedPoints.length > 0) {
+        console.log(matchedPoints[0]);
+    }
 })()
 
 
