@@ -578,6 +578,8 @@ async function runPort(indexPort, port, accounts, templatePath) {
                         break outerLoop;
                     }
 
+
+                    // nếu không ở chỗ boss sat thủ hoặc chưa click nhận nv thì check lại
                     let takeTask = false
                     while (!takeTask) {
                         // đã login xong
