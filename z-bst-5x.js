@@ -789,7 +789,57 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                                 if (result.length > 0) {
                                     await sleep(800);
-                                    await nhan_tra_nv_bst(host);
+
+
+                                    await sleep(1000);
+
+                                    let roiDoi = false;
+                                    while (!roiDoi) {
+                                        await tap(host, 175, 185)  // to doi
+                                        await sleep(500);
+                                        await tap(host, 175, 185)  // to doi
+                                        await sleep(500);
+                                        await tap(host, 184, 111)  // huy? hien thong tin chu pt
+                                        await sleep(500);
+                                        await tap(host, 400, 440)  // roi doi
+                                        await sleep(500);
+
+                                        const result = await captureAndMatch({
+                                            deviceId: host,
+                                            region: { top: 240, left: 65, width: 100, height: 60 },
+                                            templateImages: [`${checkGameStartPath}\\todoi.png`],
+                                            matchThreshold: 0.8,
+                                        });
+
+                                        if (result.length > 0) roiDoi = false;
+                                    }
+
+                                    await tap(host, 820, 270)  // nc npc
+                                    await sleep(100);
+                                    await tap(host, 820, 270)  // nc npc
+                                    await sleep(100);
+                                    await tap(host, 820, 270)  // nc npc
+                                    await sleep(1000);
+                                    await tap(host, 180, 295)  // click tham gia nv
+                                    await sleep(1000);
+                                    await tap(host, 640, 461)
+                                    await sleep(200);
+                                    await tap(host, 640, 461)
+                                    await sleep(200);
+                                    await tap(host, 640, 461)
+                                    await sleep(200);
+                                    await tap(host, 640, 461)
+                                    await sleep(200);
+                                    await tap(host, 640, 461)
+
+                                    await sleep(200);
+                                    await tap(host, 390, 470)
+                                    await sleep(200)
+                                    await tap(host, 390, 470)
+                                    await sleep(200)
+
+                                    await tap(host, 640, 461)
+
                                     break;
                                 }
                             }
