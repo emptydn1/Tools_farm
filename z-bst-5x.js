@@ -582,15 +582,15 @@ async function runPort(indexPort, port, accounts, templatePath) {
                     // nếu không ở chỗ boss sat thủ hoặc chưa click nhận nv thì check lại
                     let takeTask = false
                     while (!takeTask) {
-                        // đã login xong
-                        await waitUntilMatch({
-                            deviceId: host,
-                            region: { left: 150, top: 50, width: 180, height: 50 },
-                            templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
-                            matchThreshold: 0.8,
-                        });
+                        // // đã login xong
+                        // await waitUntilMatch({
+                        //     deviceId: host,
+                        //     region: { left: 150, top: 50, width: 180, height: 50 },
+                        //     templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
+                        //     matchThreshold: 0.8,
+                        // });
 
-                        await sleep(1000);
+                        // await sleep(1000);
 
                         // is citys and bst_cam_nang
                         const result = await captureAndMatch({
