@@ -771,6 +771,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             await loopScrollBst(host)
 
+
                             // Bước 3:
                             while (true) {
                                 await tap(host, 100, 265);
@@ -789,8 +790,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                                 if (result.length > 0) {
                                     await sleep(800);
-
-
+                                    // await nhan_tra_nv_bst(host);
                                     await sleep(1000);
 
                                     let roiDoi = false;
