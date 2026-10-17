@@ -226,6 +226,7 @@ let tangSucManhSinhKhi = async (host) => {
     await tap(host, 870, 95);
 }
 
+
 let nangSkill = async (host) => {
     // mở bảng kỹ năng
     await tap(host, 946, 257);
@@ -264,8 +265,9 @@ let nangSkill = async (host) => {
     // bên phải
     await tap(host, 415, 155)
     await tap(host, 415, 190)
-    await tap(host, 415, 225)
+    await tap(host, 415, 225)    // đạo cụ
     await tap(host, 415, 260)
+    await tap(host, 670, 250)       // thiết lập đội
 
     await tap(host, 867, 90)    // hủy bảng auto
 }

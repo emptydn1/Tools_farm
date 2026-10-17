@@ -264,7 +264,7 @@ let nangSkill = async (host) => {
     // bên phải
     await tap(host, 415, 155)
     await tap(host, 415, 190)
-    // await tap(host, 415, 225)    // đạo cụ
+    await tap(host, 415, 225)    // đạo cụ
     await tap(host, 415, 260)
     await tap(host, 670, 250)       // thiết lập đội
 
