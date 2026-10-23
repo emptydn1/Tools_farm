@@ -214,7 +214,7 @@ async function waitUntilAllMatch(hosts, templatePath) {
 
             for (const { host, isOk } of results) {
                 if (isOk) {
-                    console.log(`ok - ${host}`);
+                    // console.log(`ok - ${host}`);
                     done.add(host);
                 }
             }
@@ -311,9 +311,9 @@ function generateId() {
                                     if (mathImagePath == `${pathMatch}\\b2.png`) {
                                         await tap(host, 485, 365);
                                         await sleep(1000);
-                                        // await tap(host, 130, 275); // chọn mục cụm 1
-                                        // await sleep(1000);
-                                        // await tap(host, 630, 145); // chọn hoa sơn
+                                        await tap(host, 130, 275); // chọn mục cụm 1
+                                        await sleep(1000);
+                                        await tap(host, 630, 145); // chọn hoa sơn
 
                                         // await tap(host, 130, 335); // chọn mục cụm 2
                                         // await sleep(1000);
@@ -331,9 +331,9 @@ function generateId() {
                                         // await sleep(1000);
                                         // await tap(host, 330, 145); // chọn đông hải
 
-                                        await tap(host, 130, 400); // chọn mục cụm 3
-                                        await sleep(1000);
-                                        await tap(host, 330, 220); // chọn nam hải
+                                        // await tap(host, 130, 400); // chọn mục cụm 3
+                                        // await sleep(1000);
+                                        // await tap(host, 330, 220); // chọn nam hải
 
                                         await sleep(800);
                                         await tap(host, 485, 445); // nhấn nút bắt đầu
