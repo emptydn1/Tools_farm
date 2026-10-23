@@ -231,7 +231,7 @@ function generateId() {
 
     let part1 = "";
 
-    for (let i = 0; i < Math.floor(Math.random() * 9) + 1; i++) {
+    for (let i = 0; i < Math.floor(Math.random() * 5) + 1; i++) {
         part1 += letters[Math.floor(Math.random() * letters.length)];
     }
 
