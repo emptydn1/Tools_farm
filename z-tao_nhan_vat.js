@@ -238,7 +238,7 @@ function generateId() {
     const now = new Date();
 
     const time =
-        String(now.getMinutes()).padStart(2, "0") +
+        String(now.getMinutes() + Math.floor(Math.random() * 4) + 1).padStart(2, "0") +
         String(now.getSeconds()).padStart(2, "0") +
         String(now.getMilliseconds()).padStart(3, "0");
 
