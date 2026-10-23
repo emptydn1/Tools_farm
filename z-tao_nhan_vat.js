@@ -231,7 +231,7 @@ function generateId() {
 
     let part1 = "";
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < Math.floor(Math.random() * 9) + 1; i++) {
         part1 += letters[Math.floor(Math.random() * letters.length)];
     }
 
@@ -349,13 +349,13 @@ function generateId() {
                                         await tap(host, 500, 275);
                                         await sleep(500)
                                         await tap(host, 860, 455);
-                                        await sleep(3500);
+                                        await sleep(3000);
                                     }
 
                                     const count = matchedPoints.filter(item => item.mathImagePath.includes('b5.png')).length;
                                     if (count >= 3) {
                                         await tap(host, 75, 30);
-                                        await sleep(3000);
+                                        await sleep(2500);
                                         await tap(host, 65, 470);
                                         return;
                                     }
