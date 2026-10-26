@@ -226,7 +226,6 @@ let tangSucManhSinhKhi = async (host) => {
     await tap(host, 870, 95);
 }
 
-
 let nangSkill = async (host) => {
     // mở bảng kỹ năng
     await tap(host, 946, 257);
@@ -666,11 +665,13 @@ const arg = process.argv[2];
                 await Promise.all(hosts.map(host => themAutoSkill(host)));
                 await sleep(1000)
                 await Promise.all(hosts.map(host => mangNgua(host)));
-                console.log("nhận máu để đi tiếp");
-                await waitForInput();   // nhận phúc lợi
+                // console.log("nhận máu để đi tiếp");
+                // await waitForInput();   // nhận phúc lợi
 
 
 
+
+                await sleep(1000)
 
 
 
