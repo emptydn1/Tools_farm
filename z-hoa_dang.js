@@ -188,18 +188,21 @@ function setupKeyboard() {
                                 await tap(host, x + 250, y + 110);
                             }
                         } else {
-                            const positions = [
-                                [480, 150], // up
-                                [480, 395], // down
-                                [350, 260], // left
-                                [650, 260], // right
-                            ];
+                            const random = Math.floor(Math.random() * 2) + 1;
 
-                            const [x, y] = positions[Math.floor(Math.random() * positions.length)];
-                            await tap(host, x, y);
-                            exclude = [];
+                            if (random === 2) {
+                                const positions = [
+                                    [480, 150], // up
+                                    [480, 395], // down
+                                    [350, 260], // left
+                                    [650, 260], // right
+                                ];
+
+                                const [x, y] = positions[Math.floor(Math.random() * positions.length)];
+                                await tap(host, x, y);
+                                exclude = [];
+                            }
                         }
-
 
                         await sleep(500);
                     } catch (e) {
