@@ -671,7 +671,7 @@ const arg = process.argv[2];
 
 
 
-                await sleep(1000)
+                await sleep(2500)
 
 
 
