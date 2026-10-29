@@ -690,7 +690,7 @@ const arg = process.argv[2];
                 })));
                 await sleep(1000)
                 await Promise.all(hosts.map(host => tap(host, 855, 60))); // click bản đồ
-                await sleep(500);
+                await sleep(1500);
                 await Promise.all(hosts.map(host => tap(host, 190, 267)));
                 await Promise.all(hosts.map(host => tap(host, 190, 267)));
                 await Promise.all(hosts.map(host => tap(host, 190, 267)));
