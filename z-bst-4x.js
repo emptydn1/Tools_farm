@@ -262,9 +262,9 @@ let nhan_tra_nv_bst = async (host) => {
 let logout = async (host) => {
     await sleep(500)
     await tap(host, 60, 385);   // click ra ngoai goc 8h
-    await sleep(500)
+    await sleep(800)
     await tap(host, 60, 385);   // click ra ngoai goc 8h
-    await sleep(500)
+    await sleep(800)
     await tap(host, 946, 257)
     await sleep(800);
     await tap(host, 946, 337)
@@ -682,6 +682,8 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 matchThreshold: 0.8,
                             });
 
+                            await tap(host, 730, 460); // khiêu chiến bst
+                            await tap(host, 730, 460); // khiêu chiến bst
                             await tap(host, 730, 460); // khiêu chiến bst
 
                             // bước 1 cuộn xuống
