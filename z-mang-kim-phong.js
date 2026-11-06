@@ -353,8 +353,8 @@ const arg = process.argv[2];
                     matchThreshold: 0.8,
                 })));
 
-                await Promise.all(hosts.map(host => tatSkill2(host)));
-                await sleep(1000);
+                // await Promise.all(hosts.map(host => tatSkill2(host)));
+                // await sleep(1000);
                 await Promise.all(hosts.map(host => logout(host)));
             }
         }

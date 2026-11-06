@@ -1,1 +1,0 @@
-node z-tat-auto-danh.js
