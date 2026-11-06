@@ -219,6 +219,8 @@ let tatSkill2 = async (host) => {
     await sleep(500);
     await tap(host, 285, 205);  // tắt skill 2
     await sleep(500);
+    await tap(host, 230, 205);  // tắt skill 1
+    await sleep(500);
 
     // thêm
     await tap(host, 376, 335);  // tắt đánh quái
@@ -348,17 +350,6 @@ const arg = process.argv[2];
 
                 await waitForInput()
 
-
-
-
-                await Promise.all(hosts.map(host => trangBiKimPhong(host)));
-
-                await Promise.all(hosts.map(host => waitUntilMatch({
-                    deviceId: host,
-                    region: { left: 150, top: 50, width: 180, height: 50 },
-                    templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
-                    matchThreshold: 0.8,
-                })));
 
                 await Promise.all(hosts.map(host => tatSkill2(host)));
                 await sleep(1000);
