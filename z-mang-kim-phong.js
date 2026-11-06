@@ -219,13 +219,6 @@ let tatSkill2 = async (host) => {
     await sleep(500);
     await tap(host, 285, 205);  // tắt skill 2
     await sleep(500);
-
-    // thêm
-    await tap(host, 376, 335);  // tắt đánh quái
-    await tap(host, 376, 380);  // tắt truy đuổi
-    // end
-
-    await sleep(500);
     await tap(host, 867, 90)    // hủy bảng auto
 }
 
