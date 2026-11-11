@@ -136,10 +136,10 @@ function generateUniqueFileName(prefix = 'file') {
 // const ports = [16448, 16480, 16512, 16544, 16576, 16608, 16640, 16672, 16704, 16736, 16768, 16800, 16832, 16864, 16896, 16928]
 const ports = [
     16448,
-    16480, 16512, 16544, 16576,
-    16608, 16640, 16672, 16704, 16736,
-    16768, 16800, 16832, 16864, 16896,
-    16928, 16960, 16992, 17024, 17056
+    // 16480, 16512, 16544, 16576,
+    // 16608, 16640, 16672, 16704, 16736,
+    // 16768, 16800, 16832, 16864, 16896,
+    // 16928, 16960, 16992, 17024, 17056
 ]
 
 
@@ -311,29 +311,35 @@ function generateId() {
                                     if (mathImagePath == `${pathMatch}\\b2.png`) {
                                         await tap(host, 485, 365);
                                         await sleep(1000);
-                                        // await tap(host, 130, 275); // chọn mục cụm 1
-                                        // await sleep(1000);
-                                        // await tap(host, 630, 145); // chọn hoa sơn
 
-                                        await tap(host, 130, 335); // chọn mục cụm 2
+                                        // từ trái qua, trên xuống
+
+                                        // số 1
+                                        // await tap(host, 330, 145);
+                                        // số 2
+                                        // await tap(host, 630, 145);
+                                        // số 3
+                                        // await tap(host, 330, 220);
+                                        // số 4
+                                        // await tap(host, 630, 220);
+
+
+
+                                        // await tap(host, 130, 275); // chọn mục 1
+                                        // await sleep(1000);
+                                        // await tap(host, 630, 145); 
+
+                                        // await tap(host, 130, 335); // chọn mục 2
+                                        // await sleep(1000);
+                                        // await tap(host, 630, 145); 
+
+                                        // await tap(host, 130, 400); // chọn mục 3
+                                        // await sleep(1000);
+                                        // await tap(host, 330, 220); 
+
+                                        await tap(host, 130, 400); // chọn mục 3
                                         await sleep(1000);
-                                        await tap(host, 630, 145); // chọn châu giang
-
-                                        // await tap(host, 130, 335); // chọn mục cụm 2
-                                        // await sleep(1000);
-                                        // await tap(host, 630, 220); // chọn long giang
-
-                                        // await tap(host, 130, 335); // chọn mục cụm 2
-                                        // await sleep(1000);
-                                        // await tap(host, 330, 145); // chọn trường giang
-
-                                        // await tap(host, 130, 400); // chọn mục cụm 3
-                                        // await sleep(1000);
-                                        // await tap(host, 330, 145); // chọn đông hải
-
-                                        // await tap(host, 130, 400); // chọn mục cụm 3
-                                        // await sleep(1000);
-                                        // await tap(host, 330, 220); // chọn nam hải
+                                        await tap(host, 630, 145);
 
                                         await sleep(800);
                                         await tap(host, 485, 445); // nhấn nút bắt đầu
