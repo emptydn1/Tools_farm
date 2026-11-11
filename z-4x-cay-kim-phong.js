@@ -702,6 +702,9 @@ const arg = process.argv[2];
                 })));
 
                 await Promise.all(hosts.map(host => ban_do_kim_phong(host, { checkGameStartPath, basePath })));
+
+                await waitForInput()
+
                 await Promise.all(hosts.map(host => waitUntilMatch({
                     deviceId: host,
                     region: { left: 150, top: 50, width: 180, height: 50 },
