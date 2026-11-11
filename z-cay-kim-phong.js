@@ -328,13 +328,12 @@ let logout = async (host) => {
 
 
 let ban_do_kim_phong = async (host) => {
-    // await tap(host, 320, 295);  // nhấn nút giao dịch
-    // await sleep(1000);
+    await tap(host, 320, 295);  // nhấn nút giao dịch
+    await sleep(1000);
 
-    // await tap(host, 775, 480);  // bấm nút bán nhanh
-    // await sleep(1500);
-    
-    await waitForInput()
+    await tap(host, 775, 480);  // bấm nút bán nhanh
+    await sleep(1500);
+
 
     await tap(host, 215, 160);  // tick
     await sleep(100);
@@ -767,40 +766,43 @@ const arg = process.argv[2];
 
                 await Promise.all(hosts.map(host => tap(host, 38, 125)));
                 await sleep(500);
-                await Promise.all(hosts.map(host => tap(host, 250, 370))); // click câu cá
-                await sleep(500);
-                await Promise.all(hosts.map(host => tap(host, 860, 470))); // click tham gia
-                await sleep(3000);
-                await Promise.all(hosts.map(host => waitUntilMatch({
-                    deviceId: host,
-                    region: { left: 150, top: 50, width: 180, height: 50 },
-                    templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
-                    matchThreshold: 0.8,
-                })));
-                await sleep(1000)
-                await Promise.all(hosts.map(host => tap(host, 855, 60))); // click bản đồ
-                await sleep(1500);
-                await Promise.all(hosts.map(host => tap(host, 190, 267)));
-                await Promise.all(hosts.map(host => tap(host, 190, 267)));
-                await Promise.all(hosts.map(host => tap(host, 190, 267)));
 
-                await Promise.all(hosts.map(host => loopClick(host, {
-                    region: { left: 80, top: 80, width: 200, height: 40 },
-                    templateImages: [`${basePath}\\kim_phong\\duoc-diem.png`],
-                    countClick: 1
-                })));
+                await waitForInput()
 
-                await Promise.all(hosts.map(host => ban_do_kim_phong(host, { checkGameStartPath, basePath })));
+                // await Promise.all(hosts.map(host => tap(host, 250, 370))); // click câu cá
+                // await sleep(500);
+                // await Promise.all(hosts.map(host => tap(host, 860, 470))); // click tham gia
+                // await sleep(3000);
+                // await Promise.all(hosts.map(host => waitUntilMatch({
+                //     deviceId: host,
+                //     region: { left: 150, top: 50, width: 180, height: 50 },
+                //     templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
+                //     matchThreshold: 0.8,
+                // })));
+                // await sleep(1000)
+                // await Promise.all(hosts.map(host => tap(host, 855, 60))); // click bản đồ
+                // await sleep(1500);
+                // await Promise.all(hosts.map(host => tap(host, 190, 267)));
+                // await Promise.all(hosts.map(host => tap(host, 190, 267)));
+                // await Promise.all(hosts.map(host => tap(host, 190, 267)));
+
+                // await Promise.all(hosts.map(host => loopClick(host, {
+                //     region: { left: 80, top: 80, width: 200, height: 40 },
+                //     templateImages: [`${basePath}\\kim_phong\\duoc-diem.png`],
+                //     countClick: 1
+                // })));
+
+                // await Promise.all(hosts.map(host => ban_do_kim_phong(host, { checkGameStartPath, basePath })));
 
 
-                await Promise.all(hosts.map(host => waitUntilMatch({
-                    deviceId: host,
-                    region: { left: 150, top: 50, width: 180, height: 50 },
-                    templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
-                    matchThreshold: 0.8,
-                })));
+                // await Promise.all(hosts.map(host => waitUntilMatch({
+                //     deviceId: host,
+                //     region: { left: 150, top: 50, width: 180, height: 50 },
+                //     templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
+                //     matchThreshold: 0.8,
+                // })));
 
-                await Promise.all(hosts.map(host => logout(host)));
+                // await Promise.all(hosts.map(host => logout(host)));
             }
         }
 
