@@ -334,6 +334,8 @@ let ban_do_kim_phong = async (host) => {
     await tap(host, 775, 480);  // bấm nút bán nhanh
     await sleep(1500);
 
+    await waitForInput()
+
     await tap(host, 215, 160);  // tick
     await sleep(100);
     await tap(host, 275, 160);
@@ -702,8 +704,6 @@ const arg = process.argv[2];
                 })));
 
                 await Promise.all(hosts.map(host => ban_do_kim_phong(host, { checkGameStartPath, basePath })));
-
-                await waitForInput()
 
                 await Promise.all(hosts.map(host => waitUntilMatch({
                     deviceId: host,
