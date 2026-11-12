@@ -669,15 +669,7 @@ const arg = process.argv[2];
                 // await waitForInput();   // nhận phúc lợi
 
 
-
-
                 await sleep(2500)
-
-
-
-
-                await Promise.all(hosts.map(host => tap(host, 38, 125)));
-                await sleep(500);
 
                 // await waitForInput()
 
