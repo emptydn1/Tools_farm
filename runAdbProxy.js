@@ -21,7 +21,7 @@ const ports = [
 (async () => {
     let filePath = "C:\\Users\\huy\\Desktop\\Tools_farm\\data\\proxy.txt";
     let adbProxyPath = "C:\\Users\\huy\\Desktop\\Tools_farm\\data\\adbProxy.apk";
-    // installApp(adbProxyPath, ports, true)
-    runProxyFromFile(filePath, ports)
-
+    // installApp(adbProxyPath, ports, true);
+    runProxyFromFile(filePath, ports);
+    stopVpn(ports);
 })();
