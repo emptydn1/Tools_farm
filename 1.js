@@ -310,21 +310,21 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
 
 
-    const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
-    const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-cay-kim-phong`
-    const pngBuffer = await sharp(buffer)
-        .extract({ left: 55, top: 80, width: 190, height: 40 })
-        .toBuffer();
+    // const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
+    // const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-cay-kim-phong`
+    // const pngBuffer = await sharp(buffer)
+    //     .extract({ left: 55, top: 80, width: 190, height: 40 })
+    //     .toBuffer();
 
 
-    const { matchedPoints } = await findMatchingRegionsAndroids({
-        buffer: pngBuffer,
-        templateImages: [`${basePath}\\kim_phong\\duoc-diem.png`],
-        matchThreshold: 0.8,
-    });
-    if (matchedPoints.length > 0) {
-        console.log(matchedPoints[0]);
-    }
+    // const { matchedPoints } = await findMatchingRegionsAndroids({
+    //     buffer: pngBuffer,
+    //     templateImages: [`${basePath}\\kim_phong\\duoc-diem.png`],
+    //     matchThreshold: 0.8,
+    // });
+    // if (matchedPoints.length > 0) {
+    //     console.log(matchedPoints[0]);
+    // }
 })()
 
 
