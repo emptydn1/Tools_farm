@@ -1,5 +1,5 @@
 /node_modules
-/data
+# /data
 /core/extensions
 /vie.traineddata
 /eng.traineddata
