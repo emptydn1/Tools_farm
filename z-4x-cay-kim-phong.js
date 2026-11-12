@@ -681,22 +681,22 @@ const arg = process.argv[2];
 
                 // await waitForInput()
 
-                await Promise.all(hosts.map(host => tap(host, 250, 370))); // click câu cá
-                await sleep(500);
-                await Promise.all(hosts.map(host => tap(host, 860, 470))); // click tham gia
-                await sleep(3000);
-                await Promise.all(hosts.map(host => waitUntilMatch({
-                    deviceId: host,
-                    region: { left: 150, top: 50, width: 180, height: 50 },
-                    templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
-                    matchThreshold: 0.8,
-                })));
-                await sleep(1000)
+                // await Promise.all(hosts.map(host => tap(host, 250, 370))); // click câu cá
+                // await sleep(500);
+                // await Promise.all(hosts.map(host => tap(host, 860, 470))); // click tham gia
+                // await sleep(3000);
+                // await Promise.all(hosts.map(host => waitUntilMatch({
+                //     deviceId: host,
+                //     region: { left: 150, top: 50, width: 180, height: 50 },
+                //     templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
+                //     matchThreshold: 0.8,
+                // })));
+                // await sleep(1000)
                 await Promise.all(hosts.map(host => tap(host, 855, 60))); // click bản đồ
                 await sleep(1500);
-                await Promise.all(hosts.map(host => tap(host, 190, 267)));
-                await Promise.all(hosts.map(host => tap(host, 190, 267)));
-                await Promise.all(hosts.map(host => tap(host, 190, 267)));
+                await Promise.all(hosts.map(host => tap(host, 186, 266)));
+                await Promise.all(hosts.map(host => tap(host, 186, 266)));
+                await Promise.all(hosts.map(host => tap(host, 186, 266)));
 
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
