@@ -680,7 +680,7 @@ const arg = process.argv[2];
                 await Promise.all(hosts.map(host => tap(host, 186, 266)));
 
                 await Promise.all(hosts.map(host => loopClick(host, {
-                    region: { left: 80, top: 80, width: 200, height: 40 },
+                    region: { left: 55, top: 80, width: 190, height: 40 },
                     templateImages: [`${basePath}\\kim_phong\\duoc-diem.png`],
                     countClick: 1
                 })));

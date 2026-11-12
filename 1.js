@@ -222,31 +222,34 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
 
     await connectAll();
-    // let buffer = fs.readFileSync('./z-match-img/z-cay-kim-phong/kim_phong/temp/1.png')
-    // let buffer = fs.readFileSync(`./9.png`)
-    let host = "127.0.0.1:16448";
+    // // let buffer = fs.readFileSync('./z-match-img/z-cay-kim-phong/kim_phong/temp/1.png')
+    // // let buffer = fs.readFileSync(`./9.png`)
+    // let host = "127.0.0.1:16448";
     // const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
-    // const metadata = await sharp(buffer).metadata();
+    // // const metadata = await sharp(buffer).metadata();
 
-    // console.log(metadata.height);
+    // // console.log(metadata.height);
 
     // const pngBuffer = await sharp(buffer)
-    //     .extract({ top: 240, left: 65, width: 100, height: 60 })
+    //     .extract({ left: 55, top: 80, width: 190, height: 40 })
     //     .toBuffer();
 
-    // let i = 1;
-    // while (fs.existsSync(`./${i}.png`)) i++;
-    // fs.writeFileSync(`./${i}.png`, pngBuffer);
+    // // let i = 1;
+    // // while (fs.existsSync(`./${i}.png`)) i++;
+    // // fs.writeFileSync(`./${i}.png`, pngBuffer);
 
-    // fs.writeFileSync(`./111111.png`, buffer);
+    // fs.writeFileSync(`./111111.png`, pngBuffer);
+    // fs.writeFileSync(`./111222.png`, buffer);
 
     // top: 259, left: 79, width: 82, height: 21
 
-    await Promise.all(tap(host, 855, 60)); // click bản đồ
-    await sleep(500);
-    await Promise.all(tap(host, 190, 267));
-    await Promise.all(tap(host, 190, 267));
-    await Promise.all(tap(host, 190, 267));
+
+
+    // await Promise.all(tap(host, 855, 60)); // click bản đồ
+    // await sleep(500);
+    // await Promise.all(tap(host, 190, 267));
+    // await Promise.all(tap(host, 190, 267));
+    // await Promise.all(tap(host, 190, 267));
 
 
     // for (let index = 0; index < 40; index++) {
@@ -307,21 +310,21 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
 
 
-    // const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
-    // let buffer = fs.readFileSync("1.png")
-    // const pngBuffer = await sharp(buffer)
-    //     .extract({ top: 240, left: 65, width: 100, height: 60 })
-    //     .toBuffer();
+    const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
+    const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-cay-kim-phong`
+    const pngBuffer = await sharp(buffer)
+        .extract({ left: 55, top: 80, width: 190, height: 40 })
+        .toBuffer();
 
 
-    // const { matchedPoints } = await findMatchingRegionsAndroids({
-    //     buffer: pngBuffer,
-    //     templateImages: ["./todoi.png"],
-    //     matchThreshold: 0.8,
-    // });
-    // if (matchedPoints.length > 0) {
-    //     console.log(matchedPoints[0]);
-    // }
+    const { matchedPoints } = await findMatchingRegionsAndroids({
+        buffer: pngBuffer,
+        templateImages: [`${basePath}\\kim_phong\\duoc-diem.png`],
+        matchThreshold: 0.8,
+    });
+    if (matchedPoints.length > 0) {
+        console.log(matchedPoints[0]);
+    }
 })()
 
 
