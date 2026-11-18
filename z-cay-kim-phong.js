@@ -213,9 +213,9 @@ let tangSucManhSinhKhi = async (host) => {
     await sleep(500);
 
     // sức mạnh
-    // await tap(host, 680, 195);
-    // await sleep(500);
-    // await input_text(host, "9999");
+    await tap(host, 680, 195);
+    await sleep(500);
+    await input_text(host, "50");
 
     // sinh khí
     await tap(host, 680, 223);
@@ -227,6 +227,7 @@ let tangSucManhSinhKhi = async (host) => {
     await sleep(500);
     await tap(host, 870, 95);
 }
+
 
 let nangSkill = async (host) => {
     // mở bảng kỹ năng
