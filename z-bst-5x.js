@@ -451,16 +451,16 @@ async function runPort(indexPort, port, accounts, templatePath) {
             countLogin++
 
 
-            // bật pk
-            // đã login xong
-            await waitUntilMatch({
-                deviceId: host,
-                region: { left: 150, top: 50, width: 180, height: 50 },
-                templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
-                matchThreshold: 0.8,
-            });
-            await sleep(500);
-            await tap(host, 212, 185)  // nhấn pk
+            // // bật pk
+            // // đã login xong
+            // await waitUntilMatch({
+            //     deviceId: host,
+            //     region: { left: 150, top: 50, width: 180, height: 50 },
+            //     templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
+            //     matchThreshold: 0.8,
+            // });
+            // await sleep(500);
+            // await tap(host, 212, 185)  // nhấn pk
 
 
             let takeTask = false

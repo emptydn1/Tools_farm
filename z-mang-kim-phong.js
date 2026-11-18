@@ -188,7 +188,8 @@ let trangBiKimPhong = async (host) => {
 
     await tap(host, 875, 258);  // mục trang bị
     await sleep(500);
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 3; i++) {
+        // for (let i = 0; i < 7; i++) {
         await tap(host, 560, 135);
         await sleep(500);
         await tap(host, 686, 381);
@@ -218,6 +219,8 @@ let tatSkill2 = async (host) => {
     await tap(host, 130, 255);
     await sleep(500);
     await tap(host, 285, 205);  // tắt skill 2
+    await sleep(500);
+    await tap(host, 225, 205);  // tắt skill 1
     await sleep(500);
     await tap(host, 867, 90)    // hủy bảng auto
 }
@@ -353,8 +356,8 @@ const arg = process.argv[2];
                     matchThreshold: 0.8,
                 })));
 
-                // await Promise.all(hosts.map(host => tatSkill2(host)));
-                // await sleep(1000);
+                await Promise.all(hosts.map(host => tatSkill2(host)));
+                await sleep(1000);
                 await Promise.all(hosts.map(host => logout(host)));
             }
         }

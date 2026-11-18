@@ -230,27 +230,12 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
 
 
-    // mở bảng kỹ năng
-    await tap(host, 946, 257);
-    await sleep(1000);
-    await tap(host, 757, 315);
-    await sleep(800);
-
-    //click skill
-    await tap(host, 250, 135)
+    await tap(host, 130, 255);
     await sleep(500);
-    // await tap(host, 525, 440)
-    // await sleep(500);
-    // await input_text(host, "9999");
-    // await sleep(500);
-    // await tap(host, 517, 295)   //click ra ngoài
-    // await sleep(500);
-    await tap(host, 635, 445)   // tăng cấp
+    await tap(host, 285, 205);  // tắt skill 2
     await sleep(500);
-    await tap(host, 867, 90)    // hủy bảng nâng skill
-    await sleep(1000);
-
-
+    await tap(host, 225, 205);  // tắt skill 1
+    await sleep(500);
 
     // // console.log(metadata.height);
 
