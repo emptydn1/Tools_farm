@@ -769,12 +769,14 @@ const arg = process.argv[2];
                 // chạy hàm nv2 , phù lên chỗ bán đồ kim phong
                 await Promise.all(hosts.map(host => nv2(host)));
 
-                await Promise.all(hosts.map(host => loopClick(host, {
+                await Promise.all(hosts.map(host => waitUntilMatch({
+                    deviceId: host,
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\khu_vuc_ban_do_kim_phong.png`],
+                    matchThreshold: 0.8,
                 })));
 
-                await Promise.all(hosts.map(host => tap(host, 325, 90)));
+                await Promise.all(hosts.map(host => tap(host, 325, 90))); // click tắt popup
                 await Promise.all(hosts.map(host => tap(host, 855, 60))); // click bản đồ
                 await sleep(1500);
                 await Promise.all(hosts.map(host => tap(host, 190, 160)));
