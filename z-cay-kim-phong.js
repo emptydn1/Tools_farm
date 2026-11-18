@@ -211,15 +211,17 @@ let tangSucManhSinhKhi = async (host) => {
     await sleep(500);
     await tap(host, 455, 440);
     await sleep(500);
-    await tap(host, 680, 195);
-    await sleep(500);
 
-    await input_text(host, "9999");
-    // await input_text(host, "80");
-    // await sleep(500);
-    // await tap(host, 680, 223);
+    // sức mạnh
+    // await tap(host, 680, 195);
     // await sleep(500);
     // await input_text(host, "9999");
+
+    // sinh khí
+    await tap(host, 680, 223);
+    await sleep(500);
+    await input_text(host, "9999");
+
     await sleep(500);
     await tap(host, 710, 420);
     await sleep(500);
