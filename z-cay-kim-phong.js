@@ -767,6 +767,8 @@ const arg = process.argv[2];
 
                 // bán kim phong v2
                 // chạy hàm nv2 , phù lên chỗ bán đồ kim phong
+                await Promise.all(hosts.map(host => nv2(host)));
+
                 await Promise.all(hosts.map(host => loopClick(host, {
                     region: { left: 80, top: 80, width: 200, height: 40 },
                     templateImages: [`${khuVucPath}\\khu_vuc_ban_do_kim_phong.png`],
