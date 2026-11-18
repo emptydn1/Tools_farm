@@ -301,6 +301,15 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     //     }
     // }
 
+    await tap(host, 130, 255);
+    await sleep(500);
+    await tap(host, 285, 205);  // tắt skill 2
+    await sleep(500);
+    await tap(host, 225, 205);  // tắt skill 1
+    await sleep(500);
+
+    await tap(host, 375, 340);  // tắt đánh quái
+    await tap(host, 375, 385);  // tắt truy đuổi
 
 
 
