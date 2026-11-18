@@ -229,14 +229,6 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // // const metadata = await sharp(buffer).metadata();
 
 
-
-    await tap(host, 130, 255);
-    await sleep(500);
-    await tap(host, 285, 205);  // tắt skill 2
-    await sleep(500);
-    await tap(host, 225, 205);  // tắt skill 1
-    await sleep(500);
-
     // // console.log(metadata.height);
 
     // const pngBuffer = await sharp(buffer)
@@ -250,7 +242,7 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // fs.writeFileSync(`./111111.png`, pngBuffer);
     // fs.writeFileSync(`./111222.png`, buffer);
 
-    // top: 259, left: 79, width: 82, height: 21
+    //    top: 72, left: 53, width: 232, height: 56
 
 
 
@@ -322,13 +314,13 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
     // const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-cay-kim-phong`
     // const pngBuffer = await sharp(buffer)
-    //     .extract({ left: 55, top: 80, width: 190, height: 40 })
+    //     .extract({ top: 78, left: 42, width: 259, height: 48 })
     //     .toBuffer();
 
 
     // const { matchedPoints } = await findMatchingRegionsAndroids({
     //     buffer: pngBuffer,
-    //     templateImages: [`${basePath}\\kim_phong\\duoc-diem.png`],
+    //     templateImages: [`${basePath}\\giao_dich_kim_phong.png`],
     //     matchThreshold: 0.8,
     // });
     // if (matchedPoints.length > 0) {
