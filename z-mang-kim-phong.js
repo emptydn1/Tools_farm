@@ -188,7 +188,7 @@ let trangBiKimPhong = async (host) => {
 
     await tap(host, 875, 258);  // mục trang bị
     await sleep(500);
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 1; i++) {
         // for (let i = 0; i < 7; i++) {
         await tap(host, 560, 135);
         await sleep(500);
