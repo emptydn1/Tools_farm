@@ -665,7 +665,7 @@ const arg = process.argv[2];
                     templateImages: [`${khuVucPath}\\manh_pham.png`],
                 })));
 
-                // mua ngựa
+                // mang ngựa
                 await Promise.all(hosts.map(host => themAutoSkill(host)));
                 await sleep(1000)
                 await Promise.all(hosts.map(host => mangNgua(host)));
