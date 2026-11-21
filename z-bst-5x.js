@@ -331,6 +331,16 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
                 templateImages: todoiList,
             });
             target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
+
+            // kiểm tầng dưới cùng, dùng khi quá nhiều tổ đội, ít thì ẩn nó đi
+            await swipe(host, 475, 365, 475, 155, 750);
+            await sleep(3000);
+            matchedPoints = await captureAndMatch({
+                deviceId: host,
+                region: { left: 220, top: 80, width: 120, height: 380 },
+                templateImages: todoiList,
+            });
+            target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
         }
 
         if (target) {
