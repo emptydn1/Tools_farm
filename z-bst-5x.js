@@ -334,7 +334,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
 
 
             // kiểm tầng dưới cùng, dùng khi quá nhiều tổ đội, ít thì ẩn nó đi
-            await sleep(1000);
+            await sleep(2000);
             await swipe(host, 475, 365, 475, 155, 750);
             await sleep(3000);
             matchedPoints = await captureAndMatch({
