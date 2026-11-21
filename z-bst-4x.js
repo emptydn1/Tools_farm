@@ -322,6 +322,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
                 deviceId: host,
                 region: { left: 220, top: 80, width: 120, height: 380 },
                 templateImages: todoiList,
+                matchThreshold: 0.85,
             });
             target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
 
@@ -333,6 +334,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
             //     deviceId: host,
             //     region: { left: 220, top: 80, width: 120, height: 380 },
             //     templateImages: todoiList,
+            //     matchThreshold: 0.85,
             // });
             // target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
         }
