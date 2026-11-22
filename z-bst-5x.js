@@ -325,7 +325,6 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
                 deviceId: host,
                 region: { left: 220, top: 80, width: 120, height: 380 },
                 templateImages: todoiList,
-                // matchThreshold: 0.85,
             });
             target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
         }
@@ -339,9 +338,9 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
             await tap(host, 60, 385);   // click ra ngoai goc 8h
         }
 
-
         // lần 2
         if (!target) {
+            await sleep(500);
             await swipe(host, 475, 365, 475, 155, 750);
             await sleep(3000);
             matchedPoints = await captureAndMatch({
@@ -360,6 +359,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
                 await tap(host, 60, 385);   // click ra ngoai goc 8h
             }
         }
+
 
         await sleep(1000);
         await tap(host, 175, 185); // to doi

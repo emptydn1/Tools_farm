@@ -338,6 +338,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
 
         // lần 2
         if (!target) {
+            await sleep(500);
             await swipe(host, 475, 365, 475, 155, 750);
             await sleep(3000);
             matchedPoints = await captureAndMatch({
