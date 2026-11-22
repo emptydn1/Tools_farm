@@ -346,15 +346,17 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
                 templateImages: todoiList,
             });
             target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
+
+            if (target) {
+                await tap(host, target.x + 540 + 220, target.y + 85);
+                await sleep(500)
+                await tap(host, 60, 385);   // click ra ngoai goc 8h
+                await sleep(500)
+                await tap(host, 60, 385);   // click ra ngoai goc 8h
+            }
         }
 
-        if (target) {
-            await tap(host, target.x + 540 + 220, target.y + 85);
-            await sleep(500)
-            await tap(host, 60, 385);   // click ra ngoai goc 8h
-            await sleep(500)
-            await tap(host, 60, 385);   // click ra ngoai goc 8h
-        }
+
 
         await sleep(1000);
         await tap(host, 175, 185); // to doi
