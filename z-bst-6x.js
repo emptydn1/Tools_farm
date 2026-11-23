@@ -768,11 +768,11 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                         if (useAltTarget) {
                                             await swipe(host, 115, 295, 115, 0, 2000);
                                             await sleep(500)
-                                            await swipe(host, 115, 295, 115, 85, 2000);
+                                            await swipe(host, 115, 295, 115, 150, 2000);
                                         } else {
                                             await swipe(host, 115, 295, 115, 0, 2000);
                                             await sleep(500)
-                                            await swipe(host, 115, 295, 115, 150, 2000);
+                                            await swipe(host, 115, 295, 115, 85, 2000);
                                         }
 
                                         isScrollDown = false;
