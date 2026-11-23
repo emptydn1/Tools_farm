@@ -172,33 +172,33 @@ function setupKeyboard() {
 }
 
 const data = [
-    // Group: abdd
-    { pos: "22 7", name: "hoang tram", group: "abdd" },
-    { pos: "31 14", name: "vo quang", group: "abdd" },
-    { pos: "39 27", name: "phan my44", group: "abdd" },
-    { pos: "57 5", name: "lam tai", group: "abdd" },
-    { pos: "68 16", name: "nong tu", group: "abdd" },
+    // Group: hoành sơn phái
+    { pos: "10 18", name: "hoang tram", group: "hsp" },
+    { pos: "20 44", name: "vo quang", group: "hsp" },
+    { pos: "35 54", name: "phan my44", group: "hsp" },
+    { pos: "40 31", name: "lam tai", group: "hsp" },
+    { pos: "60 50", name: "nong tu", group: "hsp" },
 
-    // Group: ddtt
-    { pos: "19 18", name: "nong nhu", group: "ddtt" },
-    { pos: "21 27", name: "che linh4", group: "ddtt" },
-    { pos: "35 18", name: "phan trang", group: "ddtt" },
-    { pos: "39 1", name: "trinh dao", group: "ddtt" },
-    { pos: "55 11", name: "vo minh", group: "ddtt" },
+    // Group: lht
+    { pos: "26 28", name: "nong nhu", group: "lht" },
+    { pos: "54 4", name: "che linh4", group: "lht" },
+    { pos: "54 34", name: "phan trang", group: "lht" },
+    { pos: "63 53", name: "trinh dao", group: "lht" },
+    { pos: "78 25", name: "vo minh", group: "lht" },
 
-    // Group: ttd
-    { pos: "15 34", name: "phan long11", group: "ttd" },
-    { pos: "23 5", name: "duong hoang", group: "ttd" },
-    { pos: "28 19", name: "bui sam5", group: "ttd" },
-    { pos: "54 45", name: "tham diep", group: "ttd" },
-    { pos: "56 18", name: "phan hieu", group: "ttd" },
+    // Group: ttd1
+    { pos: "7 13", name: "phan long11", group: "ttd1" },
+    { pos: "11 19", name: "duong hoang", group: "ttd1" },
+    { pos: "15 8", name: "bui sam5", group: "ttd1" },
+    { pos: "26 21", name: "tham diep", group: "ttd1" },
+    { pos: "37 19", name: "phan hieu", group: "ttd1" },
 
-    // Group: ttt1
-    { pos: "11 31", name: "le dang", group: "ttt1" },
-    { pos: "41 4", name: "che hong22", group: "ttt1" },
-    { pos: "45 25", name: "na linh", group: "ttt1" },
-    { pos: "62 36", name: "doan vinh", group: "ttt1" },
-    { pos: "66 20", name: "lai tu23", group: "ttt1" }
+    // Group: ttd3
+    { pos: "7 18", name: "le dang", group: "ttd3" },
+    { pos: "19 13", name: "che hong22", group: "ttd3" },
+    { pos: "21 6", name: "na linh", group: "ttd3" },
+    { pos: "35 23", name: "doan vinh", group: "ttd3" },
+    { pos: "37 9", name: "lai tu23", group: "ttd3" }
 ];
 
 
@@ -381,6 +381,13 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
         } else {
             await tap(host, 60, 385);   // click ra ngoai goc 8h
             await tap(host, 60, 385);   // click ra ngoai goc 8h
+
+            // xóa sau
+            await sleep(500);
+            await tap(host, 60, 190);   // tab nv
+            await sleep(500);
+            await tap(host, 100, 265);
+            await tap(host, 100, 265);
         }
 
         await sleep(4000); // xoa sau
@@ -784,25 +791,25 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             await loopScrollBst(host)
 
-                            if (["45 25", "66 20", "11 31"].includes(found.pos)) {
-                                await sleep(1000)
-                                // phù đến thiên tầm tháp 1
-                                await tap(host, 801, 300); // nhấn phù
-                                await sleep(500);
-                                await tap(host, 310, 380);
-                                await sleep(500);
-                                await swipe(host, 310, 420, 310, 380, 2000);
-                                await sleep(500);
-                                await tap(host, 310, 420);
-                                await sleep(500);
-                                await tap(host, 310, 285);
-                                await sleep(3000);
+                            // if (["45 25", "66 20", "11 31"].includes(found.pos)) {
+                            //     await sleep(1000)
+                            //     // phù đến thiên tầm tháp 1
+                            //     await tap(host, 801, 300); // nhấn phù
+                            //     await sleep(500);
+                            //     await tap(host, 310, 380);
+                            //     await sleep(500);
+                            //     await swipe(host, 310, 420, 310, 380, 2000);
+                            //     await sleep(500);
+                            //     await tap(host, 310, 420);
+                            //     await sleep(500);
+                            //     await tap(host, 310, 285);
+                            //     await sleep(3000);
 
-                                await tap(host, 100, 265);  // đi tới boss
-                                await sleep(500)
-                                await tap(host, 100, 265);
-                                await sleep(1000);
-                            }
+                            //     await tap(host, 100, 265);  // đi tới boss
+                            //     await sleep(500)
+                            //     await tap(host, 100, 265);
+                            //     await sleep(1000);
+                            // }
 
                             // Bước 2: vào tổ đội -> check cho tới khi thành công lần đầu
                             let TARGET_IMAGE = `${basePath}\\todoi\\team\\${found.pos}.png`;

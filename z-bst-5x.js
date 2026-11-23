@@ -305,8 +305,6 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
 
     while (!done) {
         await tap(host, 175, 185)  // to doi
-        await tap(host, 175, 185)  // to doi
-        await tap(host, 175, 185)  // to doi
         await sleep(500);
         await tap(host, 175, 185)  // to doi
         await sleep(500);
