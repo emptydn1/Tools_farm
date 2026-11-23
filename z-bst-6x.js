@@ -915,11 +915,9 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 await tap(host, 60, 385);   // click ra ngoai goc 8h
                                 await sleep(500);
                                 await tap(host, 60, 190);   // tab nv
-                                done = true; // check_to_doi thành công
                             } else {
                                 await tap(host, 60, 385);   // click ra ngoai goc 8h
                                 await tap(host, 60, 385);   // click ra ngoai goc 8h
-
 
                                 await tap(host, 175, 185)  // to doi
                                 await sleep(500);
@@ -968,7 +966,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
 
                                     if (target) {
-                                        // console.log(target.x + 540 + 220, target.y + 85);
                                         await tap(host, target.x + 540 + 220, target.y + 85);
                                         await sleep(500)
                                         await tap(host, 60, 385);   // click ra ngoai goc 8h
@@ -977,7 +974,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     }
                                 }
                             }
-
                             //
 
 
