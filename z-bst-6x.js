@@ -907,7 +907,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
         await connectAll();
         let accounts = await init();
 
-        const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\5x`;
+        const basePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst\\6x`;
         const resourcePath = `C:\\Users\\huy\\Desktop\\Tools_farm\\z-match-img\\z-lam_bst`;
 
         const posBST = data.map(item => `${basePath}\\todoi\\posBst\\${item.pos}.png`);
