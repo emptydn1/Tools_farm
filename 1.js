@@ -227,12 +227,9 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     let host = "127.0.0.1:16448";
     // // const metadata = await sharp(buffer).metadata();
 
-    await swipe(host, 310, 420, 310, 345, 2000);
-
-
-
-
-    // await swipe(host, 115, 215, 115, 700, 500);
+    await swipe(host, 115, 295, 115, 0, 2000);
+    await sleep(500)
+    await swipe(host, 115, 295, 115, 93, 2000);
 
 
 
