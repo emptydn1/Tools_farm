@@ -382,12 +382,12 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
             await tap(host, 60, 385);   // click ra ngoai goc 8h
             await tap(host, 60, 385);   // click ra ngoai goc 8h
 
-            // xóa sau
-            await sleep(500);
-            await tap(host, 60, 190);   // tab nv
-            await sleep(500);
-            await tap(host, 100, 265);
-            await tap(host, 100, 265);
+            // // xóa sau
+            // await sleep(500);
+            // await tap(host, 60, 190);   // tab nv
+            // await sleep(500);
+            // await tap(host, 100, 265);
+            // await tap(host, 100, 265);
         }
     }
     return done;
