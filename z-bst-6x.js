@@ -774,7 +774,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                             // chạy lần đầu tiên
                                             await swipe(host, 115, 295, 115, 0, 2000);
                                             await sleep(500)
-                                            await swipe(host, 115, 295, 115, 93, 2000);
+                                            await swipe(host, 115, 295, 115, 95, 2000);
                                         }
 
                                         isScrollDown = false;
