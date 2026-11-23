@@ -225,8 +225,15 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // // let buffer = fs.readFileSync('./z-match-img/z-cay-kim-phong/kim_phong/temp/1.png')
     // // let buffer = fs.readFileSync(`./9.png`)
     let host = "127.0.0.1:16448";
-    const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
     // // const metadata = await sharp(buffer).metadata();
+
+    await swipe(host, 310, 420, 310, 345, 2000);
+
+
+
+
+    // await swipe(host, 115, 215, 115, 700, 500);
+
 
 
     // // console.log(metadata.height);
@@ -235,36 +242,12 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     //     .extract({ left: 55, top: 80, width: 190, height: 40 })
     //     .toBuffer();
 
-    let i = 1;
-    while (fs.existsSync(`./zzzzzzzzzzzzzzzzzzzz6x/${i}.png`)) i++;
-    fs.writeFileSync(`./zzzzzzzzzzzzzzzzzzzz6x/${i}.png`, buffer);
+    // let i = 1;
+    // while (fs.existsSync(`./zzzzzzzzzzzzzzzzzzzz6x/${i}.png`)) i++;
+    // fs.writeFileSync(`./zzzzzzzzzzzzzzzzzzzz6x/${i}.png`, buffer);
 
     // fs.writeFileSync(`./111111.png`, pngBuffer);
     // fs.writeFileSync(`./111222.png`, buffer);
-
-    //    top: 72, left: 53, width: 232, height: 56
-
-
-
-    // await Promise.all(tap(host, 855, 60)); // click bản đồ
-    // await sleep(500);
-    // await Promise.all(tap(host, 190, 267));
-    // await Promise.all(tap(host, 190, 267));
-    // await Promise.all(tap(host, 190, 267));
-
-
-    // for (let index = 0; index < 40; index++) {
-    //     await tap(host, 310, 290)
-    // }
-
-
-    // await swipe(host, 115, 215, 115, 700, 500);
-
-    // await swipe(host, 115, 295, 115, 54, 2000);
-    // await swipe(host, 115, 295, 115, 0, 2000);
-    // await swipe(host, 115, 315, 115, 0, 1350);
-    // await swipe(host, 115, 315, 115, 50, 1200); // bo nv bst
-
 
 
 
