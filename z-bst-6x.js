@@ -387,8 +387,8 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
             await sleep(500);
             await tap(host, 60, 190);   // tab nv
             await sleep(500);
-            await tap(host, 100, 260);
-            await tap(host, 100, 260);
+            await tap(host, 100, 265);
+            await tap(host, 100, 265);
         }
 
         await sleep(4000); // xoa sau
@@ -758,9 +758,9 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     });
 
                                     if (result.length > 0) {
-                                        await tap(host, 100, 260);
+                                        await tap(host, 100, 265);
                                         await sleep(500)
-                                        await tap(host, 100, 260);
+                                        await tap(host, 100, 265);
                                         break
                                     }
 
@@ -810,9 +810,9 @@ async function runPort(indexPort, port, accounts, templatePath) {
                             //     await tap(host, 310, 285);
                             //     await sleep(3000);
 
-                            //     await tap(host, 100, 260);  // đi tới boss
+                            //     await tap(host, 100, 265);  // đi tới boss
                             //     await sleep(500)
-                            //     await tap(host, 100, 260);
+                            //     await tap(host, 100, 265);
                             //     await sleep(1000);
                             // }
 
@@ -826,9 +826,9 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             // Bước 3:
                             while (true) {
-                                await tap(host, 100, 260);
+                                await tap(host, 100, 265);
                                 await sleep(800);
-                                await tap(host, 100, 260);
+                                await tap(host, 100, 265);
 
                                 await sleep(4000);
 
