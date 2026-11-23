@@ -390,8 +390,6 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
             await tap(host, 100, 265);
             await tap(host, 100, 265);
         }
-
-        await sleep(4000); // xoa sau
     }
     return done;
 }
