@@ -945,7 +945,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 }
 
                                 if (target) {
-                                    // console.log(target.x + 540 + 220, target.y + 85);
                                     await tap(host, target.x + 540 + 220, target.y + 85);
                                     await sleep(500)
                                     await tap(host, 60, 385);   // click ra ngoai goc 8h
