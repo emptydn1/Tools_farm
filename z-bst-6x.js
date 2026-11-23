@@ -795,25 +795,25 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             await loopScrollBst(host)
 
-                            if (["10 18"].includes(found.pos)) {
-                                await sleep(1000)
-                                // phù đến hoành sơn phái
-                                await tap(host, 801, 300); // nhấn phù
-                                await sleep(500);
-                                await tap(host, 310, 380);
-                                await sleep(500);
-                                await swipe(host, 310, 420, 310, 345, 2000);
-                                await sleep(500);
-                                await tap(host, 310, 420);
-                                await sleep(500);
-                                await tap(host, 310, 285);
-                                await sleep(3000);
+                            // if (["10 18"].includes(found.pos)) {
+                            //     await sleep(1000)
+                            //     // phù đến hoành sơn phái
+                            //     await tap(host, 801, 300); // nhấn phù
+                            //     await sleep(500);
+                            //     await tap(host, 310, 380);
+                            //     await sleep(500);
+                            //     await swipe(host, 310, 420, 310, 345, 2000);
+                            //     await sleep(500);
+                            //     await tap(host, 310, 420);
+                            //     await sleep(500);
+                            //     await tap(host, 310, 285);
+                            //     await sleep(3000);
 
-                                await tap(host, 100, 265);  // đi tới boss
-                                await sleep(500)
-                                await tap(host, 100, 265);
-                                await sleep(1000);
-                            }
+                            //     await tap(host, 100, 265);  // đi tới boss
+                            //     await sleep(500)
+                            //     await tap(host, 100, 265);
+                            //     await sleep(1000);
+                            // }
 
                             // Bước 2: vào tổ đội -> check cho tới khi thành công lần đầu
                             let TARGET_IMAGE = `${basePath}\\todoi\\team\\${found.pos}.png`;
