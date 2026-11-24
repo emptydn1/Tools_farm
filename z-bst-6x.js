@@ -810,9 +810,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 });
 
                                 if (result.length > 0) {
-                                    await sleep(800);
-                                    // await nhan_tra_nv_bst(host);
-                                    await sleep(1000);
+                                    await sleep(4000);
 
                                     let roiDoi = false;
                                     while (!roiDoi) {
