@@ -792,7 +792,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             await loopScrollBst(host)
 
-
                             // Bước 3:
                             while (true) {
                                 await waitUntilMatch({
