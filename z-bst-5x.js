@@ -338,27 +338,27 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
             await tap(host, 60, 385);   // click ra ngoai goc 8h
         }
 
-        // lần 2
-        if (!target) {
-            await sleep(500);
-            await swipe(host, 475, 365, 475, 155, 750);
-            await sleep(3000);
-            matchedPoints = await captureAndMatch({
-                deviceId: host,
-                region: { left: 220, top: 80, width: 120, height: 380 },
-                templateImages: todoiList,
-            });
-            target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
+        // // lần 2
+        // if (!target) {
+        //     await sleep(500);
+        //     await swipe(host, 475, 365, 475, 155, 750);
+        //     await sleep(3000);
+        //     matchedPoints = await captureAndMatch({
+        //         deviceId: host,
+        //         region: { left: 220, top: 80, width: 120, height: 380 },
+        //         templateImages: todoiList,
+        //     });
+        //     target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
 
-            if (target) {
-                // console.log(target.x + 540 + 220, target.y + 85);
-                await tap(host, target.x + 540 + 220, target.y + 85);
-                await sleep(500)
-                await tap(host, 60, 385);   // click ra ngoai goc 8h
-                await sleep(500)
-                await tap(host, 60, 385);   // click ra ngoai goc 8h
-            }
-        }
+        //     if (target) {
+        //         // console.log(target.x + 540 + 220, target.y + 85);
+        //         await tap(host, target.x + 540 + 220, target.y + 85);
+        //         await sleep(500)
+        //         await tap(host, 60, 385);   // click ra ngoai goc 8h
+        //         await sleep(500)
+        //         await tap(host, 60, 385);   // click ra ngoai goc 8h
+        //     }
+        // }
 
 
         await sleep(1000);
@@ -389,8 +389,6 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
             // await tap(host, 100, 265);
             // await tap(host, 100, 265);
         }
-
-        await sleep(4000); // xoa sau
     }
     return done;
 }
