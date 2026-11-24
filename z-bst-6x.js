@@ -813,12 +813,20 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             // Bước 3:
                             while (true) {
+                                await tap(host, 100, 255);
+                                await sleep(800);
+                                await tap(host, 100, 255);
+
+                                await sleep(2000);
+
                                 await waitUntilMatch({
                                     deviceId: host,
                                     region: { left: 150, top: 50, width: 180, height: 50 },
                                     templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
                                     matchThreshold: 0.8,
                                 });
+
+                                await sleep(2000);
 
                                 // là citys
                                 const result = await captureAndMatch({
@@ -829,8 +837,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 });
 
                                 if (result.length > 0) {
-                                    await sleep(2000);
-
                                     let roiDoi = false;
                                     while (!roiDoi) {
                                         await tap(host, 175, 185)  // to doi
@@ -880,12 +886,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                                     break;
                                 } else {
-                                    await tap(host, 100, 255);
-                                    await sleep(800);
-                                    await tap(host, 100, 255);
-
-                                    await sleep(4000);
-
                                     // check to doi lai
                                     await tap(host, 175, 185); // to doi
                                     await sleep(500);
