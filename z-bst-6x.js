@@ -828,7 +828,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
                                     matchThreshold: 0.8,
                                     onEachLoop: async () => {
-                                        await tap(host, 100, 255);
+                                        await tap(host, 60, 385);   // click ra ngoai goc 8h
                                     },
                                 });
 
