@@ -818,6 +818,8 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                                 await sleep(2000);
 
+                                await tap(host, 60, 385);   // click ra ngoai goc 8h
+                                await tap(host, 60, 385);   // click ra ngoai goc 8h
                                 await waitUntilMatch({
                                     deviceId: host,
                                     region: { left: 150, top: 50, width: 180, height: 50 },
