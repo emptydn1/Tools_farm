@@ -828,7 +828,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 });
 
                                 if (result.length > 0) {
-                                    await sleep(4000);
+                                    await sleep(2000);
 
                                     let roiDoi = false;
                                     while (!roiDoi) {
