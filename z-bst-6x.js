@@ -394,8 +394,9 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
             if (checkHienThiBanNhiemVuTab.length > 0) {
                 await tap(host, 855, 60);   // mở/đóng bản đồ
                 await sleep(500);
-                await action?.(host);
             }
+
+            await action?.(host);
             await tap(host, 100, 255);
             await tap(host, 100, 255);
         }
@@ -947,8 +948,9 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                             if (checkHienThiBanNhiemVuTab.length > 0) {
                                                 await tap(host, 855, 60);   // mở/đóng bản đồ
                                                 await sleep(500);
-                                                await loopScrollBst(host)
                                             }
+
+                                            await loopScrollBst(host)
                                             await tap(host, 100, 255);
                                             await tap(host, 100, 255);
                                         }
