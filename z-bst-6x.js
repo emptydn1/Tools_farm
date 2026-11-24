@@ -292,7 +292,7 @@ async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold
 }
 
 
-async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath, action }) {
+async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath }) {
     let done = false; // true nếu check_to_doi thành công (match b4)
 
     // chờ login hoặc đã lên trên map đánh bst
@@ -396,7 +396,6 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
                 await sleep(500);
             }
 
-            await action?.(host);
             await tap(host, 100, 255);
             await tap(host, 100, 255);
         }
@@ -806,7 +805,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             // Bước 2: vào tổ đội -> check cho tới khi thành công lần đầu
                             let TARGET_IMAGE = `${basePath}\\todoi\\team\\${found.pos}.png`;
-                            await runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath, action: loopScrollBst });
+                            await runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath });
                             await sleep(1000)
 
                             await loopScrollBst(host)
@@ -950,7 +949,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                                 await sleep(500);
                                             }
 
-                                            await loopScrollBst(host)
                                             await tap(host, 100, 255);
                                             await tap(host, 100, 255);
                                         }
