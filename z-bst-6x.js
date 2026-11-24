@@ -292,7 +292,7 @@ async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold
 }
 
 
-async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath }) {
+async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath, action }) {
     let done = false; // true nếu check_to_doi thành công (match b4)
 
     // chờ login hoặc đã lên trên map đánh bst
@@ -380,6 +380,24 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
         } else {
             await tap(host, 60, 385);   // click ra ngoai goc 8h
             await tap(host, 60, 385);   // click ra ngoai goc 8h
+
+            await sleep(500);
+            await tap(host, 60, 190);   // tab nv
+            await sleep(1000);
+
+            const checkHienThiBanNhiemVuTab = await captureAndMatch({
+                deviceId: host,
+                region: { top: 42, left: 409, width: 137, height: 57 },
+                templateImages: [`${checkGameStartPath}\\tab-nhiem-vu-canh-to-doi.png`],
+                matchThreshold: 0.8,
+            });
+            if (checkHienThiBanNhiemVuTab.length > 0) {
+                await tap(host, 855, 60);   // mở/đóng bản đồ
+                await sleep(500);
+                await action?.(host);
+            }
+            await tap(host, 100, 265);
+            await tap(host, 100, 265);
         }
     }
     return done;
@@ -787,7 +805,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             // Bước 2: vào tổ đội -> check cho tới khi thành công lần đầu
                             let TARGET_IMAGE = `${basePath}\\todoi\\team\\${found.pos}.png`;
-                            await runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath });
+                            await runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath, action: loopScrollBst });
                             await sleep(1000)
 
                             await loopScrollBst(host)

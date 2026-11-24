@@ -237,7 +237,7 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // // console.log(metadata.height);
 
     const pngBuffer = await sharp(buffer)
-        .extract({ top: 70, left: 158, width: 357, height: 110 })
+        .extract({ top: 42, left: 409, width: 137, height: 57 })
         .toBuffer();
 
     // let i = 1;
