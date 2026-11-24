@@ -338,27 +338,27 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
             await tap(host, 60, 385);   // click ra ngoai goc 8h
         }
 
-        // lần 2
-        if (!target) {
-            await sleep(500);
-            await swipe(host, 475, 365, 475, 155, 750);
-            await sleep(3000);
-            matchedPoints = await captureAndMatch({
-                deviceId: host,
-                region: { left: 220, top: 80, width: 120, height: 380 },
-                templateImages: todoiList,
-            });
-            target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
+        // // lần 2
+        // if (!target) {
+        //     await sleep(500);
+        //     await swipe(host, 475, 365, 475, 155, 750);
+        //     await sleep(3000);
+        //     matchedPoints = await captureAndMatch({
+        //         deviceId: host,
+        //         region: { left: 220, top: 80, width: 120, height: 380 },
+        //         templateImages: todoiList,
+        //     });
+        //     target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
 
-            if (target) {
-                // console.log(target.x + 540 + 220, target.y + 85);
-                await tap(host, target.x + 540 + 220, target.y + 85);
-                await sleep(500)
-                await tap(host, 60, 385);   // click ra ngoai goc 8h
-                await sleep(500)
-                await tap(host, 60, 385);   // click ra ngoai goc 8h
-            }
-        }
+        //     if (target) {
+        //         // console.log(target.x + 540 + 220, target.y + 85);
+        //         await tap(host, target.x + 540 + 220, target.y + 85);
+        //         await sleep(500)
+        //         await tap(host, 60, 385);   // click ra ngoai goc 8h
+        //         await sleep(500)
+        //         await tap(host, 60, 385);   // click ra ngoai goc 8h
+        //     }
+        // }
 
 
         await sleep(1000);
@@ -748,9 +748,9 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     });
 
                                     if (result.length > 0) {
-                                        await tap(host, 100, 265);
+                                        await tap(host, 100, 255);
                                         await sleep(500)
-                                        await tap(host, 100, 265);
+                                        await tap(host, 100, 255);
                                         break
                                     }
 
@@ -786,26 +786,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             await loopScrollBst(host)
 
-                            // if (["10 18"].includes(found.pos)) {
-                            //     await sleep(1000)
-                            //     // phù đến hoành sơn phái
-                            //     await tap(host, 801, 300); // nhấn phù
-                            //     await sleep(500);
-                            //     await tap(host, 310, 380);
-                            //     await sleep(500);
-                            //     await swipe(host, 310, 420, 310, 345, 2000);
-                            //     await sleep(500);
-                            //     await tap(host, 310, 420);
-                            //     await sleep(500);
-                            //     await tap(host, 310, 285);
-                            //     await sleep(3000);
-
-                            //     await tap(host, 100, 265);  // đi tới boss
-                            //     await sleep(500)
-                            //     await tap(host, 100, 265);
-                            //     await sleep(1000);
-                            // }
-
                             // Bước 2: vào tổ đội -> check cho tới khi thành công lần đầu
                             let TARGET_IMAGE = `${basePath}\\todoi\\team\\${found.pos}.png`;
                             await runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStartPath });
@@ -816,9 +796,9 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             // Bước 3:
                             while (true) {
-                                await tap(host, 100, 265);
+                                await tap(host, 100, 255);
                                 await sleep(800);
-                                await tap(host, 100, 265);
+                                await tap(host, 100, 255);
 
                                 await sleep(4000);
 
