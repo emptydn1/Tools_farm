@@ -367,7 +367,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
 
         const matchedPoints2 = await captureAndMatch({
             deviceId: host,
-            region: { top: 70, left: 158, width: 357, height: 110 },
+            region: { top: 68, left: 451, width: 58, height: 61 },
             templateImages: [`${checkGameStartPath}\\check-to-doi.png`],
             matchThreshold: 0.8,
         });
@@ -381,13 +381,6 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
         } else {
             await tap(host, 60, 385);   // click ra ngoai goc 8h
             await tap(host, 60, 385);   // click ra ngoai goc 8h
-
-            // // xóa sau
-            // await sleep(500);
-            // await tap(host, 60, 190);   // tab nv
-            // await sleep(500);
-            // await tap(host, 100, 265);
-            // await tap(host, 100, 265);
         }
     }
     return done;

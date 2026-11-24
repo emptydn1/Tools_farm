@@ -366,7 +366,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
         const matchedPoints2 = await captureAndMatch({
             deviceId: host,
             // region: { left: 0, top: 70, width: 530, height: 270 },
-            region: { top: 70, left: 158, width: 357, height: 110 },
+            region: { top: 68, left: 451, width: 58, height: 61 },
             templateImages: [`${checkGameStartPath}\\check-to-doi.png`],
             matchThreshold: 0.8,
         });

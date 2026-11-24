@@ -366,7 +366,7 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
 
         const matchedPoints2 = await captureAndMatch({
             deviceId: host,
-            region: { top: 70, left: 158, width: 357, height: 110 },
+            region: { top: 68, left: 451, width: 58, height: 61 },
             templateImages: [`${checkGameStartPath}\\check-to-doi.png`],
             matchThreshold: 0.8,
         });
@@ -396,8 +396,8 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
                 await sleep(500);
                 await action?.(host);
             }
-            await tap(host, 100, 265);
-            await tap(host, 100, 265);
+            await tap(host, 100, 255);
+            await tap(host, 100, 255);
         }
     }
     return done;
@@ -883,7 +883,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     await sleep(800);
                                     await tap(host, 100, 255);
 
-                                    await sleep(1000);
+                                    await sleep(4000);
 
                                     // check to doi lai
                                     await tap(host, 175, 185); // to doi
@@ -893,7 +893,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                                     const matchedPoints2 = await captureAndMatch({
                                         deviceId: host,
-                                        region: { top: 70, left: 158, width: 357, height: 110 },
+                                        region: { top: 68, left: 451, width: 58, height: 61 },
                                         templateImages: [`${checkGameStartPath}\\check-to-doi.png`],
                                         matchThreshold: 0.8,
                                     });
@@ -929,8 +929,28 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                             await tap(host, target.x + 540 + 220, target.y + 85);
                                             await sleep(500)
                                             await tap(host, 60, 385);   // click ra ngoai goc 8h
-                                            await sleep(500)
                                             await tap(host, 60, 385);   // click ra ngoai goc 8h
+                                        } else {
+                                            await tap(host, 60, 385);   // click ra ngoai goc 8h
+                                            await tap(host, 60, 385);   // click ra ngoai goc 8h
+
+                                            await sleep(500);
+                                            await tap(host, 60, 190);   // tab nv
+                                            await sleep(1000);
+
+                                            const checkHienThiBanNhiemVuTab = await captureAndMatch({
+                                                deviceId: host,
+                                                region: { top: 42, left: 409, width: 137, height: 57 },
+                                                templateImages: [`${checkGameStartPath}\\tab-nhiem-vu-canh-to-doi.png`],
+                                                matchThreshold: 0.8,
+                                            });
+                                            if (checkHienThiBanNhiemVuTab.length > 0) {
+                                                await tap(host, 855, 60);   // mở/đóng bản đồ
+                                                await sleep(500);
+                                                await loopScrollBst(host)
+                                            }
+                                            await tap(host, 100, 255);
+                                            await tap(host, 100, 255);
                                         }
                                     }
                                 }

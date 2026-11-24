@@ -221,11 +221,11 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
 
 
 
-    await connectAll();
+    // await connectAll();
     // // let buffer = fs.readFileSync('./z-match-img/z-cay-kim-phong/kim_phong/temp/1.png')
-    // // let buffer = fs.readFileSync(`./9.png`)
-    let host = "127.0.0.1:16448";
-    const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
+    let buffer = fs.readFileSync(`./111222.png`)
+    // let host = "127.0.0.1:16448";
+    // const buffer = await runAdb(["-s", "127.0.0.1:16448", "exec-out", "screencap", "-p"]);
     // // const metadata = await sharp(buffer).metadata();
 
     // await swipe(host, 115, 295, 115, 0, 2000);
@@ -237,7 +237,7 @@ async function swipe(host, x1, y1, x2, y2, duration = 300) {
     // // console.log(metadata.height);
 
     const pngBuffer = await sharp(buffer)
-        .extract({ top: 42, left: 409, width: 137, height: 57 })
+        .extract({ top: 68, left: 451, width: 58, height: 61 })
         .toBuffer();
 
     // let i = 1;
