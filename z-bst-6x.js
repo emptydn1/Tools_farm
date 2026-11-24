@@ -330,7 +330,6 @@ async function runToDoiUntilCheck({ host, TARGET_IMAGE, todoiList, checkGameStar
         }
 
         if (target) {
-            // console.log(target.x + 540 + 220, target.y + 85);
             await tap(host, target.x + 540 + 220, target.y + 85);
             await sleep(500)
             await tap(host, 60, 385);   // click ra ngoai goc 8h
@@ -796,11 +795,12 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             // Bước 3:
                             while (true) {
-                                await tap(host, 100, 255);
-                                await sleep(800);
-                                await tap(host, 100, 255);
-
-                                await sleep(4000);
+                                await waitUntilMatch({
+                                    deviceId: host,
+                                    region: { left: 150, top: 50, width: 180, height: 50 },
+                                    templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
+                                    matchThreshold: 0.8,
+                                });
 
                                 // là citys
                                 const result = await captureAndMatch({
@@ -863,87 +863,63 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     await tap(host, 640, 461)
 
                                     break;
+                                } else {
+                                    await tap(host, 100, 255);
+                                    await sleep(800);
+                                    await tap(host, 100, 255);
+
+                                    await sleep(1000);
+
+                                    // check to doi lai
+                                    await tap(host, 175, 185); // to doi
+                                    await sleep(500);
+                                    await tap(host, 175, 185); // to doi
+                                    await sleep(1000);
+
+                                    const matchedPoints2 = await captureAndMatch({
+                                        deviceId: host,
+                                        region: { top: 70, left: 158, width: 357, height: 110 },
+                                        templateImages: [`${checkGameStartPath}\\check-to-doi.png`],
+                                        matchThreshold: 0.8,
+                                    });
+
+                                    if (matchedPoints2.length > 0) {
+                                        await tap(host, 60, 385);   // click ra ngoai goc 8h
+                                        await tap(host, 60, 385);   // click ra ngoai goc 8h
+                                        await sleep(500);
+                                        await tap(host, 60, 190);   // tab nv
+                                    } else {
+                                        await tap(host, 140, 260)  // doi xung quanh
+                                        await sleep(1000);
+
+                                        let matchedPoints = await captureAndMatch({
+                                            deviceId: host,
+                                            region: { left: 220, top: 80, width: 120, height: 380 },
+                                            templateImages: todoiList,
+                                        });
+                                        let target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
+
+                                        if (!target) {
+                                            await swipe(host, 475, 365, 475, 155, 750);
+                                            await sleep(3000);
+                                            matchedPoints = await captureAndMatch({
+                                                deviceId: host,
+                                                region: { left: 220, top: 80, width: 120, height: 380 },
+                                                templateImages: todoiList,
+                                            });
+                                            target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
+                                        }
+
+                                        if (target) {
+                                            await tap(host, target.x + 540 + 220, target.y + 85);
+                                            await sleep(500)
+                                            await tap(host, 60, 385);   // click ra ngoai goc 8h
+                                            await sleep(500)
+                                            await tap(host, 60, 385);   // click ra ngoai goc 8h
+                                        }
+                                    }
                                 }
-                                // else {
-                                //     // check to doi lai
-                                //     await tap(host, 175, 185); // to doi
-                                //     await sleep(500);
-                                //     await tap(host, 175, 185); // to doi
-                                //     await sleep(1000);
-
-                                //     const matchedPoints2 = await captureAndMatch({
-                                //         deviceId: host,
-                                //         region: { top: 70, left: 158, width: 357, height: 110 },
-                                //         templateImages: [`${checkGameStartPath}\\check-to-doi.png`],
-                                //         matchThreshold: 0.8,
-                                //     });
-
-                                //     if (matchedPoints2.length > 0) {
-                                //         await tap(host, 60, 385);   // click ra ngoai goc 8h
-                                //         await tap(host, 60, 385);   // click ra ngoai goc 8h
-                                //         await sleep(500);
-                                //         await tap(host, 60, 190);   // tab nv
-                                //     } else {
-                                //         await tap(host, 60, 385);   // click ra ngoai goc 8h
-                                //         await tap(host, 60, 385);   // click ra ngoai goc 8h
-
-                                //         await tap(host, 175, 185)  // to doi
-                                //         await sleep(500);
-                                //         await tap(host, 175, 185)  // to doi
-                                //         await sleep(500);
-                                //         await tap(host, 140, 260)  // doi xung quanh
-                                //         await sleep(1000);
-
-                                //         let matchedPoints = await captureAndMatch({
-                                //             deviceId: host,
-                                //             region: { left: 220, top: 80, width: 120, height: 380 },
-                                //             templateImages: todoiList,
-                                //         });
-                                //         let target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
-
-                                //         if (!target) {
-                                //             await swipe(host, 475, 365, 475, 155, 750);
-                                //             await sleep(3000);
-                                //             matchedPoints = await captureAndMatch({
-                                //                 deviceId: host,
-                                //                 region: { left: 220, top: 80, width: 120, height: 380 },
-                                //                 templateImages: todoiList,
-                                //             });
-                                //             target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
-                                //         }
-
-                                //         if (target) {
-                                //             await tap(host, target.x + 540 + 220, target.y + 85);
-                                //             await sleep(500)
-                                //             await tap(host, 60, 385);   // click ra ngoai goc 8h
-                                //             await sleep(500)
-                                //             await tap(host, 60, 385);   // click ra ngoai goc 8h
-                                //         }
-
-                                //         // lần 2
-                                //         if (!target) {
-                                //             await sleep(500);
-                                //             await swipe(host, 475, 365, 475, 155, 750);
-                                //             await sleep(3000);
-                                //             matchedPoints = await captureAndMatch({
-                                //                 deviceId: host,
-                                //                 region: { left: 220, top: 80, width: 120, height: 380 },
-                                //                 templateImages: todoiList,
-                                //             });
-                                //             target = matchedPoints.find(p => p.mathImagePath === TARGET_IMAGE);
-
-                                //             if (target) {
-                                //                 await tap(host, target.x + 540 + 220, target.y + 85);
-                                //                 await sleep(500)
-                                //                 await tap(host, 60, 385);   // click ra ngoai goc 8h
-                                //                 await sleep(500)
-                                //                 await tap(host, 60, 385);   // click ra ngoai goc 8h
-                                //             }
-                                //         }
-                                //     }
-                                // }
-                                // end while
-                            }
+                            } // end while
                         }
                     }
                 }
