@@ -278,8 +278,12 @@ let logout = async (host) => {
     await sleep(500);
 }
 
-async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold = 0.8, interval = 300 }) {
+async function waitUntilMatch({ deviceId, region, templateImages, matchThreshold = 0.8, interval = 300, onEachLoop = null }) {
     while (true) {
+        if (typeof onEachLoop === 'function') {
+            await onEachLoop();
+        }
+
         const result = await captureAndMatch({ deviceId, region, templateImages, matchThreshold });
 
         if (result.length > 0) {
@@ -818,13 +822,14 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                                 await sleep(2000);
 
-                                await tap(host, 60, 385);   // click ra ngoai goc 8h
-                                await tap(host, 60, 385);   // click ra ngoai goc 8h
                                 await waitUntilMatch({
                                     deviceId: host,
                                     region: { left: 150, top: 50, width: 180, height: 50 },
                                     templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
                                     matchThreshold: 0.8,
+                                    onEachLoop: async () => {
+                                        await tap(host, 100, 255);
+                                    },
                                 });
 
                                 await sleep(2000);
