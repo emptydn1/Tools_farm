@@ -832,7 +832,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                     },
                                 });
 
-                                await sleep(2000);
+                                await sleep(1000);
 
                                 // là citys
                                 const result = await captureAndMatch({

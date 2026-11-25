@@ -816,7 +816,16 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 await sleep(800);
                                 await tap(host, 100, 265);
 
-                                await sleep(4000);
+                                await sleep(2000);
+
+                                await waitUntilMatch({
+                                    deviceId: host,
+                                    region: { left: 150, top: 50, width: 180, height: 50 },
+                                    templateImages: [`${checkGameStartPath}\\luyen-cong.png`],
+                                    matchThreshold: 0.8
+                                });
+
+                                await sleep(1000);
 
                                 // là citys
                                 const result = await captureAndMatch({
