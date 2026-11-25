@@ -826,10 +826,6 @@ async function runPort(indexPort, port, accounts, templatePath) {
                                 });
 
                                 if (result.length > 0) {
-                                    await sleep(800)
-                                    // await nhan_tra_nv_bst(host);
-                                    await sleep(1000);
-
                                     let roiDoi = false;
                                     while (!roiDoi) {
                                         await tap(host, 175, 185)  // to doi
