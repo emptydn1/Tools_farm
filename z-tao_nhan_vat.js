@@ -329,17 +329,17 @@ function generateId() {
                                         // await sleep(1000);
                                         // await tap(host, 630, 145); 
 
-                                        // await tap(host, 130, 335); // chọn mục 2
-                                        // await sleep(1000);
-                                        // await tap(host, 630, 145); 
+                                        await tap(host, 130, 335); // chọn mục 2
+                                        await sleep(1000);
+                                        await tap(host, 630, 220);
 
                                         // await tap(host, 130, 400); // chọn mục 3
                                         // await sleep(1000);
                                         // await tap(host, 330, 220); 
 
-                                        await tap(host, 130, 400); // chọn mục 3
-                                        await sleep(1000);
-                                        await tap(host, 630, 145);
+                                        // await tap(host, 130, 400); // chọn mục 3
+                                        // await sleep(1000);
+                                        // await tap(host, 630, 145);
 
                                         await sleep(800);
                                         await tap(host, 485, 445); // nhấn nút bắt đầu
