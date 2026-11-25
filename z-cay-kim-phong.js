@@ -216,6 +216,7 @@ let tangSucManhSinhKhi = async (host) => {
     await tap(host, 680, 195);
     await sleep(500);
     await input_text(host, "130");
+    // await input_text(host, "80");
 
     // sinh khí
     await tap(host, 680, 223);
