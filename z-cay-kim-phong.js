@@ -215,7 +215,7 @@ let tangSucManhSinhKhi = async (host) => {
     // sức mạnh
     await tap(host, 680, 195);
     await sleep(500);
-    await input_text(host, "150");
+    await input_text(host, "130");
 
     // sinh khí
     await tap(host, 680, 223);
