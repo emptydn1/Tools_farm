@@ -187,13 +187,13 @@ let trangBiKimPhong = async (host) => {
     await sleep(1000);
 
     await tap(host, 875, 258);  // mục trang bị
-    await sleep(1000);
+    await sleep(800);
     for (let i = 0; i < 1; i++) {
         // for (let i = 0; i < 7; i++) {
         await tap(host, 560, 135);
         await sleep(800);
         await tap(host, 686, 381);
-        await sleep(500);
+        await sleep(800);
     }
     await sleep(800)
 
