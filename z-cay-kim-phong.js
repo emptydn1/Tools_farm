@@ -378,11 +378,11 @@ let ban_do_kim_phong = async (host) => {
 
 let mangNgua = async (host) => {
     await tap(host, 890, 260);  // túi trang bị
-    await sleep(300)
+    await sleep(1000)
     await tap(host, 620, 190);  // ngựa
-    await sleep(300)
+    await sleep(1000)
     await tap(host, 680, 335);  // Đeo
-    await sleep(300)
+    await sleep(1000)
     await tap(host, 865, 95);   // tắt túi trang bị
 }
 
