@@ -269,11 +269,11 @@ let logout = async (host) => {
     await tap(host, 60, 385);   // click ra ngoai goc 8h
     await sleep(800)
     await tap(host, 946, 257)
-    await sleep(800);
+    await sleep(1000);
     await tap(host, 946, 337)
-    await sleep(800);
+    await sleep(1000);
     await tap(host, 153, 115)
-    await sleep(500);
+    await sleep(1000);
     await tap(host, 800, 250)
     await sleep(500);
 }
