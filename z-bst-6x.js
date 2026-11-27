@@ -743,6 +743,7 @@ async function runPort(indexPort, port, accounts, templatePath) {
 
                             await tap(host, 730, 460); // khiêu chiến bst
                             await tap(host, 730, 460); // khiêu chiến bst
+                            await sleep(1000);
                             await tap(host, 730, 460); // khiêu chiến bst
 
                             // bước 1 cuộn xuống
