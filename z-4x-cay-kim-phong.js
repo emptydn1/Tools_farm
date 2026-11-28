@@ -236,15 +236,15 @@ let nangSkill = async (host) => {
 
     //click skill
     await tap(host, 250, 135)
-    await sleep(500);
+    await sleep(800);
     await tap(host, 525, 440)
-    await sleep(500);
+    await sleep(800);
     await input_text(host, "9999");
-    await sleep(500);
+    await sleep(800);
     await tap(host, 517, 295)   //click ra ngoài
-    await sleep(500);
+    await sleep(800);
     await tap(host, 635, 445)   // tăng cấp
-    await sleep(500);
+    await sleep(800);
     await tap(host, 867, 90)    // hủy bảng nâng skill
     await sleep(1000);
 
